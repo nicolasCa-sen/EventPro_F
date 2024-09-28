@@ -8,9 +8,9 @@ function App() {
     { id: 1, title: 'Titulo 1', subtitle: 'Subtítulo 1' },
     { id: 2, title: 'Titulo 2', subtitle: 'Subtítulo 2' },
     { id: 3, title: 'Titulo 3', subtitle: 'Subtítulo 3' },
-    { id: 4, title: 'Titulo 1', subtitle: 'Subtítulo 1' },
-    { id: 5, title: 'Titulo 2', subtitle: 'Subtítulo 2' },
-    { id: 6, title: 'Titulo 2', subtitle: 'Subtítulo 3' },
+    { id: 4, title: 'Titulo 4', subtitle: 'Subtítulo 1' },
+    { id: 5, title: 'Titulo 5', subtitle: 'Subtítulo 2' },
+    { id: 6, title: 'Titulo 6', subtitle: 'Subtítulo 3' },
   ];
 
   const [selectedId, setSelectedId] = useState(null);
