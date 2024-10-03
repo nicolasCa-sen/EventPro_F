@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -52,6 +52,7 @@ function App() {
           >
             <motion.h2 className="card-title">{item.title}</motion.h2>
             <motion.h5 className="card-subtitle">{item.subtitle}</motion.h5>
+
           </motion.div>
         ))}
 
@@ -68,6 +69,8 @@ function App() {
                   <React.Fragment key={item.id}>
                     <motion.h5 className="card-subtitle">{item.subtitle}</motion.h5>
                     <motion.h2 className="card-title">{item.title}</motion.h2>
+                    <motion.h5 className="card-subtitle">{item.subtitle}</motion.h5>
+                    <motion.h5 className="card-subtitle">{item.subtitle}</motion.h5>
                     <motion.button
                       className="card-button"
                       onClick={() => setSelectedId(null)}

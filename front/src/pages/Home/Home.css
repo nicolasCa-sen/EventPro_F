@@ -1,0 +1,408 @@
+.App {
+    text-align: center;
+    padding-top: 60px;
+    /* Añadir espacio para el encabezado fijo */
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+
+.dynamic-header {
+    background-color: #3C3F41;
+    /* Color de fondo del encabezado dinámico */
+    color: white;
+    /* Color del texto */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Sombra del encabezado */
+}
+
+/* Ajustar el padding superior en la App para el encabezado dinámico */
+.App {
+    text-align: center;
+    padding-top: 100px;
+    /* Ajustar según el tamaño de ambos encabezados */
+}
+
+.static-header {
+    display: flex;
+   
+    align-items: center;
+    position: fixed;
+    /* Fijo en la parte superior */
+    top: 0;
+    /* En la parte superior */
+    left: 0;
+    /* Alineado a la izquierda */
+    right: 0;
+    /* Alineado a la derecha */
+    background-color: #8a9843;
+    /* Color de fondo */
+    color: white;
+    /* Color del texto */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    z-index: 1000;
+    /* Asegurarse de que esté encima de otros elementos */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Sombra del encabezado */
+}
+
+.Home-header {
+    width: 100%;
+    height: 100%;
+    background-color: #e0e0e0;
+    background-image: linear-gradient(32deg,
+            rgba(235, 235, 235, 0.74) 30px,
+            transparent);
+    background-size: 60px 60px;
+    background-position: -5px -5px;
+    width: 100%;
+    height: 100%;
+    --s: 37px;
+    /* control the size */
+
+    --c: #0000, #e0e0e0 0.5deg 119.5deg, #0000 120deg;
+    --g1: conic-gradient(from 60deg at 56.25% calc(425% / 6), var(--c));
+    --g2: conic-gradient(from 180deg at 43.75% calc(425% / 6), var(--c));
+    --g3: conic-gradient(from -60deg at 50% calc(175% / 12), var(--c));
+    background: var(--g1), var(--g1) var(--s) calc(1.73 * var(--s)), var(--g2),
+        var(--g2) var(--s) calc(1.73 * var(--s)), var(--g3) var(--s) 0,
+        var(--g3) 0 calc(1.73 * var(--s)) #e3e3e3;
+    background-size: calc(2 * var(--s)) calc(3.46 * var(--s));
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.dynamic-header {
+    background-color: #282c34;
+    /* Color de fondo del encabezado dinámico */
+    color: white;
+    /* Color del texto */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Sombra del encabezado */
+}
+
+/* Campo de búsqueda */
+.search-input {
+    margin-top: 10px;
+    /* Espacio entre el encabezado y el campo de búsqueda */
+    padding: 10px;
+    /* Espaciado interno */
+    width: 80%;
+    /* Ancho del campo de búsqueda */
+    max-width: 400px;
+    /* Ancho máximo */
+    border: none;
+    /* Sin borde */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Sombra del campo */
+}
+
+.filtered-items-container {
+    margin-top: 100px;
+    /* Espacio de 100px desde la parte superior */
+}
+
+.Home-body {
+
+    
+}
+
+
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+.app-logo {
+    width: 70px;
+    /* Ajusta el tamaño según sea necesario */
+    height: auto;
+    margin-right: 10px;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.link-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.link-button:hover {
+    background-color: #0056b3;
+}
+
+/* From Uiverse.io by cssbuttons-io */
+button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+button.learn-more {
+    width: 12rem;
+    height: auto;
+    top: 3rem;
+}
+
+button.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+   
+    width: 3rem;
+    height: 3rem;
+    background: #8a9843;
+    border-radius: 1.625rem;
+}
+
+button.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+}
+
+button.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+}
+
+button.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    right: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-right: 0.125rem solid #fff;
+    transform: rotate(45deg);
+}
+
+button.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    color: #282936;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+button:hover .circle {
+    width: 100%;
+}
+
+button:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(1rem, 0);
+}
+
+button:hover .button-text {
+    color: #fff;
+}
+
+.text {
+    font-family: Jost, sans-serif;
+    font-weight: bold;
+    font-size: 7rem;
+
+    background-image: url("../Images/letra.jpg");
+    background-size: 40%;
+    background-position: 25% 15%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px black;
+    text-align: left;
+    text-shadow: 10px 4px 8px rgba(0, 0, 0, 0.473);
+}
+.text1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+
+  
+    background-size: 40%;
+    background-position: 25% 15%;
+    background-clip: text;
+    -webkit-text-fill-color: black;
+    /*-webkit-text-stroke: 2px black;*/
+    text-align:center;
+
+}
+
+.container {
+    display: flex;
+margin: 10%;
+    justify-content: space-between;
+    padding: 20px;
+
+
+
+}
+
+/* Estilos de los contenedores */
+.box {
+    flex: 1;
+    /* Los contenedores ocupan la misma proporción */
+    background-color: transparent;
+    border: 2px solid transparent;
+
+    text-align: center;
+
+    transition: background-color 0.3s;
+}
+
+
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        /* En pantallas pequeñas, los contenedores se apilan verticalmente */
+        height: auto;
+    }
+
+    .box {
+        flex: none;
+        width: 100%;
+        /* Los contenedores ocupan el 100% del ancho en pantallas pequeñas */
+    }
+}
+/* From Uiverse.io by MRez321 */ 
+.one-div {
+   
+    display: flex;
+    background-color: #322e2e;
+    width: 20rem;
+    height: 15rem;
+    position: relative;
+    border: solid 1.2rem #474747;
+    border-radius: 50% 50% 44% 44% / 55% 55% 40% 40%;
+  }
+  
+  .one-div::before,
+  .one-div::after {
+    content: '';
+    width: 6rem;
+    height: 6rem;
+    position: absolute;
+    top: 35%;
+    background-size: .4rem .4rem;
+    background-color: #8a9843;
+    border: solid 2px #8a9843;
+    filter: drop-shadow(0 1px 6px #8a9843);
+  }
+  
+  .one-div::before {
+    left: 1.4rem;
+    border-radius: 25% 75% 25% 75% / 25% 75% 25% 75%;
+  }
+  
+  .one-div::after {
+    right: 1.4rem;
+    border-radius: 75% 25% 75% 25% / 75% 25% 75% 25%;
+  }
+  
+  .one-div:hover {
+    animation: float 2s infinite;
+  }
+  
+  .one-div:hover::before,
+  .one-div:hover::after {
+    animation: blink 2.5s infinite;
+  }
+  
+  @keyframes float {
+    0% {
+      bottom: 0;
+    }
+  
+    50% {
+      bottom: -.4rem;
+    }
+  
+    100% {
+      bottom: 0;
+    }
+  }
+  
+  @keyframes blink {
+    90% {
+      transform: none;
+      animation-timing-function: ease-in;
+    }
+  
+    93% {
+      transform: translateY(15px) scaleY(0)
+    }
+  
+    100% {
+      animation-timing-function: ease-out;
+    }
+  }
+  .Home-footer{
+  
+   
+    align-items: center;
+    /* Alineado a la derecha */
+    background-color: #8a9843;
+    /* Color de fondo */
+    color: white;
+   text-align: center;
+    padding: 10px 20px;
+    /* Espaciado interno */
+    z-index: 1000;
+    /* Asegurarse de que esté encima de otros elementos */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+   
+  }
+  
