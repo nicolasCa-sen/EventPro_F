@@ -1,8 +1,10 @@
 import './Home.css';
+import './Carrusel.css'; // Asegúrate de importar los estilos del carrusel
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../Images/logo.png'; // Ruta al logo
 import userImage from '../Images/logo.png'; // Ruta a la imagen del usuario
+import Carrusel from './Carrusel'; // Importamos el componente Carrusel
 
 function Home() {
     const [menuOpen, setMenuOpen] = useState(false); // Estado para manejar el menú
@@ -45,13 +47,14 @@ function Home() {
                         <div className="text">EvenT</div>
                         <div className="text">Proo</div>
                         <div className="text1">
-                            En EvenT Proo, hacemos que cada momento cuente. Desde conciertos electrizantes hasta eventos deportivos emocionantes, nuestra plataforma te conecta con las mejores experiencias de entretenimiento.
+                            En EvenT Proo, hacemos que cada momento cuente.<br />
+                            Desde conciertos electrizantes hasta eventos deportivos emocionantes, nuestra plataforma te conecta con las mejores experiencias de entretenimiento.
                         </div>
                     </div>
                     <div className="box box2">
                         <center>
                             <div className="cd-container">
-
+                                {/* Puedes agregar un contenido adicional aquí si es necesario */}
                             </div>
                         </center>
                     </div>
@@ -59,7 +62,13 @@ function Home() {
             </header>
 
             {/* Cuerpo principal de Home */}
-            <div className="Home-body"></div>
+            <div className="Home-body">
+            <br/>
+                <h1 className="titles">Próximos Eventos</h1>
+                {/* CARRUSEL */}
+                <Carrusel />
+                <br/>
+            </div>
 
             {/* Sección de pie de página */}
             <footer className="Home-footer">

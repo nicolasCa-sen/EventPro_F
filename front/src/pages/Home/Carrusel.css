@@ -1,0 +1,66 @@
+.carrusel-container {
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 20px 0;
+  
+}
+
+.carta-wrapper {
+  margin: 20px; /* Ajusta según el espacio que necesites */
+}
+
+.cardEvento {
+  
+  background-color: white;
+
+  border: 2px solid #191919;
+  height: 500px;
+  transition: transform 0.3s;
+ 
+}
+
+.cardEvento:hover {
+  transform: scale(1.02); /* Aumenta ligeramente el tamaño al pasar el mouse */
+}
+
+.carta-imagen {
+  height: 200px; /* Ajusta según sea necesario */
+  background-size: cover;
+  background-position: center;
+}
+
+.carta-contenido {
+  padding: 16px;
+  text-align: left;
+}
+
+.carta-contenido h2 {
+  font-size: 1.5em;
+  color: #5cbcb2;
+  margin: 0 0 10px;
+}
+
+.carta-contenido p {
+  margin: 5px 0;
+  color: #333;
+}
+
+
+/* Estilo para todos los puntos */
+.slick-dots li button {
+
+  border-radius: 20%; 
+
+ 
+}
+
+/* Estilo para el punto activo */
+.slick-dots li.slick-active button {
+  background-color: #e3e3e3; /* Color del punto activo */
+  opacity: 1; /* Opacidad del punto activo */
+}
+
+/* Estilo para el hover de los puntos */
+.slick-dots li button:hover {
+  background-color: #799b29; /* Color del punto al pasar el mouse */
+}
