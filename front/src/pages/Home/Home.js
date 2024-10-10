@@ -1,10 +1,12 @@
 import './Home.css';
-import './Carrusel.css'; // Asegúrate de importar los estilos del carrusel
+
+import './Eventos.css'
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../Images/logo.png'; // Ruta al logo
 import userImage from '../Images/logo.png'; // Ruta a la imagen del usuario
-import Carrusel from './Carrusel'; // Importamos el componente Carrusel
+import Carrusel from './Carrusel'; // Importa el componente Carrusel
+import Eventos from './Eventos'
 
 function Home() {
     const [menuOpen, setMenuOpen] = useState(false); // Estado para manejar el menú
@@ -63,11 +65,18 @@ function Home() {
 
             {/* Cuerpo principal de Home */}
             <div className="Home-body">
-            <br/>
+                <br />
                 <h1 className="titles">Próximos Eventos</h1>
                 {/* CARRUSEL */}
                 <Carrusel />
-                <br/>
+                <br />
+            </div>
+            <div className="Home-body-events">
+                <br />
+                
+                {/* CARRUSEL */}
+                <Eventos/>
+                <br />
             </div>
 
             {/* Sección de pie de página */}

@@ -1,0 +1,111 @@
+
+
+
+.principal-div{
+    background-color: #d2e8e3;
+    margin-top: -20px;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+.titles1{
+    text-align: center;
+    font-size: 50px;
+    color: #142722;
+}
+.Botones {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.Botones button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    width: 140px;
+    border: none;
+    background-color: #5cbcb2;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.Botones button:hover {
+    background-color: #499a91;
+}
+
+/* Estilos para las tarjetas de eventos */
+.eventos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 tarjetas por fila */
+    gap: 20px;
+    padding: 20px;
+}
+
+.cardEvento {
+    background-color: white;
+ 
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.cardEvento:hover {
+    transform: scale(1.05);
+}
+
+.carta-imagen {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.carta-contenido {
+    padding: 16px;
+    text-align: left;
+}
+
+.carta-contenido h2 {
+    font-size: 1.5em;
+    color: #5cbcb2;
+    margin: 0 0 10px;
+}
+
+.carta-contenido p {
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Responsividad */
+@media (max-width: 1024px) {
+    .eventos-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 tarjetas por fila en pantallas medianas */
+    }
+}
+
+@media (max-width: 768px) {
+    .eventos-grid {
+        grid-template-columns: 1fr; /* 1 tarjeta por fila en pantallas pequeñas */
+    }
+}
+.ver-mas-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.ver-mas-btn {
+   
+    font-size: 1rem;
+    height: 40px;
+    width: 140px;
+    border: none;
+    background-color: #5cbcb2;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ver-mas-btn:hover {
+    background-color: #4aa49d;
+}

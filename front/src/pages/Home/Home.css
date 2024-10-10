@@ -24,7 +24,7 @@
     /* Centrar la imagen */
     background-repeat: no-repeat;
     /* Evitar que la imagen se repita */
-    min-height: 100vh;
+    min-height: 50vh;
     /* Asegurarse de que cubra toda la ventana */
     display: block;
     flex-direction: column;
@@ -253,7 +253,7 @@
 
 .Home-body {
     background-color: #19191a;
-
+    border-radius: 20px;
 
 }
 
