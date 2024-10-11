@@ -81,7 +81,7 @@ function Home() {
 
             {/* Sección de pie de página */}
             <footer className="Home-footer">
-                <p>© 2024 EvenT Proo. Todos los derechos reservados.</p>
+                <p>© 2024 EvenT Proo. Todos lohos reservados.</p>
             </footer>
         </div>
     );
