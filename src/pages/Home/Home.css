@@ -56,11 +56,11 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
-    position: fixed;
+   /* position: fixed;*/
     top: 0;
     left: 0;
     right: 0;
-    background-color: #e0e0e038;
+    background-color: #0c0c0ccc;
     color: white;
     padding: 10px 20px;
     z-index: 1000;

@@ -1,5 +1,4 @@
 import './Home.css';
-
 import './Eventos.css'
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

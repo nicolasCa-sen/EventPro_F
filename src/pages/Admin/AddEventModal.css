@@ -1,0 +1,47 @@
+.modal-overlay {
+    position:absolute;
+    border-radius: 30px;
+    top: 10px;
+    background: #282C34;
+    box-shadow:  -20px 20px 60px #22252c,
+                 20px -20px 60px #2e333c;
+    padding: 20px;
+    margin: 10px;
+    width: 80%;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    margin-top: 100px;
+    margin-left: 10%;
+    margin-right: 10%;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: transparent;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    
+  }
+  
+  .modal-content h2 {
+    margin-top: 0;
+  }
+  
+  .modal-content label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+  
+  .modal-content input,
+  .modal-content textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .modal-content button {
+    margin-top: 10px;
+  }
+  
