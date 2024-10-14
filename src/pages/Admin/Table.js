@@ -14,9 +14,10 @@ const Table = () => {
       fechaInicio: '2024-10-20',
       fechaFin: '2024-10-22',
       imagen: 'https://via.placeholder.com/100',
-      idLugar: 101,
-      idOrganizacion: 201,
-    },
+      activo:'Sí',
+      vendido:'No',
+      idLugar: 1
+        },
     {
       id: 2,
       nombre: 'Evento 2',
@@ -24,8 +25,9 @@ const Table = () => {
       fechaInicio: '2024-11-01',
       fechaFin: '2024-11-05',
       imagen: 'https://via.placeholder.com/100',
-      idLugar: 102,
-      idOrganizacion: 202,
+      activo:'Sí',
+      vendido:'No',
+      idLugar: 2,
     },
   ]);
 
@@ -57,8 +59,9 @@ const Table = () => {
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
             <th>Imagen</th>
+            <th>Evento Activo</th>
+            <th>Evento Vendido</th>
             <th>ID del Lugar</th>
-            <th>ID de la Organización</th>
             <th>Actualizar</th>
             <th>Eliminar</th>
           </tr>
@@ -74,8 +77,9 @@ const Table = () => {
               <td>
                 <img src={evento.imagen} alt={evento.nombre} width="50" />
               </td>
+              <td>{evento.activo}</td>
+              <td>{evento.vendido}</td>
               <td>{evento.idLugar}</td>
-              <td>{evento.idOrganizacion}</td>
               <td>
                 <center>
                   <button
@@ -114,17 +118,127 @@ const Table = () => {
             {datos.map((evento) =>
               evento.id === selectedId ? (
                 <motion.div key={evento.id} className="card-content">
-                  <h5 className="card-subtitle">{evento.descripcion}</h5>
-                  <h2 className="card-title">{evento.nombre}</h2>
-                  <h5 className="card-subtitle">Desde: {evento.fechaInicio}</h5>
-                  <h5 className="card-subtitle">Hasta: {evento.fechaFin}</h5>
-                  {/* INGRITH LO TUYO DE ACTUALIZAR VA AQUI */}
                   <button
                     className="card-button-close"
                     onClick={() => setSelectedId(null)}
                   >
                     ✘
                   </button>
+                 
+                  <p className='principio'>Actualizar Evento</p>
+                  
+        <form >
+        <div className="user-box">
+            <input
+              type="text"
+              name="nombre"
+              value={evento.id}
+              disabled
+            />
+            <label>Nombre</label>
+          </div>
+          <div className="user-box">
+            <input
+              type="text"
+              name="nombre"
+              placeholder=" "
+              value={evento.nombre}
+              required
+            />
+            <label>Nombre</label>
+          </div>
+
+          <div className="user-box">
+            <input
+              type="text"
+              name="descripcion"
+              placeholder=" "
+              value={evento.descripcion}
+              required
+            />
+            <label>Descripción</label>
+          </div>
+
+          <div className="user-box">
+            <input
+              type="date"
+              name="fechaInicio"
+              value={evento.fechaInicio}
+              required
+            />
+            <label>Fecha de Inicio</label>
+          </div>
+
+          <div className="user-box">
+            <input
+              type="date"
+              name="fechaFin"
+              value={evento.fechaFin}
+              required
+            />
+            <label>Fecha de Fin</label>
+          </div>
+
+          <div className="user-box">
+            <input
+              type="text"
+              name="imagen"
+              placeholder=" "
+              value={evento.imagen}
+              required
+            />
+            <label>Imagen</label>
+          </div>
+          <div className='user-box'>
+          <select
+          name="activo"
+          placeholder=" "
+          value={evento.activo}
+          required
+          >
+          <option value="">Seleccionar...</option>
+          <option value="Sí">Sí</option>
+          <option value="No">No</option>
+          </select>
+          <label>Evento Activo</label>
+          </div>
+          <div className="user-box">
+          <select
+          name="vendido"
+          placeholder=" "
+          value={evento.vendido}
+          required
+          >
+          <option value="">Seleccionar...</option>
+          <option value="Sí">Sí</option>
+          <option value="No">No</option>
+          </select>
+          <label>Evento Vendido</label>
+          </div>
+          <div className="user-box">
+          <select
+          name="idLugar"
+          placeholder=" "
+          value={evento.idLugar}
+          required
+          >
+          <option value="">Seleccionar...</option>
+          <option value="1">2</option>
+          <option value="2">1</option>
+          </select>
+          <label>ID del Lugar</label>
+          </div>
+
+  <div >
+    <a >     
+       <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Actualizar</a>
+  </div>
+  </form>
+                  
                 </motion.div>
               ) : null
             )}

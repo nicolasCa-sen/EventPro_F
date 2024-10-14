@@ -9,7 +9,6 @@ const AddEventModal = ({ onClose, onAdd }) => {
     fechaFin: '',
     imagen: '',
     idLugar: '',
-    idOrganizacion: '',
   });
 
   const handleChange = (e) => {
@@ -34,12 +33,109 @@ const AddEventModal = ({ onClose, onAdd }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-       <form>
+        <p>Agregar Evento</p>
+        <form onSubmit={handleSubmit}>
+          <div className="user-box">
+            <input
+              type="text"
+              name="nombre"
+              placeholder=" "
+              required
+            />
+            <label>Nombre</label>
+          </div>
 
-        {/**INGRITH LO DE AGREGAR EVENTO VA AQUI */}
-          <button type="submit">Agregar Evento</button>
-          <button type="button" onClick={onClose}>Cerrar</button>
-        </form>
+          <div className="user-box">
+            <input
+              type="text"
+              name="descripcion"
+              placeholder=" "
+              required
+            />
+            <label>Descripción</label>
+          </div>
+
+          <div className="user-box">
+            <input
+              type="datetime-local"
+              name="fechaInicio"
+              required
+            />
+            <label>Fecha de Inicio</label>
+          </div>
+
+          <div className="user-box">
+            <input
+              type="datetime-local"
+              name="fechaFin"
+              required
+            />
+            <label>Fecha de Fin</label>
+          </div>
+
+          <div className="user-box">
+            <input
+              type="text"
+              name="imagen"
+              placeholder=" "
+              required
+            />
+            <label>Imagen</label>
+          </div>
+          <div className="user-box">
+          <select
+          name="activo"
+          placeholder=" "
+          required
+          >
+          <option value="">Seleccionar...</option>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+          </select>
+          <label>Evento Activo</label>
+          </div>
+          <div className="user-box">
+          <select
+          name="vendido"
+          placeholder=" "
+          required
+          >
+          <option value="">Seleccionar...</option>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+          </select>
+          <label>Evento Vendido</label>
+          </div>
+          <div className="user-box">
+          <select
+          name="idLugar"
+          placeholder=" "
+          required
+          >
+          <option value="">Seleccionar...</option>
+          <option value="1">2</option>
+          <option value="2">1</option>
+          </select>
+          <label>ID del Lugar</label>
+          </div>
+
+  <div >
+    <a onClick={handleSubmit}>     
+       <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Agregar</a>
+    <a  type="button" onClick={onClose}>
+    <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Cerrar</a>
+  </div>
+</form>
+
+
       </div>
     </div>
   );
