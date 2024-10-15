@@ -1,44 +1,51 @@
 import './Admin.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../Images/logo.png'; // Ruta al logo
-import userImage from '../Images/logo.png'; // Ruta a la imagen del usuario
+import logo from '../Images/logo.png';
+import userImage from '../Images/logo.png';
 import Tabla from './Table';
 import AddEventModal from './AddEventModal'; // Asegúrate de importar el modal
-import styles from './UpdateEventModal.css';
+import UpdateEventModal from './UpdateEventModal'; // Modal para actualizar eventos
 
 function Admin() {
-  const [estado, setEstado] = useState(); // Ejemplo de estado (personaliza según necesites)
   const [menuOpen, setMenuOpen] = useState(false); // Estado para manejar el menú
-  const [modalAbierto, setModalAbierto] = useState(false); // Estado para el modal
-  const navigate = useNavigate(); // Usar useNavigate para la navegación
+  const [modalAbierto, setModalAbierto] = useState(false); // Estado para el modal de agregar
+  const [modalActualizarAbierto, setModalActualizarAbierto] = useState(false); // Estado para el modal de actualizar
+  const [eventoActual, setEventoActual] = useState(null); // Estado para el evento actual
+  const navigate = useNavigate();
 
-  // Alternar la visibilidad del menú en pantallas pequeñas
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
   const manejarClick = () => {
-    navigate('/'); // Ejemplo de navegación (personaliza la ruta)
+    navigate('/');
   };
 
   const manejarAgregarEvento = (nuevoEvento) => {
     console.log('Evento agregado:', nuevoEvento);
-    // Aquí puedes agregar la lógica para guardar el nuevo evento (por ejemplo, hacer una llamada a una API o actualizar el estado)
-    setModalAbierto(false); // Cerrar el modal después de agregar el evento
+    // Lógica para guardar el nuevo evento
+    setModalAbierto(false);
+  };
+
+  const manejarActualizarEvento = (evento) => {
+    console.log('Evento actualizado:', evento);
+    // Lógica para actualizar el evento
+    setModalActualizarAbierto(false);
+  };
+
+  const abrirModalActualizar = (evento) => {
+    setEventoActual(evento);
+    setModalActualizarAbierto(true);
   };
 
   return (
     <div className="admin-container">
       <div className="static-header1">
         <img src={logo} alt="Logo" className="app-logo" />
-
-        {/* Botón de menú para pantallas pequeñas */}
         <button className="menu-button" onClick={toggleMenu}>
           &#9776;
         </button>
-
-        {/* Contenedor para los botones y la imagen */}
         <div className={`header-buttons ${menuOpen ? 'open' : ''}`}>
           <button className="header-button-admin">Informes</button>
           <button className="header-button-admin">Eventos</button>
@@ -60,11 +67,22 @@ function Admin() {
         </div>
       </header>
       <body className='Admin-body'>
-        <Tabla />
+        <Tabla onEdit={abrirModalActualizar} /> {/* Pasa la función para editar eventos */}
       </body>
 
       {modalAbierto && (
-        <AddEventModal onClose={() => setModalAbierto(false)} onAdd={manejarAgregarEvento} />
+        <AddEventModal 
+          onClose={() => setModalAbierto(false)} 
+          onAdd={manejarAgregarEvento} 
+        />
+      )}
+
+      {modalActualizarAbierto && eventoActual && (
+        <UpdateEventModal 
+          evento={eventoActual} 
+          onClose={() => setModalActualizarAbierto(false)} 
+          onUpdate={manejarActualizarEvento} 
+        />
       )}
     </div>
   );

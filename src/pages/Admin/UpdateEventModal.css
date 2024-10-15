@@ -10,8 +10,10 @@
     width: 60%;
     text-align: center;
     cursor: pointer;
+
     transition: transform 0.2s ease-in-out;
     z-index: 1000;
+    
 }
 
 .modal-content {
