@@ -1,19 +1,20 @@
+
 .modal-overlay {
   position:absolute;
   border-radius: 30px;
-  top: 10px;
+ 
   background: #d2e8e3;
   box-shadow:  -20px 20px 60px #bcbcbc,
                20px -20px 60px #bcbcbc;
   padding: 40px;
   margin: 20px;
-  width: 600px;
+  width: 60%;
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
-  margin-top: 100px;
-  margin-left: 30%;
-  margin-right: 10%;
+  margin-top: -100px;
+  margin-left: 20%;
+  margin-right: 20%;
   z-index: 1000;
 }
 
@@ -24,7 +25,8 @@
   background: transparent;
   padding: 20px;
   border-radius: 5px;
-  width: 300px;
+  width: auto;
+  height: 500px;
 }
 
 .modal-content p:first-child {

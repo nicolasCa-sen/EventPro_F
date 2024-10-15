@@ -5,6 +5,7 @@ import logo from '../Images/logo.png'; // Ruta al logo
 import userImage from '../Images/logo.png'; // Ruta a la imagen del usuario
 import Tabla from './Table';
 import AddEventModal from './AddEventModal'; // Asegúrate de importar el modal
+import styles from './UpdateEventModal.css';
 
 function Admin() {
   const [estado, setEstado] = useState(); // Ejemplo de estado (personaliza según necesites)

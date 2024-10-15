@@ -1,0 +1,172 @@
+.modal-overlay {
+    position: absolute; /* Fija el modal en la pantalla */
+    right: 20%;
+    left: 30%; /* Posición en el centro horizontal */
+    transform: translate(-50%, -50%); /* Ajuste perfecto para centrar */
+    border-radius: 30px;
+    margin-top: 100px;
+    box-shadow: -20px 20px 60px #bcbcbc, 20px -20px 60px #bcbcbc;
+    padding: 40px;
+    width: 60%;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: transparent;
+    padding: 20px;
+    border-radius: 5px;
+    height: 500px;
+}
+
+/* Estilo del primer párrafo dentro del modal */
+.modal-content p:first-child {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #000;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Input y select dentro del modal */
+.modal-content .user-box select,
+.modal-content .user-box input {
+    width: 60%;
+    padding: 5px 0;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+    background: transparent;
+    color: #272727;
+}
+
+/* Efecto al hacer foco en input */
+.modal-content .user-box input:focus ~ label,
+.modal-content .user-box input:not(:placeholder-shown) ~ label {
+    top: -15px;
+    font-size: 12px;
+    color: #000;
+}
+
+/* Contenedor de botones alineados horizontalmente */
+.modal-content .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.submit-btn, .close-btn {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: #000000;
+    font-size: 16px;
+    text-decoration: none; /* Puede ser útil si usas 'a' en lugar de 'button' */
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: 0.5s;
+    margin-top: 40px;
+    letter-spacing: 3px;
+    margin-left: 20px;
+    border: none; /* Sin borde para que coincida con el diseño */
+    background: transparent; /* Fondo transparente para el efecto hover */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+/* Efecto hover: fondo degradado y borde redondeado */
+.submit-btn:hover, .close-btn:hover {
+    background: linear-gradient(to bottom, #4dc7d9 0%, #66a6ff 100%);
+    color: #272727;
+    border-radius: 5px;
+}
+
+/* Estilo y animación para los spans que simulan bordes móviles */
+.submit-btn span, .close-btn span {
+    position: absolute;
+    display: block;
+}
+
+/* Borde superior que se mueve de izquierda a derecha */
+.submit-btn span:nth-child(1), .close-btn span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c7f2ff);
+    animation: btn-anim1 1.5s linear infinite;
+}
+
+/* Borde derecho que se mueve de arriba hacia abajo */
+.submit-btn span:nth-child(2), .close-btn span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #c7f2ff);
+    animation: btn-anim2 1.5s linear infinite;
+    animation-delay: 0.375s;
+}
+
+/* Borde inferior que se mueve de derecha a izquierda */
+.submit-btn span:nth-child(3), .close-btn span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #c7f2ff);
+    animation: btn-anim3 1.5s linear infinite;
+    animation-delay: 0.75s;
+}
+
+/* Borde izquierdo que se mueve de abajo hacia arriba */
+.submit-btn span:nth-child(4), .close-btn span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #c7f2ff);
+    animation: btn-anim4 1.5s linear infinite;
+    animation-delay: 1.125s;
+}
+
+/* Animaciones para los bordes */
+@keyframes btn-anim1 {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 100%;
+    }
+}
+
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+    50%, 100% {
+        top: 100%;
+    }
+}
+
+@keyframes btn-anim3 {
+    0% {
+        right: -100%;
+    }
+    50%, 100% {
+        right: 100%;
+    }
+}
+
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+    50%, 100% {
+        bottom: 100%;
+    }
+}
