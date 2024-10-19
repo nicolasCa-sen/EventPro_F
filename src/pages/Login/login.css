@@ -1,0 +1,235 @@
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    background-color: #e3e3e3a4;
+    text-align: center;
+    border-color: #45a049;
+    margin-top: 80px;
+    transition: 0.5s;
+
+  }
+  .admin-bg {
+    position: fixed;              /* Fija el elemento a la ventana */
+    top: 0;                       /* Alinea la parte superior al borde superior de la ventana */
+    left: 0;                      /* Alinea la parte izquierda al borde izquierdo de la ventana */
+    width: 100%;                  /* Ocupa el 100% del ancho de la ventana */
+    height: 100%;                 /* Ocupa el 100% de la altura de la ventana */
+    background-image: url(../Images/fondo4.jpg);
+    background-size: cover;       /* Ajusta la imagen para cubrir completamente el elemento */
+    background-position: center;  /* Centra la imagen en el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    transition: 3s;
+}
+
+  /* Fondo azul para usuario */
+  .user-bg {
+    position: fixed;              /* Fija el elemento a la ventana */
+    top: 0;                       /* Alinea la parte superior al borde superior de la ventana */
+    left: 0;                      /* Alinea la parte izquierda al borde izquierdo de la ventana */
+    width: 100%;                  /* Ocupa el 100% del ancho de la ventana */
+    height: 100%;                 /* Ocupa el 100% de la altura de la ventana */
+    background-image: url(../Images/fondo3.jpg);
+    background-size: cover;       /* Ajusta la imagen para cubrir completamente el elemento */
+    background-position: center;  /* Centra la imagen en el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    transition: 3s;
+  }
+  .organizer-bg{
+    position: fixed;              /* Fija el elemento a la ventana */
+    top: 0;                       /* Alinea la parte superior al borde superior de la ventana */
+    left: 0;                      /* Alinea la parte izquierda al borde izquierdo de la ventana */
+    width: 100%;                  /* Ocupa el 100% del ancho de la ventana */
+    height: 100%;                 /* Ocupa el 100% de la altura de la ventana */
+    background-image: url(../Images/fondo5.jpg);
+    background-size: cover;       /* Ajusta la imagen para cubrir completamente el elemento */
+    background-position: center;  /* Centra la imagen en el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    transition: 3s;
+  }
+  .login-container:hover{
+    margin-top: 70px;
+    transition: 0.5s;
+  }
+  h2 {
+    margin-bottom: 20px;
+    color:transparent;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .input-group input {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+  }
+  
+  .input-group input:focus {
+    border-color: #4caf50;
+  }
+  
+  .toggle-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .toggle-group span {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Estilo del switch */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 25px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 2.5px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #4caf50;
+
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(24px);
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .error {
+    color: red;
+    margin-bottom: 10px;
+  }
+  .radio-buttons {
+    display: flex;
+    gap: 10px; /* Espaciado entre los radio buttons */
+  }
+  
+  .radio-buttons label {
+    display: flex;
+    
+    align-items: center;
+  }
+  .toggle-group {
+    
+    text-align: center; /* Centra el texto sobre las imágenes */
+    margin-bottom: 20px; /* Espacio entre la selección de rol y el botón */
+    display: flex; /* Usa flexbox para centrar los elementos */
+  justify-content: center; /* Centra horizontalmente los elementos */
+  align-items: center; /* Centra verticalmente los elementos */
+  }
+  
+  .role-selection {
+   
+    display: flex;
+    justify-content: center; /* Centra las imágenes horizontalmente */
+    margin-top: 10px; /* Espacio entre el texto y las imágenes */
+  }
+  
+  .role-images {
+    display: flex;
+    
+    gap: 20px; /* Espaciado entre las imágenes */
+  }
+  
+  .role-image {
+    width: 80px; /* Ajusta según tus necesidades */
+    height: 80px; /* Ajusta según tus necesidades */
+    background-size: cover; /* Asegúrate de que la imagen cubra el área */
+    margin: 10px; /* Espaciado entre imágenes */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+    border-radius: 50%;
+  }
+  
+  .role-image.active {
+    position: absolute; /* Posiciona el texto relativo a .role-image */
+    top: 15px; /* Espacio desde la parte superior */
+    left: 50%; /* Centra el texto horizontalmente */
+    transform: translateX(-50%); /* Compensa el centrado */
+    font-size: 50px; /* Cambia el tamaño de la fuente según sea necesario */
+    color: #fff; /* Cambia el color del texto (puedes usar cualquier color que desees) */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Agrega una sombra al texto */
+    
+    transition: 0.5s;
+  }
+  
+  .divider {
+    border: none; /* Sin borde predeterminado */
+    height: 1px; /* Altura de la línea */
+    background-color: #ccc; /* Color de la línea */
+    margin: 20px 0; /* Espaciado superior e inferior */
+  }
+  .nombre-rol-per {
+    
+    position: absolute; /* Posiciona el texto relativo a .role-image */
+    top: -15px; /* Espacio desde la parte superior */
+    left: 50%; /* Centra el texto horizontalmente */
+    transform: translateX(-50%); /* Compensa el centrado */
+    font-size: 14px; /* Cambia el tamaño de la fuente según sea necesario */
+    color: #fff; /* Cambia el color del texto (puedes usar cualquier color que desees) */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Agrega una sombra al texto */
+  }
+  
