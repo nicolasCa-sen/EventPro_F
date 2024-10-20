@@ -8,7 +8,7 @@
     background-color: #e3e3e3a4;
     text-align: center;
     border-color: #45a049;
-    margin-top: 80px;
+    margin-top: 0px;
     transition: 0.5s;
 
   }
@@ -51,12 +51,11 @@
     transition: 3s;
   }
   .login-container:hover{
-    margin-top: 70px;
+    margin-top: -10px;
     transition: 0.5s;
   }
   h2 {
     margin-bottom: 20px;
-    color:transparent;
   }
   
   .input-group {
@@ -205,15 +204,17 @@
   }
   
   .role-image.active {
-    position: absolute; /* Posiciona el texto relativo a .role-image */
+
     top: 15px; /* Espacio desde la parte superior */
+    width: 90px; /* Ajusta según tus necesidades */
+    height: 80px; 
     left: 50%; /* Centra el texto horizontalmente */
-    transform: translateX(-50%); /* Compensa el centrado */
+    transform: translatez(10px); /* Compensa el centrado */
     font-size: 50px; /* Cambia el tamaño de la fuente según sea necesario */
     color: #fff; /* Cambia el color del texto (puedes usar cualquier color que desees) */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Agrega una sombra al texto */
-    
+    text-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5); /* Agrega una sombra al texto */
     transition: 0.5s;
+    
   }
   
   .divider {
@@ -231,5 +232,18 @@
     font-size: 14px; /* Cambia el tamaño de la fuente según sea necesario */
     color: #fff; /* Cambia el color del texto (puedes usar cualquier color que desees) */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Agrega una sombra al texto */
+  }
+  .register-link {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .register-link a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .register-link a:hover {
+    text-decoration: underline;
   }
   

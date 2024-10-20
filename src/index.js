@@ -4,6 +4,7 @@ import './index.css';
 import Home from './pages/Home/Home'; // Importar Home
 import Admin from './pages/Admin/Admin'; // Importar Admin
 import Login from './pages/Login/login';
+import Register from './pages/Register/register';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 ReactDOM.render(
@@ -16,6 +17,8 @@ ReactDOM.render(
         <Route path="/Login" element={<Login />} /> {/* Ruta para Login */}
           {/* Definir la ruta para Admin */}
           <Route path="/admin" element={<Admin />} /> {/* Ruta para Admin */}
+          {/* Definir la ruta para Admin */}
+          <Route path="/registro" element={<Register />} /> {/* Ruta para Admin */}
       </Routes>
     </Router>
   </React.StrictMode>,

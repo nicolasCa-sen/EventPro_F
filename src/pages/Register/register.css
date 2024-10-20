@@ -1,0 +1,100 @@
+
+
+.App-reg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url(../Images/fondo6.jpg);
+    background-size: cover;       /* Ajusta la imagen para cubrir completamente el elemento */
+    background-position: center;  /* Centra la imagen en el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    padding: 20px;
+  }
+  
+  /* Contenedor del formulario */
+  .login-container-reg {
+    width: 800px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #e3e3e3b9;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  h2-reg {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Contenedor de los campos en dos columnas */
+  .form-grid-reg {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 30px;
+  }
+  
+  /* Grupo de entrada */
+  .input-group-reg label {
+    display: block;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .input-group-reg input {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  .input-group-reg input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Botón de registro */
+  button-reg {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+  }
+  
+  button-reg:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Mensaje de error */
+  .error-reg {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilo del enlace de redirección */
+  .login-link-reg {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .login-link-reg a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .login-link-reg a:hover {
+    text-decoration: underline;
+  }
+  
