@@ -6,6 +6,9 @@ import Admin from './pages/Admin/Admin'; // Importar Admin
 import Login from './pages/Login/login';
 import Register from './pages/Register/register';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './pages/Home/Header';
+import Error from './pages/Error/Error';
+import EventoDetalles from './pages/Seleccionado/EventoDetalles';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,6 +22,11 @@ ReactDOM.render(
           <Route path="/admin" element={<Admin />} /> {/* Ruta para Admin */}
           {/* Definir la ruta para Admin */}
           <Route path="/registro" element={<Register />} /> {/* Ruta para Admin */}
+           {/* Definir la ruta para Header */}
+           <Route path="/header" element={<Header />} /> {/* Ruta para Admin */}
+           <Route path="*" element={<Error />} /> {/* Ruta para Admin */}
+            {/* Definir la ruta para seleccionado */}
+            <Route path="/evento/:id" element={<EventoDetalles />} />
       </Routes>
     </Router>
   </React.StrictMode>,

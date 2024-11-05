@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Importa Link
-import './Eventos.css';
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom'; 
+import './EventoDetalles.css'; 
 
 const eventos = [
     {
@@ -115,70 +115,28 @@ const eventos = [
     },
 ];
 
-const Eventos = () => {
-    const [visibleEventos, setVisibleEventos] = useState(3);
-    const [filtro, setFiltro] = useState('TODOS');
 
-    const handleVerMas = () => {
-        setVisibleEventos(prev => prev + 3);
-    };
+const EventoDetalles = () => {
+    const { id } = useParams();
+    const navigate = useNavigate(); // Usa useNavigate para la navegación
+    const evento = eventos.find(e => e.id === parseInt(id));
 
-    const handleFiltro = (tipo) => {
-        setFiltro(tipo);
-        setVisibleEventos(3); // Reinicia el número de eventos visibles al aplicar un filtro
-    };
-
-    // Obtener tipos únicos de eventos
-    const tiposUnicos = Array.from(new Set(eventos.map(evento => evento.tipo)));
-
-    const eventosFiltrados = eventos.filter(evento => 
-        filtro === 'TODOS' || evento.tipo === filtro
-    );
+    if (!evento) {
+        return <h2>Evento no encontrado</h2>;
+    }
 
     return (
-        <div className="principal-div">
-            <br />
-            <h1 className="titles1">Eventos</h1>
-            <br />
-            <div className="Botones">
-                {tiposUnicos.map((tipo, index) => (
-                    <button key={index} onClick={() => handleFiltro(tipo)}>
-                        {tipo.toUpperCase()}
-                    </button>
-                ))}
-                <button onClick={() => handleFiltro('TODOS')}>TODOS</button>
-            </div>
-
-            <div className="eventos-grid">
-                {eventosFiltrados.slice(0, visibleEventos).map((evento) => (
-                    <div key={evento.id} className="cardEvento">
-                        <div
-                            className="carta-imagen"
-                            style={{ backgroundImage: `url(${evento.imagen})` }}
-                        ></div>
-                        <div className="carta-contenido">
-                            <h2>{evento.nombre}</h2>
-                            <p>Fecha: {evento.fecha}</p>
-                            <p>Hora: {evento.hora}</p>
-                            <p>Lugar: {evento.lugar}</p>
-                            <p>Tipo: {evento.tipo}</p>
-                            <p>Ciudad: {evento.ciudad}</p>
-                            <Link to={`/evento/${evento.id}`} className="saber-mas-btn"> {/* Usa Link en vez de button */}
-                                Saber más
-                            </Link>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            {visibleEventos < eventosFiltrados.length && (
-                <div className="ver-mas-container">
-                    <button onClick={handleVerMas} className="ver-mas-btn">Ver más</button>
-                </div>
-            )}
-            <br />
+        <div>
+            <h1>{evento.nombre}</h1>
+            <img src={evento.imagen} alt={evento.nombre} />
+            <p>Fecha: {evento.fecha}</p>
+            <p>Hora: {evento.hora}</p>
+            <p>Lugar: {evento.lugar}</p>
+            <p>Tipo: {evento.tipo}</p>
+            <p>Ciudad: {evento.ciudad}</p>
+            <button onClick={() => navigate(-1)}>Volver</button> {/* Ejemplo de navegación */}
         </div>
     );
 };
 
-export default Eventos;
+export default EventoDetalles;

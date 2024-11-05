@@ -18,7 +18,7 @@
     left: 0;                      /* Alinea la parte izquierda al borde izquierdo de la ventana */
     width: 100%;                  /* Ocupa el 100% del ancho de la ventana */
     height: 100%;                 /* Ocupa el 100% de la altura de la ventana */
-    background-image: url(../Images/fondo4.jpg);
+    background-image: url(../Images/fondo1.jpg);
     background-size: cover;       /* Ajusta la imagen para cubrir completamente el elemento */
     background-position: center;  /* Centra la imagen en el fondo */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
@@ -32,7 +32,7 @@
     left: 0;                      /* Alinea la parte izquierda al borde izquierdo de la ventana */
     width: 100%;                  /* Ocupa el 100% del ancho de la ventana */
     height: 100%;                 /* Ocupa el 100% de la altura de la ventana */
-    background-image: url(../Images/fondo3.jpg);
+    background-image: url(../Images/fondo1.jpg);
     background-size: cover;       /* Ajusta la imagen para cubrir completamente el elemento */
     background-position: center;  /* Centra la imagen en el fondo */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
@@ -44,7 +44,7 @@
     left: 0;                      /* Alinea la parte izquierda al borde izquierdo de la ventana */
     width: 100%;                  /* Ocupa el 100% del ancho de la ventana */
     height: 100%;                 /* Ocupa el 100% de la altura de la ventana */
-    background-image: url(../Images/fondo5.jpg);
+    background-image: url(../Images/fondo1.jpg);
     background-size: cover;       /* Ajusta la imagen para cubrir completamente el elemento */
     background-position: center;  /* Centra la imagen en el fondo */
     background-repeat: no-repeat; /* Evita que la imagen se repita */

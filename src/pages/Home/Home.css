@@ -16,8 +16,8 @@
 }
 
 .Home {
-    background-image: url('../Images/fondo1.jpg');
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../Images/fondo1.jpg');
+    background-image: url('../Images/fondo8.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../Images/fondo8.jpg');
     background-size: cover;
     /* Para que la imagen cubra todo el contenedor */
     background-position: center;
@@ -186,37 +186,6 @@
 }
 
 
-.Home-header {
-    width: 100%;
-    height: 100%;
-    background-color: #e0e0e0;
-    background-image: linear-gradient(32deg,
-            rgba(235, 235, 235, 0.74) 30px,
-            transparent);
-    background-size: 60px 60px;
-    background-position: -5px -5px;
-    width: 100%;
-    height: 100%;
-    --s: 37px;
-    /* control the size */
-
-    --c: #0000, 0.5deg 119.5deg, #0000 120deg;
-    --g1: conic-gradient(from 60deg at 56.25% calc(425% / 6), var(--c));
-    --g2: conic-gradient(from 180deg at 43.75% calc(425% / 6), var(--c));
-    --g3: conic-gradient(from -60deg at 50% calc(175% / 12), var(--c));
-    background: var(--g1), var(--g1) var(--s) calc(1.73 * var(--s)), var(--g2),
-        var(--g2) var(--s) calc(1.73 * var(--s)), var(--g3) var(--s) 0,
-        var(--g3) 0 calc(1.73 * var(--s)) #e3e3e3;
-    background-size: calc(2 * var(--s)) calc(3.46 * var(--s));
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-}
-
 .dynamic-header {
     background-color: #282c34;
     /* Color de fondo del encabezado dinámico */
@@ -251,9 +220,12 @@
     /* Espacio de 100px desde la parte superior */
 }
 
-.Home-body {
-    background-color: #19191a;
-    border-radius: 20px;
+.Home-body-carrucel {
+    background-color: #000000;
+    border-radius: 0px;
+    width: 100vw;
+    height: 102vh;
+    overflow: hidden;
 
 }
 

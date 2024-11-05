@@ -1,6 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
-import './Carrusel.css'; // Asegúrate de que la ruta y el nombre sean correctos
+import './Carrusel.css';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css"; 
 

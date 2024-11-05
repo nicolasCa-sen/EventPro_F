@@ -1,0 +1,239 @@
+* {
+    box-sizing: border-box; /* Asegura que padding y borders se incluyan en el ancho total */
+    margin: 0; /* Elimina márgenes predeterminados */
+    padding: 0; /* Elimina padding predeterminado */
+}
+.header-head-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+    color: inherit; /* Color según el tema */
+     border-bottom: 3px solid #000000; 
+}
+
+/* Estilos para el tema claro */
+.header-head-menu.light-head-menu {
+    background-color: #e3e3e3;
+}
+
+.header-head-menu.light-head-menu .header-button-head-menu,
+.header-head-menu.light-head-menu .login-button-head-menu {
+    color: #000000; /* Color de texto en modo claro */
+    background-color: transparent;
+}
+
+.header-head-menu.light-head-menu .header-button-head-menu:hover {
+    background-color: #f0f0f0; /* Fondo al pasar el mouse en modo claro */
+}
+
+/* Estilos para el tema oscuro */
+.header-head-menu.dark-head-menu {
+    background-color: #000000;
+    color: #e3e3e3;
+     border-bottom: 3px solid #e3e3e3; 
+}
+
+.header-head-menu.dark-head-menu .header-button-head-menu,
+.header-head-menu.dark-head-menu .login-button-head-menu {
+    color: #e3e3e3; /* Color de texto en modo oscuro */
+    
+}
+
+.header-head-menu.dark-head-menu .header-button-head-menu:hover {
+    background-color: #000000; /* Fondo al pasar el mouse en modo oscuro */
+}
+
+.header-left-head-menu {
+    display: flex;
+    align-items: center;
+}
+
+.logo-head-menu {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.web-name-head-menu {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.header-buttons-head-menu {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 0;
+   
+}
+
+.header-button-head-menu {
+    width: 72%;
+    background-color: transparent;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Estilos específicos para el botón de inicio de sesión */
+.login-button-head-menu {
+    background-color: #000000;
+    color: #e3e3e3;
+    padding: 10px 20px;
+    border: none;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* Sección de usuario */
+.user-section-head-menu {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+    width: 90%;
+}
+
+.user-icon-head-menu {
+    width: 40px;
+    border-radius: 50%;
+}
+
+/* Menú hamburguesa */
+.hamburger-head-menu {
+    display: none;
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: inherit; /* Cambia según el tema */
+    cursor: pointer;
+    width: 20%;
+    margin-right: 5%;
+    background-color: transparent;
+}
+.hamburger-head-menu:hover {
+    background-color: transparent;
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+    .header-buttons-head-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+       margin-top: 270px;
+        left: 0;
+        background-color: #000000; /* Cambia según el tema */
+        width: 100%;
+        text-align: center;
+        border-bottom: 3px solid #e3e3e3; 
+        border-left: 3px solid #e3e3e3; 
+        border-right: 3px solid #e3e3e3; 
+
+    }
+
+    .header-buttons-head-menu.open-head-menu {
+        display: flex;
+        margin-left: 25%;
+        width: 70%;
+         border-bottom-left-radius: 20px;
+         border-bottom-right-radius: 20px; 
+        
+    }
+
+    .hamburger-head-menu {
+        display: block;
+    }
+}
+
+/* Estilo para el botón de alternar tema */
+.theme-toggle-head-menu {
+    font-size: 20px;
+    align-items: center;
+    position: absolute;
+    padding: 5px 12px; /* Espaciado interno */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+    width: 60px;
+    margin-top: 122px;
+    border-top-right-radius: 0px; /* Radio para la esquina inferior derecha */
+    border-top-left-radius: 0px; 
+    border-bottom-right-radius: 10px; /* Radio para la esquina inferior derecha */
+    border-bottom-left-radius: 10px; /* Radio para la esquina inferior izquierda */
+    transform: translateZ(-500px);
+}
+
+
+
+.toggle-indicator {
+    font-size: 16px;
+    width: 20px; /* Ancho del indicador */
+    height: 30px; /* Alto del indicador */
+    border-radius: 50%; /* Forma circular */
+    margin-left: 10px; /* Espaciado a la izquierda */
+    transition: transform 0.3s; /* Transición suave */
+}
+
+
+
+/* Estilos para el tema claro y oscuro de los botones */
+.dark-button-head-menu {
+    background-color: transparent; /* Fondo oscuro */
+    color: #e3e3e3;           /* Texto blanco */
+    transition: transform 0.3s; /* Transición suave */
+    
+}
+
+.light-button-head-menu {
+    background-color: #e3e3e3; /* Fondo claro */
+    color: black;            /* Texto negro */
+    transition: transform 0.3s; /* Transición suave */
+}
+
+/* Estilos para el contenedor del nav */
+.dark-nav-head-menu {
+    background-color: #000000; /* Fondo oscuro */
+    color: #e3e3e3;           /* Texto blanco */
+    
+    transition: transform 0.3s; /* Transición suave */
+}
+
+.light-nav-head-menu {
+    background-color: #e3e3e3; /* Fondo claro */
+    color: black;            /* Texto negro */
+    transition: transform 0.3s; /* Transición suave */
+  
+}
+/* Estilo para el botón de alternar tema en modo oscuro */
+.dark-theme-toggle-head-menu {
+    background-color: #000000; /* Fondo oscuro */
+    color: #e3e3e3;           /* Texto blanco */
+    transition: transform 0.3s; /* Transición suave */
+    
+    
+    border-bottom: 3px solid #e3e3e3; 
+    border-left: 3px solid #e3e3e3;
+    border-right: 3px solid #e3e3e3;
+
+}
+.dark-theme-toggle-head-menu:hover {
+    background-color: #000000; /* Fondo oscuro */
+    color: #e3e3e3;           /* Texto blanco */
+    transition: transform 0.3s; /* Transición suave */
+}
+/* Estilo para el botón de alternar tema en modo claro */
+.light-theme-toggle-head-menu {
+    background-color: #e3e3e3; /* Fondo claro */
+    color: black;              /* Texto negro */
+    transition: transform 0.3s; /* Transición suave */
+     border-bottom: 3px solid #000000; 
+    border-left: 3px solid #000000;
+    border-right: 3px solid #000000;
+}
+.light-theme-toggle-head-menu:hover {
+    background-color: #e3e3e3; /* Fondo claro */
+    color: black;              /* Texto negro */
+    transition: transform 0.3s; /* Transición suave */
+    
+}

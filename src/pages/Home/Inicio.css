@@ -1,0 +1,39 @@
+.Home-header-inicio {
+    background-color: transparent; /* Color de fondo */
+    padding: 40px; /* Aumentar el espaciado interior para mayor confort */
+    width: 100%; /* Ocupa el 100% del ancho de la pantalla */
+    min-height: 100vh; /* Mínima altura de 100% de la pantalla */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+    display: flex; /* Usar flexbox para centrar contenido */
+    align-items: flex-start; /* Alinear el contenido al principio (arriba) */
+    justify-content: flex-start; /* Alinear el contenido a la izquierda */
+}
+
+.container-inicio {
+    display: flex; /* Usar flexbox para alinear los elementos */
+    flex-direction: column; /* Disposición en columna */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+    max-width: 1200px; /* Ancho máximo del contenedor */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+}
+
+.box1-inicio {
+    flex: 1; /* Toma 1 parte del espacio disponible */
+    margin-bottom: 20px; /* Margen inferior para separar los bloques */
+    align-self: flex-start; /* Alinear este bloque al principio */
+}
+
+.text-inicio {
+    font-size: 90px; /* Tamaño de fuente más grande para mayor impacto */
+    font-weight: bold; /* Negrita */
+    color: #e3e3e3; /* Color del texto */
+    margin: 30px 0; /* Margen vertical para separación */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra para mayor legibilidad */
+}
+
+.text1-inicio {
+    margin-top: 20px; /* Margen superior */
+    font-size: 24px; /* Aumentar tamaño de fuente */
+    color: #e3e3e3; /* Color del texto */
+    line-height: 1.5; /* Mayor espacio entre líneas para facilitar la lectura */
+}

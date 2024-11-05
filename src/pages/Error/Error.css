@@ -1,0 +1,115 @@
+.body-error::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Ancho de la vista del puerto */
+    height: 100vh; /* Altura de la vista del puerto */
+    background-image: url('../Images/fondo9.jpg'); /* Reemplaza con la URL de tu imagen */
+    background-size: cover; /* Cubre toda la pantalla */
+    background-position: center; /* Centra la imagen */
+    z-index: -1; /* Coloca la imagen detrás del contenido */
+    transition: filter 0.3s ease; /* Suaviza la transición del filtro */
+}
+
+.error-principal-error {
+    background: transparent; /* Fondo blanco semi-transparente */
+    border: 2px solid transparent; /* Borde rojo oscuro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 20px;
+    text-align: center;
+    max-width: 90%; /* Ancho máximo del div (90% de la pantalla) */
+    margin: auto; /* Centrar el div en la página */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    position: relative; /* Para asegurar que el contenido se mantenga dentro */
+   
+    margin-top: 10%;
+    z-index: 1; /* Asegura que el div esté por encima del fondo */
+}
+
+.error-principal-error h1 {
+    color: #c9c9c9; /* Color del título */
+    font-size: 6rem; /* Tamaño de fuente grande para el título */
+    margin: 10px 0; /* Margen alrededor del título */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.error-principal-error p {
+    color: #e6e6e6; /* Color del texto del mensaje */
+    font-size: 1.2rem; /* Tamaño de fuente del mensaje */
+    margin: 10px 0; /* Margen alrededor del mensaje */
+}
+
+.btn-volver-error {
+    background-color: #0066ff; /* Color del botón */
+    width: 20%;
+    min-width: 200px;
+    color: white;
+    padding: 10px 20px; /* Padding para el botón */
+    border: none;
+    border-radius: 20px; /* Bordes redondeados del botón */
+    cursor: pointer;
+    font-size: 1rem; /* Tamaño de fuente del botón */
+    transition: background-color 0.3s ease; /* Transición suave del color */
+}
+
+.btn-volver-error:hover {
+    background-color: #0056b3; /* Cambio de color al pasar el mouse */
+}
+
+.mouse-hover-area-error {
+    position: fixed;
+    pointer-events: none; /* No interferir con otros eventos de mouse */
+    width: 500px; /* Diámetro del área circular */
+    height: 500px; /* Diámetro del área circular */
+    border-radius: 50%; /* Hace que sea circular */
+    background: transparent; /* Fondo transparente para mostrar la imagen sin oscurecer */
+ 
+    /* Sombra difusa alrededor del círculo */
+    box-shadow: 0 0 1000px 1600px rgba(0, 0, 0, 0.836), 0 0 100px 100px rgba(255, 255, 255, 0.377); /* Sombra grande y difusa */
+}
+
+.mouse-hover-area-error::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Asegura que el borde sea circular */
+    background: radial-gradient(circle, transparent 50%, rgba(138, 138, 138, 0.74) 99%); /* Gradiente radial */
+}
+/* Error.css */
+.broken-bulb {
+    display: block;
+    margin: 0 auto 20px; /* Centrar y agregar margen debajo */
+    max-width: 150px; /* Ajusta el tamaño según sea necesario */
+    animation: blink 2s infinite; /* Aplicar la animación de parpadeo */
+    color: #c9c9c9;
+    
+}
+
+/* Definición de la animación de parpadeo */
+@keyframes blink {
+    0%{
+        opacity: 1; /* Totalmente visible */
+        color: rgb(255, 255, 255);
+        transform: scale(1.05);
+    }
+    5% {
+        opacity: 0; /* Totalmente invisible */
+        transform: scale(1.1);
+    }
+    10% {
+        opacity: 1; /* Totalmente invisible */
+    }
+    15% {
+        opacity: 0; /* Totalmente invisible */
+        transform: scale(1.05);
+    }
+    20% {
+        opacity: 0; /* Totalmente invisible */
+        transform: scale(1.1);
+    }
+    
+}
