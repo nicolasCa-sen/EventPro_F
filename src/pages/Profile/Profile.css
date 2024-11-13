@@ -1,0 +1,218 @@
+/* Fondo de la página */
+body {
+    background-color: #D2E8E3; /* Color de fondo de la página */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Perfil - Estilos */
+.profile-profile-container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+    
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor de las secciones */
+.profile-profile-sections {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap; /* Asegura que las secciones se acomoden en pantallas pequeñas */
+}
+
+/* Sección de perfil */
+.profile-profile-info,
+.profile-statistics {
+    width: 48%; /* Ocupa el 48% del espacio disponible */
+    padding: 20px;
+    border: 2px solid #ddd; /* Borde de la sección */
+    border-radius: 8px;
+    background-color: rgba(249, 249, 249, 0.8); /* Fondo semi-transparente */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.profile-profile-info {
+    border-color: #4CAF50; /* Borde verde para la sección de perfil */
+    background-color: #e3e3e3af;
+}
+
+.profile-statistics {
+    border-color: #007bff; /* Borde azul para la sección de estadísticas */
+    background-color: #e3e3e3af;
+}
+
+/* Títulos */
+.profile-profile-title, .profile-statistics-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilo de los campos de datos */
+.profile-profile-header {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.profile-profile-image {
+    margin-top: -380px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+.profile-profile-details {
+    flex: 1;
+}
+
+.profile-profile-item, .profile-statistics-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-profile-label, .profile-statistics-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: #555;
+}
+
+.profile-profile-input, .profile-statistics-value {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.profile-profile-input:focus, .profile-statistics-value:focus {
+    border-color: #007bff;
+}
+
+/* Estilo para los botones */
+.profile-profile-button-save,
+.profile-profile-button-logout {
+    padding: 12px 20px;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-profile-button-save:hover,
+.profile-profile-button-logout:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.profile-profile-button-save:active,
+.profile-profile-button-logout:active {
+    background-color: #004085;
+    transform: translateY(0);
+}
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .profile-profile-info, .profile-statistics {
+        width: 100%; /* Las secciones ocupan todo el ancho en pantallas pequeñas */
+    }
+    
+    .profile-profile-header {
+        flex-direction: column; /* Coloca la imagen y los detalles uno debajo del otro */
+        align-items: center;
+    }
+    
+    .profile-profile-image {
+        margin-bottom: 20px; /* Espacio entre la imagen y los datos */
+    }
+}
+
+/* Cambios de Contraseña */
+.profile-change-password {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: rgba(249, 249, 249, 0.8); /* Fondo semi-transparente */
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.profile-change-password h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.profile-profile-item {
+    margin-bottom: 20px;
+}
+
+.profile-profile-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.profile-profile-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.profile-profile-button-save {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.profile-profile-button-save:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.profile-profile-button-save:active {
+    background-color: #004085;
+    transform: translateY(0);
+}
+.profile-buttons-container {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+  margin-top: 20px;
+}
+
+.profile-profile-button-view {
+  background-color: #28a745; 
+  color: white;
+}
+
+.profile-profile-button-view:hover {
+  background-color: #218838; /* Color verde oscuro */
+}

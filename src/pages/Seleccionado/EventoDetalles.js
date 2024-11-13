@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; 
 import './EventoDetalles.css'; 
+import Header from '../Home/Header';
 
 const eventos = [
     {
@@ -118,25 +119,75 @@ const eventos = [
 
 const EventoDetalles = () => {
     const { id } = useParams();
-    const navigate = useNavigate(); // Usa useNavigate para la navegación
+    const navigate = useNavigate(); 
     const evento = eventos.find(e => e.id === parseInt(id));
+    const [cantidadEntradas, setCantidadEntradas] = useState(1);
+    const [isAuthenticated, setIsAuthenticated] = useState(false); // Estado de autenticación
+
+    // Verifica si el usuario está logueado (esto puede venir del contexto, localStorage, etc.)
+    useEffect(() => {
+        const user = localStorage.getItem('user'); // Suponiendo que se guarda el usuario en localStorage
+        if (user) {
+            setIsAuthenticated(true);
+        }
+    }, []);
 
     if (!evento) {
-        return <h2>Evento no encontrado</h2>;
+        return <h2 className="evento-no-encontrado-sel">Evento no encontrado</h2>;
     }
 
+    const handleCompra = () => {
+        alert(`Has comprado ${cantidadEntradas} entradas usando PSE. ¡Gracias por tu compra!`);
+    };
+
     return (
-        <div>
-            <h1>{evento.nombre}</h1>
-            <img src={evento.imagen} alt={evento.nombre} />
-            <p>Fecha: {evento.fecha}</p>
-            <p>Hora: {evento.hora}</p>
-            <p>Lugar: {evento.lugar}</p>
-            <p>Tipo: {evento.tipo}</p>
-            <p>Ciudad: {evento.ciudad}</p>
-            <button onClick={() => navigate(-1)}>Volver</button> {/* Ejemplo de navegación */}
+        <div className='evento-detalles-sel2'>
+            <div className='evento-detalles-sel3'>
+                <div className="evento-detalles-sel">
+                    <div className="evento-imagen-container-sel">
+                        <img className="evento-imagen-sel" src={evento.imagen} alt={evento.nombre} />
+                    </div>
+                    <div className="evento-info-sel">
+                        <h1 className="evento-nombre-sel">{evento.nombre}</h1>
+                        <p className="evento-fecha-sel">Fecha: {evento.fecha}</p>
+                        <p className="evento-hora-sel">Hora: {evento.hora}</p>
+                        <p className="evento-lugar-sel">Lugar: {evento.lugar}</p>
+                        <p className="evento-tipo-sel">Tipo: {evento.tipo}</p>
+                        <p className="evento-ciudad-sel">Ciudad: {evento.ciudad}</p>
+                        
+                        <div className="evento-compra-sel">
+                            <label htmlFor="cantidad" className="evento-cantidad-label-sel">Cantidad de Entradas:</label>
+                            <input 
+                                type="number" 
+                                id="cantidad" 
+                                min="1" 
+                                value={cantidadEntradas} 
+                                onChange={(e) => setCantidadEntradas(e.target.value)} 
+                                className="evento-cantidad-input-sel"
+                            />
+                            <p className="evento-metodo-pago-sel">Método de pago: PSE</p>
+                            
+                            {/* Botón deshabilitado si el usuario no está logueado */}
+                            <button 
+                                className="evento-boton-comprar-sel" 
+                                onClick={handleCompra}
+                                disabled={!isAuthenticated} // Deshabilita el botón si no está logueado
+                            >
+                                Comprar Entradas
+                            </button>
+                            
+                            {!isAuthenticated && (
+                                <p className="evento-mensaje-login-sel">¡Debes iniciar sesión para comprar entradas!</p>
+                            )}
+                        </div>
+
+                        <button className="evento-boton-volver-sel" onClick={() => navigate(-1)}>Volver</button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
 
 export default EventoDetalles;
+

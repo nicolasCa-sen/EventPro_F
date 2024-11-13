@@ -1,26 +1,46 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
-import './Header.css'; // Asegúrate de tener estilos en este archivo
+import { useNavigate } from 'react-router-dom';
+import './Header.css';
 import sinuserImage from '../Images/sinuser.png';
-import logo from '../Images/logo.png'; // Ruta al logo
+import logo from '../Images/logo.png';
+import { useAuth } from '../../context/AuthContext';  // Importa el contexto de autenticación
 
 const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(true); // Estado para manejar el tema
-    const navigate = useNavigate(); // Crea una instancia de navigate
+    const [isDarkMode, setIsDarkMode] = useState(true);
+    const { user, logout } = useAuth();  // Obtén el usuario y la función logout desde el contexto
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    // Función para alternar entre tema claro y oscuro
     const toggleTheme = () => {
         setIsDarkMode(!isDarkMode);
     };
 
-    // Función para manejar el clic en "Iniciar Sesión"
     const handleLoginClick = () => {
-        navigate('/login'); // Redirige a /login
+        navigate('/login');
+    };
+
+    const handleInicioClick = () => {
+        navigate('/');
+        setTimeout(scrollToInicio, 100); // Espera y luego desplázate a Inicio
+    };
+
+    const handleCarruselClick = () => {
+        navigate('/');
+        setTimeout(scrollToCarrusel, 100); // Espera y luego desplázate a Próximos Eventos
+    };
+
+    const handleEventosClick = () => {
+        navigate('/');
+        setTimeout(scrollToEventos, 500); // Espera y luego desplázate a Todos
+    };
+
+    const handleLogout = () => {
+        logout();  // Llama al logout del contexto
+        navigate('/'); // Redirige al inicio después de cerrar sesión
     };
 
     return (
@@ -30,31 +50,65 @@ const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
                 <span className="web-name-head-menu">EvenT Proo</span>
             </div>
             <nav className={`header-buttons-head-menu ${isMenuOpen ? 'open-head-menu' : ''} ${isDarkMode ? 'dark-nav-head-menu' : 'light-nav-head-menu'}`}>
-                <button className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} onClick={scrollToInicio}>INICIO</button>
-                <button className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} onClick={scrollToCarrusel}>PRÓXIMOS EVENTOS</button>
-                <button className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} onClick={scrollToEventos}>TODOS</button>
+                <button 
+                    className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+                    onClick={handleInicioClick}
+                >
+                    INICIO
+                </button>
+                <button 
+                    className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+                    onClick={handleCarruselClick}
+                >
+                    PRÓXIMOS EVENTOS
+                </button>
+                <button 
+                    className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+                    onClick={handleEventosClick}
+                >
+                    TODOS
+                </button>
                 <div className="user-section-head-menu">
-                    <button 
-                        className={`login-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
-                        onClick={handleLoginClick} 
-                    >
-                        Iniciar Sesión
-                    </button>
+                    {/* Si el usuario está logueado, mostramos su correo y botones de "Perfil" y "Cerrar sesión" */}
+                    {user ? (
+                        <>
+                            <span className="user-email-head-menu">{user.email}</span>
+                            <button 
+                                className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+                                onClick={() => navigate('/profile')}
+                            >
+                                Perfil
+                            </button>
+                            <button 
+                                className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+                                onClick={handleLogout}
+                            >
+                                Cerrar sesión
+                            </button>
+                        </>
+                    ) : (
+                        <button 
+                            className={`login-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+                            onClick={handleLoginClick}
+                        >
+                            Iniciar Sesión
+                        </button>
+                    )}
                     <img src={sinuserImage} alt="Usuario" className="user-icon-head-menu" />
                 </div>
             </nav>
 
             <button className="hamburger-head-menu" onClick={toggleMenu}>
-                &#9776; {/* Este es el ícono del menú "hamburger" */}
+                &#9776;
             </button>
             <button 
                 className={`theme-toggle-head-menu ${isDarkMode ? 'dark-theme-toggle-head-menu' : 'light-theme-toggle-head-menu'}`} 
                 onClick={toggleTheme}
             >
                 {isDarkMode ? (
-                    <span role="img" aria-label="Luna">🌤️</span> // Ícono de luna para modo oscuro
+                    <span role="img" aria-label="Luna">🌤️</span>
                 ) : (
-                    <span role="img" aria-label="Sol">🌕</span> // Ícono de sol para modo claro
+                    <span role="img" aria-label="Sol">🌕</span>
                 )}
                 <span className={`toggle-indicator ${isDarkMode ? 'on' : 'off'}`}></span>
             </button>

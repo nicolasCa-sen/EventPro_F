@@ -47,9 +47,9 @@ function Home() {
     };
     return (
         <div className="Home"ref={inicioRef}>
-            {/* Pasamos la función scrollToCarrusel al Header */}
-            <Header scrollToCarrusel={scrollToCarrusel} scrollToEventos={scrollToEventos}scrollToInicio={scrollToInicio}/>
-
+            {/* Pasamos la función scrollToCarrusel al Header 
+           <Header scrollToCarrusel={scrollToCarrusel} scrollToEventos={scrollToEventos}scrollToInicio={scrollToInicio}/>
+*/}
             <Inicio />
 
             {/* Cuerpo principal de Home */}

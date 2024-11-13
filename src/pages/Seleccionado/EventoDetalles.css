@@ -1,80 +1,110 @@
-* {
-    box-sizing: border-box;
-}
-.evento-detalles {
+.evento-detalles-sel {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #ffffff; /* Fondo blanco para la tarjeta */
-    border-radius: 16px; /* Bordes más redondeados */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
-    padding: 30px; /* Mayor padding para más espacio interno */
-    max-width: 600px;
-    margin: auto;
-    transition: transform 0.3s ease; /* Efecto de transición */
+    
+    max-width: 1000px;
+    margin: 200px auto auto auto;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: -2px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.evento-detalles-sel2{
+    background-color: #D2E8E3 ;
+    height: 100vh; /* Ocupa el 100% de la altura del viewport */
+    width: 100%; 
 }
 
-.evento-detalles:hover {
-    transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
+.evento-imagen-container-sel {
+    
+    flex: 1;
+    max-width: 50%;
+    overflow: hidden;
 }
 
-.evento-imagen {
+.evento-imagen-sel {
     width: 100%;
-    border-radius: 16px 16px 0 0; /* Bordes redondeados solo en la parte superior */
-    overflow: hidden; /* Asegura que la imagen no sobresalga */
+    height: 100%;
+    object-fit: cover;
 }
 
-.evento-imagen img {
-    width: 100%;
-    height: auto;
-    display: block; /* Para eliminar el espacio debajo de la imagen */
+.evento-info-sel {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
 }
 
-.evento-info {
-    text-align: center;
-    padding: 20px; /* Espaciado adicional entre la imagen y la información */
-}
-
-.evento-nombre {
-    font-size: 2.5rem; /* Tamaño de fuente más grande */
-    margin: 10px 0;
+.evento-nombre-sel {
+    font-size: 24px;
+    margin-bottom: 10px;
     color: #333;
 }
 
-.evento-fecha-hora {
-    font-size: 1.2rem;
-    color: #666;
-    margin: 5px 0; /* Espaciado consistente */
+.evento-fecha-sel,
+.evento-hora-sel,
+.evento-lugar-sel,
+.evento-tipo-sel,
+.evento-ciudad-sel {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #555;
 }
 
-.evento-lugar,
-.evento-tipo,
-.evento-ciudad {
-    margin: 5px 0;
-    color: #444;
-    font-weight: 500; /* Mayor peso de fuente para destacar */
-}
-
-.btn-volver {
-    background-color: #007bff; /* Color del botón */
-    color: white;
-    padding: 12px 24px; /* Padding más grande para un botón más atractivo */
+.evento-boton-volver-sel {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 8px; /* Bordes redondeados */
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1.1rem; /* Fuente un poco más grande */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
-    margin-top: 15px; /* Espacio arriba del botón */
+    font-size: 16px;
+    margin-top: 20px;
 }
 
-.btn-volver:hover {
-    background-color: #0056b3; /* Cambio de color al pasar el mouse */
-    transform: scale(1.05); /* Leve aumento de tamaño */
+.evento-boton-volver-sel:hover {
+    background-color: #0056b3;
+}
+.evento-compra-sel {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #eef2f3;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
-.not-found {
-    text-align: center;
-    color: red;
-    font-size: 1.5rem; /* Aumentar el tamaño de texto para eventos no encontrados */
-    margin-top: 20px; /* Espacio superior para separación */
+.evento-cantidad-label-sel {
+    font-size: 16px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.evento-cantidad-input-sel {
+    width: 60px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.evento-metodo-pago-sel {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.evento-boton-comprar-sel {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.evento-boton-comprar-sel:hover {
+    background-color: #218838;
 }
