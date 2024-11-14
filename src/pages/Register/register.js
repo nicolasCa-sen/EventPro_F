@@ -9,12 +9,13 @@ const Register = () => {
     identificacion: '',
     email: '',
     contraseña: '',
+    confirmarContraseña: '',
     fechaNacimiento: '',
     telefono: '',
-    numeroCuenta: '',
   });
 
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,14 +23,72 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { nombre, apellido, email, contraseña } = formData;
+    const { nombre, apellido, identificacion, email, contraseña, confirmarContraseña, fechaNacimiento, telefono } = formData;
 
-    if (!nombre || !apellido || !email || !contraseña) {
+    // Expresiones regulares para validaciones
+    const nombreApellidoRegex = /^[A-Za-zÁ-ÿ\s]+$/;  // Solo letras y espacios
+    const contraseñaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;  // Al menos una mayúscula, una minúscula y un número
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;  // Formato de email válido
+    const numeroRegex = /^\d+$/;  // Solo números
+
+    // Validación de edad (mínimo 15 años)
+    const edad = new Date().getFullYear() - new Date(fechaNacimiento).getFullYear();
+
+    // Validar campos
+    if (!nombre || !apellido || !email || !contraseña || !confirmarContraseña || !fechaNacimiento || !telefono || !identificacion) {
       setError('Por favor completa todos los campos obligatorios.');
+    } else if (!nombreApellidoRegex.test(nombre) || !nombreApellidoRegex.test(apellido)) {
+      setError('El nombre y apellido solo pueden contener letras.');
+    } else if (!contraseñaRegex.test(contraseña)) {
+      setError('La contraseña debe contener al menos una mayúscula, una minúscula y un número.');
+    } else if (contraseña !== confirmarContraseña) {
+      setError('Las contraseñas no coinciden.');
+    } else if (!emailRegex.test(email)) {
+      setError('Por favor ingresa un correo electrónico válido.');
+    } else if (edad < 15) {
+      setError('Debes tener al menos 15 años para registrarte.');
+    } else if (!numeroRegex.test(identificacion)) {
+      setError('La identificación debe contener solo números.');
+    } else if (!numeroRegex.test(telefono)) {
+      setError('El teléfono debe contener solo números.');
     } else {
       setError('');
-      console.log('Registro exitoso:', formData);
-      // Aquí iría la lógica para enviar la información a la API o backend.
+      
+      // Enviar los datos al servidor simulado (json-server)
+      fetch('http://localhost:5000/usuarios', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data) {
+            setSuccessMessage('Registro exitoso');
+            console.log('Registro exitoso:', formData);
+
+            // Guardar solo el último usuario en usuarioNuevo.json con PUT
+            fetch('http://localhost:5000/usuarioNuevo', {  // Asegúrate de que usuarioNuevo tiene un id fijo en db.json
+              method: 'PUT', // Cambiado a PUT para sobrescribir usuarioNuevo
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
+            })
+              .then(response => response.json())
+              .then(() => {
+                console.log('Último usuario guardado en usuarioNuevo.json');
+              })
+              .catch((error) => {
+                console.error('Error al guardar el último usuario:', error);
+              });
+          }
+        })
+        .catch((error) => {
+          console.error('Error al registrar:', error);
+          setError('Hubo un error al registrar los datos');
+        });
     }
   };
 
@@ -43,6 +102,7 @@ const Register = () => {
       >
         <h2 className="h2-reg">Registro</h2>
         {error && <p className="error-reg">{error}</p>}
+        {successMessage && <p className="success-reg">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-grid-reg">
             <div className="input-group-reg">
@@ -96,6 +156,16 @@ const Register = () => {
               />
             </div>
             <div className="input-group-reg">
+              <label>Confirmar Contraseña</label>
+              <input
+                type="password"
+                name="confirmarContraseña"
+                value={formData.confirmarContraseña}
+                onChange={handleChange}
+                placeholder="Confirma tu contraseña"
+              />
+            </div>
+            <div className="input-group-reg">
               <label>Fecha de Nacimiento</label>
               <input
                 type="date"
@@ -112,16 +182,6 @@ const Register = () => {
                 value={formData.telefono}
                 onChange={handleChange}
                 placeholder="Ingresa tu teléfono"
-              />
-            </div>
-            <div className="input-group-reg">
-              <label>Número de Cuenta</label>
-              <input
-                type="text"
-                name="numeroCuenta"
-                value={formData.numeroCuenta}
-                onChange={handleChange}
-                placeholder="Ingresa tu número de cuenta"
               />
             </div>
           </div>

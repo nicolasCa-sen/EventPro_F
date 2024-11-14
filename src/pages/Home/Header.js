@@ -43,6 +43,17 @@ const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
         navigate('/'); // Redirige al inicio después de cerrar sesión
     };
 
+    // Lógica para redirigir según el rol del usuario
+    const handleProfileClick = () => {
+        if (user.role === 'Administrador') {
+            navigate('/admin');
+        } else if (user.role === 'Organizador') {
+            navigate('/org');
+        } else {
+            navigate('/profile');
+        }
+    };
+
     return (
         <header className={`header-head-menu ${isDarkMode ? 'dark-head-menu' : 'light-head-menu'}`}>
             <div className="header-left-head-menu">
@@ -69,13 +80,12 @@ const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
                     TODOS
                 </button>
                 <div className="user-section-head-menu">
-                    {/* Si el usuario está logueado, mostramos su correo y botones de "Perfil" y "Cerrar sesión" */}
                     {user ? (
                         <>
                             <span className="user-email-head-menu">{user.email}</span>
                             <button 
                                 className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
-                                onClick={() => navigate('/profile')}
+                                onClick={handleProfileClick}
                             >
                                 Perfil
                             </button>

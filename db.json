@@ -1,0 +1,26 @@
+{
+  "usuarios": [
+    {
+      "id": "45f4",
+      "nombre": "Henr",
+      "apellido": "Arevalo",
+      "identificacion": "1057571304",
+      "email": "henry.arevalo@uptc.edu.co",
+      "contraseña": "Aa1234",
+      "confirmarContraseña": "Aa1234",
+      "fechaNacimiento": "2008-03-13",
+      "telefono": "3102779862"
+    },
+    {
+      "id": "dee5",
+      "nombre": "Henr",
+      "apellido": "Arevalo",
+      "identificacion": "1057571304",
+      "email": "henry.arevalo@uptc.edu.co",
+      "contraseña": "Aa1234",
+      "confirmarContraseña": "Aa1234",
+      "fechaNacimiento": "2008-03-13",
+      "telefono": "3102779862"
+    }
+  ]
+}

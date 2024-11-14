@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useAuth } from '../../context/AuthContext'; // Asegúrate de que la ruta sea correcta
-import { useNavigate } from 'react-router-dom'; // Importamos useNavigate para redirigir
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import './login.css';
 
 import userImage from '../Images/user.png';
@@ -13,10 +13,10 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
   const [error, setError] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado para manejar el login exitoso
-  const navigate = useNavigate(); // Usamos useNavigate para redirigir
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-  const { login } = useAuth(); // Utilizamos el hook para acceder a la función de login
+  const { login } = useAuth();
 
   const roles = [
     { name: 'Usuario', image: userImage },
@@ -25,64 +25,48 @@ const Login = () => {
   ];
 
   const handleRoleChange = (selectedRole) => {
-    setRole(selectedRole); 
+    setRole(selectedRole);
   };
 
-  // Expresión regular para validar el correo
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-  // Expresión regular para validar la contraseña (mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial)
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario (recarga)
+    e.preventDefault();
     
-    // Validación de correo
     if (!email || !emailRegex.test(email)) {
       setError('Por favor ingresa un correo válido.');
       return;
     }
 
- 
-
-    // Verificar si el rol está seleccionado
     if (!role) {
       setError('Por favor selecciona un rol.');
-      return; // Detener la ejecución si falta algún campo
+      return;
     }
     
-    // Limpiar cualquier mensaje de error
     setError('');
 
-    // Llamar al login con la información del usuario
-    const userInfo = { email, password, role }; // Incluimos también la contraseña
+    const userInfo = { email, password, role };
     console.log('Intentando iniciar sesión con:', userInfo);
 
     try {
-      // Llamada a la función login del contexto
-      const isLoginSuccessful = await login(userInfo); // Esperamos la respuesta del login
+      const isLoginSuccessful = await login(userInfo);
 
       if (isLoginSuccessful) {
-        // Si el login es exitoso, mostramos el mensaje
         setIsLoggedIn(true);
-        setError(''); // Limpiar cualquier mensaje de error
+        setError('');
         
-        // Si el rol es "Administrador", redirigimos a /admin
         if (role === 'Administrador') {
           navigate('/admin');
-        }
-        if (role === 'Usuario') {
-          navigate(-1); // Regresa a la página anterior
-      }
-      
-        if (role === 'Organizador') {
+        } else if (role === 'Usuario') {
+          navigate(-1);
+        } else if (role === 'Organizador') {
           navigate('/Org');
         }
       } else {
         setError('Usuario o rol incorrecto');
       }
     } catch (err) {
-      // En caso de error durante el login
       setError('Hubo un error al intentar iniciar sesión. Intenta de nuevo más tarde.');
       console.error(err);
     }
@@ -93,7 +77,6 @@ const Login = () => {
       <motion.div className="login-container" initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <h2>INICIAR SESIÓN</h2>
         
-        {/* Si el usuario está logueado, mostramos un mensaje de bienvenida */}
         {isLoggedIn && <p className="success-message">¡Has iniciado sesión exitosamente!</p>}
         
         {error && <p className="error">{error}</p>}
@@ -127,6 +110,10 @@ const Login = () => {
           </div>
           <button type="submit">Ingresar</button>
         </form>
+        
+        <p className="register-prompt">
+          ¿No tienes una cuenta? <span className="register-link" onClick={() => navigate('/registro')}>Regístrate Aqui</span>
+        </p>
       </motion.div>
     </div>
   );
