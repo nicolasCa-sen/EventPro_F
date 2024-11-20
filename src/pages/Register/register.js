@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import axios from 'axios';
+import { motion } from 'framer-motion';  // Importa motion
+import bcrypt from 'bcryptjs';  // Importa bcryptjs
 import './register.css';
 
 const Register = () => {
@@ -12,6 +14,7 @@ const Register = () => {
     confirmarContraseña: '',
     fechaNacimiento: '',
     telefono: '',
+    rol: 'Usuario', // Establece el rol de manera fija
   });
 
   const [error, setError] = useState('');
@@ -21,9 +24,9 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { nombre, apellido, identificacion, email, contraseña, confirmarContraseña, fechaNacimiento, telefono } = formData;
+    const { nombre, apellido, identificacion, email, contraseña, confirmarContraseña, fechaNacimiento, telefono, rol } = formData;
 
     // Expresiones regulares para validaciones
     const nombreApellidoRegex = /^[A-Za-zÁ-ÿ\s]+$/;  // Solo letras y espacios
@@ -53,42 +56,37 @@ const Register = () => {
       setError('El teléfono debe contener solo números.');
     } else {
       setError('');
-      
-      // Enviar los datos al servidor simulado (json-server)
-      fetch('http://localhost:5000/usuarios', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data) {
-            setSuccessMessage('Registro exitoso');
-            console.log('Registro exitoso:', formData);
 
-            // Guardar solo el último usuario en usuarioNuevo.json con PUT
-            fetch('http://localhost:5000/usuarioNuevo', {  // Asegúrate de que usuarioNuevo tiene un id fijo en db.json
-              method: 'PUT', // Cambiado a PUT para sobrescribir usuarioNuevo
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(formData),
-            })
-              .then(response => response.json())
-              .then(() => {
-                console.log('Último usuario guardado en usuarioNuevo.json');
-              })
-              .catch((error) => {
-                console.error('Error al guardar el último usuario:', error);
-              });
-          }
-        })
-        .catch((error) => {
-          console.error('Error al registrar:', error);
-          setError('Hubo un error al registrar los datos');
+      // Encriptar la contraseña antes de enviarla
+      try {
+        const hashedPassword = await bcrypt.hash(contraseña, 10);  // Encriptamos la contraseña con bcrypt
+        const updatedFormData = { 
+          id: null, // Este campo generalmente lo maneja la base de datos, por lo que lo dejamos como null
+          nombre,
+          apellido,
+          identificacion,
+          rol,  // 'Usuario'
+          email,
+          contraseña: hashedPassword,
+          telefono,
+          fecha_nacimiento: fechaNacimiento,
+          numero_cuenta: null,  // Si no se necesita, lo establecemos en null
+          numero_credencial: null,  // Igualmente en null
+          id_organizacion: null  // En null si no es relevante
+        };
+
+        const response = await axios.post('http://localhost:4000/usuario/', updatedFormData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
+
+        setSuccessMessage('Registro exitoso');
+        console.log('Registro exitoso:', response.data);
+      } catch (error) {
+        console.error('Error al registrar:', error);
+        setError(error.response?.data?.error || 'Hubo un error al registrar los datos');
+      }
     }
   };
 
