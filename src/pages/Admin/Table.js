@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -6,33 +6,17 @@ import UpdateEventModal from './UpdateEventModal';
 import './Table.css';
 
 const Table = () => {
-  const [datos, setDatos] = useState([
-    {
-      id: 1,
-      nombre: 'Evento 1',
-      descripcion: 'Descripción del Evento 1',
-      fechaInicio: '2024-10-20',
-      fechaFin: '2024-10-22',
-      imagen: 'https://via.placeholder.com/100',
-      activo: 'Sí',
-      vendido: 'No',
-      idLugar: 1,
-    },
-    {
-      id: 2,
-      nombre: 'Evento 2',
-      descripcion: 'Descripción del Evento 2',
-      fechaInicio: '2024-11-01',
-      fechaFin: '2024-11-05',
-      imagen: 'https://via.placeholder.com/100',
-      activo: 'Sí',
-      vendido: 'No',
-      idLugar: 2,
-    },
-  ]);
-
+  const [datos, setDatos] = useState([]);
   const [selectedEvento, setSelectedEvento] = useState(null); // Guardar el evento seleccionado
   const [showUpdateModal, setShowUpdateModal] = useState(false); // Controlar la visibilidad del modal
+
+  // Cargar los datos desde la API al montar el componente
+  useEffect(() => {
+    fetch('http://localhost:4000/evento')
+      .then((response) => response.json()) // Convertir la respuesta a formato JSON
+      .then((data) => setDatos(data.data)) // Acceder a la propiedad "data" que contiene los eventos
+      .catch((error) => console.error('Error al cargar los datos:', error)); // Manejo de errores
+  }, []); // Este efecto se ejecuta solo una vez cuando el componente se monta
 
   const eliminarEvento = (id) => {
     setDatos(datos.filter((evento) => evento.id !== id));
@@ -83,14 +67,14 @@ const Table = () => {
               <td>{evento.id}</td>
               <td>{evento.nombre}</td>
               <td>{evento.descripcion}</td>
-              <td>{evento.fechaInicio}</td>
-              <td>{evento.fechaFin}</td>
+              <td>{evento.fecha_inicio}</td>
+              <td>{evento.fecha_fin}</td>
               <td>
-                <img src={evento.imagen} alt={evento.nombre} width="50" />
+                <img src={evento.imagen_principal} alt={evento.nombre} width="50" />
               </td>
-              <td>{evento.activo}</td>
-              <td>{evento.vendido}</td>
-              <td>{evento.idLugar}</td>
+              <td>{evento.activo ? 'Sí' : 'No'}</td>
+              <td>{evento.vendido ? 'Sí' : 'No'}</td>
+              <td>{evento.id_lugar}</td>
               <td>
                 <button
                   className="icon-btn actualizar-btn"

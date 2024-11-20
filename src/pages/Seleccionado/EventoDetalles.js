@@ -2,129 +2,46 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; 
 import './EventoDetalles.css'; 
 import Header from '../Home/Header';
-
-const eventos = [
-    {
-        id: 1,
-        nombre: 'Concierto de Rock',
-        fecha: '28 octubre 2024',
-        hora: '6:00pm',
-        lugar: 'Auditorio',
-        tipo: 'Concierto',
-        ciudad: 'Carranga',
-        imagen: 'https://images.pexels.com/photos/2893330/pexels-photo-2893330.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-        id: 2,
-        nombre: 'Obra de Teatro: La Casa de Bernarda Alba',
-        fecha: '5 noviembre 2024',
-        hora: '8:00pm',
-        lugar: 'Teatro Municipal',
-        tipo: 'Teatro',
-        ciudad: 'Carranga',
-        imagen: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-        id: 3,
-        nombre: 'Partido de Fútbol: Local vs Visitante',
-        fecha: '10 noviembre 2024',
-        hora: '4:00pm',
-        lugar: 'Estadio Central',
-        tipo: 'Cultura',
-        ciudad: 'Carranga',
-        imagen: 'https://images.pexels.com/photos/3813798/pexels-photo-3813798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-        id: 4,
-        nombre: 'Festival de Jazz',
-        fecha: '15 noviembre 2024',
-        hora: '7:00pm',
-        lugar: 'Plaza Principal',
-        tipo: 'Concierto',
-        ciudad: 'Carranga',
-        imagen: 'https://images.pexels.com/photos/3763994/pexels-photo-3763994.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-        id: 5,
-        nombre: 'Cine: Estreno de Película',
-        fecha: '20 noviembre 2024',
-        hora: '9:00pm',
-        lugar: 'Cine Carranga',
-        tipo: 'Cine',
-        ciudad: 'Carranga',
-        imagen: 'https://images.pexels.com/photos/1039433/pexels-photo-1039433.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-        id: 6,
-        nombre: 'Maratón de Lectura',
-        fecha: '25 noviembre 2024',
-        hora: '10:00am',
-        lugar: 'Biblioteca Municipal',
-        tipo: 'Literario',
-        ciudad: 'Carranga',
-        imagen: 'https://images.pexels.com/photos/3019184/pexels-photo-3019184.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-        id: 7,
-        nombre: 'Competencia de Danza',
-        fecha: '30 noviembre 2024',
-        hora: '5:00pm',
-        lugar: 'Centro Cultural',
-        tipo: 'Cultura',
-        ciudad: 'Carranga',
-        imagen: 'https://images.pexels.com/photos/1704124/pexels-photo-1704124.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-        id: 8,
-        nombre: 'Exposición de Arte Contemporáneo',
-        fecha: '5 diciembre 2024',
-        hora: '6:00pm',
-        lugar: 'Museo de Arte',
-        tipo: 'Cultura',
-        ciudad: 'Carranga',
-        imagen: 'https://images.pexels.com/photos/1048279/pexels-photo-1048279.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-        id: 9,
-        nombre: 'Conferencia sobre Tecnología',
-        fecha: '10 diciembre 2024',
-        hora: '3:00pm',
-        lugar: 'Auditorio Tecnológico',
-        tipo: 'Conferencia',
-        ciudad: 'Carranga',
-        imagen: 'https://images.pexels.com/photos/3184392/pexels-photo-3184392.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-        id: 10,
-        nombre: 'Fiesta de Fin de Año',
-        fecha: '31 diciembre 2024',
-        hora: '10:00pm',
-        lugar: 'Club Social',
-        tipo: 'Fiesta',
-        ciudad: 'Carranga',
-        imagen: 'https://images.pexels.com/photos/1988899/pexels-photo-1988899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-        id: 11,
-        nombre: 'Taller de Fotografía',
-        fecha: '15 diciembre 2024',
-        hora: '1:00pm',
-        lugar: 'Centro Cultural',
-        tipo: 'Taller',
-        ciudad: 'Carranga',
-        imagen: 'https://images.pexels.com/photos/1029597/pexels-photo-1029597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-];
-
+import Error from '../Error/Error'; // Asegúrate de importar el componente de error
 
 const EventoDetalles = () => {
-    const { id } = useParams();
+    const { id } = useParams(); // Obtiene el ID de los parámetros de la URL
     const navigate = useNavigate(); 
-    const evento = eventos.find(e => e.id === parseInt(id));
+    const [evento, setEvento] = useState(null); // Estado para el evento actual
     const [cantidadEntradas, setCantidadEntradas] = useState(1);
     const [isAuthenticated, setIsAuthenticated] = useState(false); // Estado de autenticación
+    const [loading, setLoading] = useState(true); // Indica si se está cargando
 
-    // Verifica si el usuario está logueado (esto puede venir del contexto, localStorage, etc.)
+    // Carga el evento desde el servidor
+    useEffect(() => {
+        const fetchEvento = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`http://localhost:4000/evento`);
+                if (!response.ok) {
+                    throw new Error('Error al obtener el evento');
+                }
+                const data = await response.json();
+                
+                // Filtra los eventos para encontrar el evento con el ID correcto
+                const eventoEncontrado = data.data.find(event => event.id === id);
+                
+                if (eventoEncontrado) {
+                    setEvento(eventoEncontrado);
+                } else {
+                    navigate("/error"); // Redirige al usuario a la página de error si no se encuentra el evento
+                }
+            } catch (err) {
+                console.log(err.message); // Solo loguea el error sin cambiar el estado
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEvento();
+    }, [id, navigate]);
+
+    // Verifica si el usuario está logueado
     useEffect(() => {
         const user = localStorage.getItem('user'); // Suponiendo que se guarda el usuario en localStorage
         if (user) {
@@ -132,9 +49,25 @@ const EventoDetalles = () => {
         }
     }, []);
 
-    if (!evento) {
-        return <h2 className="evento-no-encontrado-sel">Evento no encontrado</h2>;
+    if (loading) {
+        return (
+          <div id="load">
+            <div>G</div>
+            <div>N</div>
+            <div>I</div>
+            <div>D</div>
+            <div>A</div>
+            <div>O</div>
+            <div>L</div>
+          </div>
+        );
     }
+
+    // Convertir la fecha ISO a formato legible
+    const formatoFecha = (fecha) => {
+        const opciones = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return new Date(fecha).toLocaleString('es-ES', opciones);
+    };
 
     const handleCompra = () => {
         alert(`Has comprado ${cantidadEntradas} entradas usando PSE. ¡Gracias por tu compra!`);
@@ -145,16 +78,22 @@ const EventoDetalles = () => {
             <div className='evento-detalles-sel3'>
                 <div className="evento-detalles-sel">
                     <div className="evento-imagen-container-sel">
-                        <img className="evento-imagen-sel" src={evento.imagen} alt={evento.nombre} />
+                        <img className="evento-imagen-sel" src={evento.imagen_principal} alt={evento.nombre} />
                     </div>
                     <div className="evento-info-sel">
                         <h1 className="evento-nombre-sel">{evento.nombre}</h1>
-                        <p className="evento-fecha-sel">Fecha: {evento.fecha}</p>
-                        <p className="evento-hora-sel">Hora: {evento.hora}</p>
-                        <p className="evento-lugar-sel">Lugar: {evento.lugar}</p>
-                        <p className="evento-tipo-sel">Tipo: {evento.tipo}</p>
-                        <p className="evento-ciudad-sel">Ciudad: {evento.ciudad}</p>
+                        <p className="evento-fecha-sel">Fecha: {formatoFecha(evento.fecha_inicio)}</p>
+                        <p className="evento-hora-sel">Hora: {formatoFecha(evento.fecha_inicio).split(',')[1]}</p>
+                        <p className="evento-lugar-sel">Lugar: {evento.id_lugar}</p>
+                        <p className="evento-tipo-sel">Tipo: {evento.categoria}</p>
+                        <p className="evento-ciudad-sel">Ciudad: {evento.id_ciudad}</p>
                         
+                        {/* Descripción del evento */}
+                        <div className="evento-descripcion-sel">
+                            <h3>Descripción</h3>
+                            <p>{evento.descripcion}</p>
+                        </div>
+
                         <div className="evento-compra-sel">
                             <label htmlFor="cantidad" className="evento-cantidad-label-sel">Cantidad de Entradas:</label>
                             <input 
@@ -190,4 +129,3 @@ const EventoDetalles = () => {
 };
 
 export default EventoDetalles;
-

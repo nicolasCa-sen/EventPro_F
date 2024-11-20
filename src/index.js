@@ -13,6 +13,7 @@ import EventoDetalles from './pages/Seleccionado/EventoDetalles';
 import { AuthProvider } from './context/AuthContext';
 import { LoadingProvider } from './context/LoadingContext'; // Importa el LoadingProvider
 import LoadingOverlay from './LoadingOverlay/LoadingOverlay'; // Importa el componente de carga
+import Org from './pages/Organizador/Org'; // Importa el componente de carga
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -30,6 +31,8 @@ root.render(
             <Route path="/registro" element={<Register />} />
             <Route path="/evento/:id" element={<EventoDetalles />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/error" element={<Error />} />
+            <Route path="/org" element={<Org />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </Router>

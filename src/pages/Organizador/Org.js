@@ -1,14 +1,14 @@
-import './Admin.css';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../Images/logo.png';
-import userImage from '../Images/admin.png';
-import Tabla from './Table';
-import AddEventModal from './AddEventModal'; // Asegúrate de importar el modal
-import UpdateEventModal from './UpdateEventModal'; // Modal para actualizar eventos
-import { useAuth } from '../../context/AuthContext';  // Asegúrate de importar el contexto de autenticación
+import logo from '../Images/logo.png';  // Asegúrate de que esta imagen exista en el path correcto
+import userImage from '../Images/admin.png';  // Asegúrate de que esta imagen exista en el path correcto
+import { useAuth } from '../../context/AuthContext';  // Contexto de autenticación
+import './Org.css';
+// Si no usas los modales, elimina estas importaciones
+ import AddEventModal from './AddEventModal';
+ import UpdateEventModal from './UpdateEventModal';
 
-function Admin() {
+function Org() {
   const [menuOpen, setMenuOpen] = useState(false); // Estado para manejar el menú
   const [modalAbierto, setModalAbierto] = useState(false); // Estado para el modal de agregar
   const [modalActualizarAbierto, setModalActualizarAbierto] = useState(false); // Estado para el modal de actualizar
@@ -49,35 +49,35 @@ function Admin() {
   };
 
   return (
-    <div className="admin-container">
-      <div className="static-header1">
-        <button className="menu-button" onClick={toggleMenu}>
-          &#9776;
-        </button>
-        <div className={`header-buttons ${menuOpen ? 'open' : ''}`}>
-          <button className="header-button-admin">Informes</button>
-          <button className="header-button-admin">Eventos</button>
-          <button className="header-button-admin">Usuarios</button>
-          <button className="header-button-admin">Organizadores</button>
-          <img src={userImage} alt="Usuario" className="user-image" />
-        </div>
-      </div>
+    <div className="org-container-org">
+      <div className="static-header1-org">
+  <div className="header-buttons-org">
+    <button className="header-button-org">Informes</button>
+    <button className="header-button-org">Eventos</button>
+    <button className="header-button-org">Usuarios</button>
+    <button className="header-button-org">Organizadores</button>
+  </div>
+  <img src={userImage} alt="Usuario" className="user-image-org" />
+</div>
 
-      <header className="Admin-header1">
-        <div className='filtre'>
-          <select className="selector">
+
+      <header className="Org-header1-org">
+        <div className='filtre-org'>
+          <select className="selector-org">
             <option>Filtrar por</option>
           </select>
-          <input type="text" className="input-text" placeholder="Buscar evento..." />
-          <button className="buscar-btn">Buscar</button>
-          <button className="añadir-btn" onClick={() => setModalAbierto(true)}>Añadir evento</button>
+          <input type="text" className="input-text-org" placeholder="Buscar evento..." />
+          <button className="buscar-btn-org">Buscar</button>
+          <button className="añadir-btn-org" onClick={() => setModalAbierto(true)}>Añadir evento</button>
         </div>
       </header>
-      <body className='Admin-body'>
-        <Tabla onEdit={abrirModalActualizar} /> {/* Pasa la función para editar eventos */}
+      <body className='Org-body-org'>
+        {/* Aquí puedes agregar la Tabla si es necesario */}
       </body>
 
+      {/* Solo muestra los modales si los componentes están importados */}
       {modalAbierto && (
+        // Si no importaste AddEventModal, elimínalo aquí
         <AddEventModal 
           onClose={() => setModalAbierto(false)} 
           onAdd={manejarAgregarEvento} 
@@ -85,6 +85,7 @@ function Admin() {
       )}
 
       {modalActualizarAbierto && eventoActual && (
+        // Si no importaste UpdateEventModal, elimínalo aquí
         <UpdateEventModal 
           evento={eventoActual} 
           onClose={() => setModalActualizarAbierto(false)} 
@@ -95,4 +96,4 @@ function Admin() {
   );
 }
 
-export default Admin;
+export default Org;

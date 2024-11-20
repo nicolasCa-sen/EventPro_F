@@ -1,40 +1,31 @@
-.static-header1 {
+.static-header1-org {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    position: relative; /* Cambié a relative para evitar problemas con el overlay */
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #d2e8e3;
-    color: rgb(0, 0, 0);
-    padding: 10px 20px;
-    z-index: 1000; /* Mantiene el z-index más alto que Admin-header1 */
-    box-shadow: 0 2px 40px rgba(0, 0, 0, 0.2);
-    flex-wrap: wrap;
-}
+    justify-content: flex-end; /* Espacio entre los botones e imagen */
+    align-items: center; /* Centra los elementos verticalmente */
+    padding: 10px;
+    background-color: #f8f9fa; /* Color de fondo opcional */
+  }
+  
+  .header-buttons-org {
+    display: flex;
+    gap: 15px; /* Espaciado entre botones */
+  }
+  
+  .user-image-org {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Hace que la imagen sea circular */
+  }
+  
 
-.header-button-admin {
-    background: none;
-    border: none;
-    color: rgb(0, 0, 0);
-    font-size: 1rem;
-    margin-right: 20px;
-    cursor: pointer;
-    padding: 10px 15px;
-    transition: background-color 0.3s ease;
-}
-
-.header-button-admin:hover {
+.header-button-org:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.Admin-header1 {
+.Org-header1-org {
     display: flex;
-    
     align-items: center;
     justify-content: center; /* Centra los elementos horizontalmente */
-    
     left: 0;
     right: 0;
     background-color: transparent;
@@ -42,19 +33,17 @@
     padding: 10px 20px;
     z-index: 999; /* Cambié el z-index para que esté detrás del header estático */
     transform: translatez(100px); /* Desplaza hacia abajo 100px */
-   
 }
 
-.filtre {
-    
+.filtre-org {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
 }
 
-.selector, 
-.input-text {
+.selector-org, 
+.input-text-org {
     background-color: #e0e0e0;
     border-radius: 10px;
     box-shadow: inset 4px 4px 10px #bcbcbc, inset -4px -4px 10px #ffffff;
@@ -68,8 +57,8 @@
     width: 40%; /* Ocupa todo el espacio disponible dentro del contenedor */
 }
 
-.buscar-btn, 
-.añadir-btn {
+.buscar-btn-org, 
+.añadir-btn-org {
     font-family: inherit;
     font-size: 16px; /* Alinea con el texto de inputs */
     background: linear-gradient(to bottom, #4dc7d9 0%, #66a6ff 100%);
@@ -86,43 +75,43 @@
     transition: all 0.3s;
 }
 
-.añadir-btn {
+.añadir-btn-org {
     margin-left: 10px; /* Espacio entre los botones */
 }
 
-.buscar-btn:hover, 
-.añadir-btn:hover {
+.buscar-btn-org:hover, 
+.añadir-btn-org:hover {
     transform: translateY(-3px);
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Media Queries para pantallas pequeñas */
 @media (max-width: 768px) {
-    .filtre {
+    .filtre-org {
         width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
         flex-direction: column; /* Cambia a columna para mejor visualización */
         gap: 15px;
     }
 
-    .selector, 
-    .input-text {
+    .selector-org, 
+    .input-text-org {
         width: 80%; /* Ocupan el 80% del ancho de la pantalla */
     }
 
-    .buscar-btn, 
-    .añadir-btn {
+    .buscar-btn-org, 
+    .añadir-btn-org {
         width: 100%; /* Botones ocupan el ancho completo en pantallas pequeñas */
         margin: 5px 0; /* Espacio entre botones */
     }
 
-    .filtre button {
+    .filtre-org button {
         display: block; /* Asegura que los botones se muestren uno debajo del otro */
         width: 100%; /* Botones ocupan todo el ancho en pantallas pequeñas */
     }
 }
-.admin-body {
-    margin-top: 200px; /* Esto asegura que empiece justo después del Admin-header1 */
+
+.org-body-org {
+    margin-top: 200px; /* Esto asegura que empiece justo después del Org-header1 */
     padding: 20px; /* Espaciado interno opcional */
     background-color: #f8f9fa; /* Color de fondo opcional */
 }
-

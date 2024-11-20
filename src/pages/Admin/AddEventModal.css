@@ -1,204 +1,154 @@
-
-.modal-overlay {
-  position:absolute;
-  border-radius: 30px;
- 
-  background: #d2e8e3;
-  box-shadow:  -20px 20px 60px #bcbcbc,
-               20px -20px 60px #bcbcbc;
+.modal-overlay-add {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  background: #f9fcfc; /* Color más claro para mayor suavidad */
+  box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.1), 10px -10px 30px rgba(255, 255, 255, 0.8);
   padding: 40px;
-  margin: 20px;
-  width: 60%;
+  width: 90%; /* Más responsivo */
+  max-width: 600px; /* Límite para pantallas grandes */
   text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  margin-top: -100px;
-  margin-left: 20%;
-  margin-right: 20%;
   z-index: 1000;
 }
 
-.modal-content {
-  margin-top: 5px;
-  margin-left: 20%;
-  margin-right: 20%; 
+.modal-content-add {
   background: transparent;
   padding: 20px;
-  border-radius: 5px;
-  width: auto;
-  height: 500px;
+  border-radius: 10px;
+  max-height: 70vh; /* Mejor para pantallas pequeñas */
+  overflow-y: auto;
 }
 
-.modal-content p:first-child {
-margin: 0 0 30px;
-padding: 0;
-color: #000000;
-text-align: center;
-font-size: 1.5rem;
-font-weight: bold;
-letter-spacing: 1px;
+.modal-content-add p:first-child {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #2c3e50;
 }
 
-/* Ajuste mínimo del contenedor de input */
-.modal-content .user-box {
-position: relative;
-margin-bottom: 20px;
+.user-box-add {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
 }
-.modal-content .user-box select{
-  width: 60%;
-  margin-left: 40%;
-  padding: 5px 0; /* Ajuste para mejor alineación */
+
+.user-box-add input,
+.user-box-add select {
+  width: 100%;
+  padding: 10px;
   font-size: 16px;
   border: none;
-  border-bottom: 1px solid #000000;
+  border-bottom: 2px solid #ccc;
   outline: none;
   background: transparent;
-  color: #272727;
-  }
-  
-
-/* Ajuste de los inputs para alineación precisa */
-.modal-content .user-box input {
-width: 100%;
-padding: 5px 0; /* Ajuste para mejor alineación */
-font-size: 16px;
-border: none;
-border-bottom: 1px solid #000000;
-outline: none;
-background: transparent;
-color: #272727;
+  color: #34495e;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-/* Ajuste ligero en los labels */
-.modal-content .user-box label {
-position: absolute;
-top: 5px; /* Cambié esto para que el label quede mejor alineado */
-left: 0;
-font-size: 16px;
-color: #000000;
-pointer-events: none;
-transition: 0.3s; /* Un toque más rápido en la transición */
+.user-box-add input:focus,
+.user-box-add select:focus {
+  border-bottom-color: #4dc7d9;
+  background-color: #f1f8f9; /* Mejora la accesibilidad visual */
 }
 
-/* Mover label hacia arriba en focus */
-.modal-content .user-box input:focus ~ label,
-.modal-content .user-box input:not(:placeholder-shown) ~ label {
-top: -15px;
-font-size: 12px;
-color: #000000;
+.user-box-add label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+  color: #7f8c8d;
+  pointer-events: none;
+  transition: all 0.3s ease;
 }
 
-/* Alineación horizontal de los botones */
-.modal-content .button-container {
-display: flex;
-justify-content: space-between;
-margin-top: 15px; /* Ajuste menor */
+.user-box-add input:focus ~ label,
+.user-box-add input:not(:placeholder-shown) ~ label,
+.user-box-add select:focus ~ label {
+  top: -10px;
+  font-size: 12px;
+  color: #4dc7d9;
 }
 
-.modal-content form a {
-  position: relative;
+.image-upload-box-add {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.image-upload-box-add:hover {
+  background-color: #f4fbfb;
+  border-color: #4dc7d9;
+}
+
+.image-upload-box-add p {
+  margin: 0;
+  color: #7f8c8d;
+}
+
+.image-preview-add {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.image-preview-add img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-container-add {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.modal-content-add button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: #4dc7d9;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.modal-content-add button:hover {
+  background-color: #3baac4;
+  transform: scale(1.05);
+}
+
+.modal-content-add .btn-close-add {
+  background-color: #ff6b6b;
+}
+
+.modal-content-add .btn-close-add:hover {
+  background-color: #e55555;
+}
+
+.modal-content-add a {
   display: inline-block;
   padding: 10px 20px;
   font-weight: bold;
-  color: #000000;
+  color: #fff;
   font-size: 16px;
   text-decoration: none;
-  text-transform: uppercase;
-  overflow: hidden;
-  transition: 0.5s;
-  margin-top: 40px;
-  letter-spacing: 3px;
-  margin-left: 20px;;
-}
-
-/* Efecto hover: fondo degradado y borde redondeado */
-.modal-content a:hover {
-  background: linear-gradient(to bottom, #4dc7d9 0%, #66a6ff 100%);
-  color: #272727;
+  background: linear-gradient(to right, #4dc7d9, #66a6ff);
   border-radius: 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Estilo y animación para los spans que simulan bordes móviles */
-.modal-content a span {
-  position: absolute;
-  display: block;
-}
-
-/* Borde superior que se mueve de izquierda a derecha */
-.modal-content a span:nth-child(1) {
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #c7f2ff);
-  animation: btn-anim1 1.5s linear infinite;
-}
-
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-  50%, 100% {
-    left: 100%;
-  }
-}
-
-/* Borde derecho que se mueve de arriba hacia abajo */
-.modal-content a span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #c7f2ff);
-  animation: btn-anim2 1.5s linear infinite;
-  animation-delay: 0.375s;
-}
-
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-  50%, 100% {
-    top: 100%;
-  }
-}
-
-/* Borde inferior que se mueve de derecha a izquierda */
-.modal-content a span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #c7f2ff);
-  animation: btn-anim3 1.5s linear infinite;
-  animation-delay: 0.75s;
-}
-
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-  50%, 100% {
-    right: 100%;
-  }
-}
-
-/* Borde izquierdo que se mueve de abajo hacia arriba */
-.modal-content a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #c7f2ff);
-  animation: btn-anim4 1.5s linear infinite;
-  animation-delay: 1.125s;
-}
-
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-  50%, 100% {
-    bottom: 100%;
-  }
+.modal-content-add a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }

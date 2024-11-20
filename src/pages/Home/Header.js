@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
 import sinuserImage from '../Images/sinuser.png';
 import logo from '../Images/logo.png';
@@ -10,6 +10,7 @@ const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
     const [isDarkMode, setIsDarkMode] = useState(true);
     const { user, logout } = useAuth();  // Obtén el usuario y la función logout desde el contexto
     const navigate = useNavigate();
+    const location = useLocation();  // Obtener la ubicación actual de la ruta
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -61,24 +62,16 @@ const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
                 <span className="web-name-head-menu">EvenT Proo</span>
             </div>
             <nav className={`header-buttons-head-menu ${isMenuOpen ? 'open-head-menu' : ''} ${isDarkMode ? 'dark-nav-head-menu' : 'light-nav-head-menu'}`}>
-                <button 
-                    className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
-                    onClick={handleInicioClick}
-                >
-                    INICIO
-                </button>
-                <button 
-                    className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
-                    onClick={handleCarruselClick}
-                >
-                    PRÓXIMOS EVENTOS
-                </button>
-                <button 
-                    className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
-                    onClick={handleEventosClick}
-                >
-                    TODOS
-                </button>
+                {/* Mostrar el botón de INICIO solo si no estamos en la página de inicio */}
+                {location.pathname !== '/' && (
+                    <button 
+                        className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+                        onClick={handleInicioClick}
+                    >
+                        INICIO
+                    </button>
+                )}
+                
                 <div className="user-section-head-menu">
                     {user ? (
                         <>

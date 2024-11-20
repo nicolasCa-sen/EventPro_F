@@ -15,9 +15,7 @@ function Home() {
 
     // Crear una referencia al carrusel
     const carruselRef = useRef(null);
-
     const eventosRef = useRef(null);
-
     const inicioRef = useRef(null);
 
     const goToApp = () => {
@@ -45,30 +43,38 @@ function Home() {
             inicioRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
     return (
-        <div className="Home"ref={inicioRef}>
-            {/* Pasamos la función scrollToCarrusel al Header 
-           <Header scrollToCarrusel={scrollToCarrusel} scrollToEventos={scrollToEventos}scrollToInicio={scrollToInicio}/>
-*/}
+        <div className="Home" ref={inicioRef}>
+            {/* Pasamos la función scrollToCarrusel al Header */}
             <Inicio />
 
             {/* Cuerpo principal de Home */}
             <div className="Home-body-carrucel">
                 <br />
-                
+
+                {/* Título que al hacer clic se desplazará a la sección de "Próximos Eventos" */}
+                <div onClick={scrollToCarrusel} className="titles clickable">
+                    
+                </div>
+                <br />
+
                 {/* CARRUSEL */}
                 <div ref={carruselRef}>
-                <h1 className="titles">Próximos Eventos</h1>
-                <br />
                     <Carrusel />
                 </div>
                 <br />
             </div>
+
+            {/* Sección de Eventos */}
             <div className="Home-body-events">
-                <br />  
+                <br />
+                {/* Título que al hacer clic se desplazará a la sección de Eventos */}
+              
+                <br />
+
                 <div ref={eventosRef}>
-               
-                <Eventos />
+                    <Eventos />
                 </div>
                 <br />
             </div>
