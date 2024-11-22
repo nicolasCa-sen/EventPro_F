@@ -70,7 +70,14 @@ const Table = () => {
               <td>{evento.fecha_inicio}</td>
               <td>{evento.fecha_fin}</td>
               <td>
-                <img src={evento.imagen_principal} alt={evento.nombre} width="50" />
+              <td>
+  <img 
+    src={`http://localhost:4000${evento.imagen_principal}`} 
+    alt={evento.nombre} 
+    width="50" 
+  />
+</td>
+
               </td>
               <td>{evento.activo ? 'Sí' : 'No'}</td>
               <td>{evento.vendido ? 'Sí' : 'No'}</td>

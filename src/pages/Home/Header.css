@@ -22,8 +22,10 @@
 
 .header-head-menu.light-head-menu .header-button-head-menu,
 .header-head-menu.light-head-menu .login-button-head-menu {
-    color: #000000; /* Color de texto en modo claro */
-    background-color: transparent;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f0f0f0
 }
 
 .header-head-menu.light-head-menu .header-button-head-menu:hover {
@@ -90,9 +92,9 @@
 /* Sección de usuario */
 .user-section-head-menu {
     display: flex;
-    align-items: center;
-    margin-right: 30px;
-    width: 90%;
+    align-items: center; /* Centra verticalmente los elementos */
+    justify-content: flex-start; /* Alinea los elementos a la izquierda */
+    gap: 10px; /* Espacio entre los elementos */
 }
 
 .user-icon-head-menu {
@@ -118,6 +120,16 @@
 
 /* Estilos para pantallas pequeñas */
 @media (max-width: 768px) {
+    .user-section-head-menu {
+        flex-direction: column; /* Establece una dirección de columna */
+        align-items: stretch; /* Los botones se estiran para ocupar todo el ancho */
+    }
+
+    /* Opcional: Cambiar el tamaño o el espaciado de los botones */
+    .header-button-head-menu, .login-button-head-menu {
+        width: 100%; /* Los botones ocuparán todo el ancho disponible */
+        margin-bottom: 10px; /* Agrega un poco de espacio entre los botones */
+    }
     .header-buttons-head-menu {
         display: none;
         flex-direction: column;

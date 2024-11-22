@@ -19,24 +19,27 @@ const Eventos = () => {
             const json = await response.json();
 
             const adaptados = json.data
-                .filter(evento => evento.activo && !evento.vendido)
-                .map(evento => ({
-                    id: evento.id,
-                    nombre: evento.nombre,
-                    descripcion: evento.descripcion,
-                    fechaInicio: new Date(evento.fecha_inicio).toLocaleDateString('es-CO'),
-                    horaInicio: new Date(evento.fecha_inicio).toLocaleTimeString('es-CO', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                    }),
-                    fechaFin: new Date(evento.fecha_fin).toLocaleDateString('es-CO'),
-                    horaFin: new Date(evento.fecha_fin).toLocaleTimeString('es-CO', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                    }),
-                    imagen: evento.imagen_principal,
-                    categoria: evento.categoria,
-                }));
+    .filter(evento => evento.activo && !evento.vendido)
+    .map(evento => ({
+        id: evento.id,
+        nombre: evento.nombre,
+        descripcion: evento.descripcion,
+        fechaInicio: new Date(evento.fecha_inicio).toLocaleDateString('es-CO'),
+        horaInicio: new Date(evento.fecha_inicio).toLocaleTimeString('es-CO', {
+            hour: '2-digit',
+            minute: '2-digit',
+        }),
+        fechaFin: new Date(evento.fecha_fin).toLocaleDateString('es-CO'),
+        horaFin: new Date(evento.fecha_fin).toLocaleTimeString('es-CO', {
+            hour: '2-digit',
+            minute: '2-digit',
+        }),
+        // Asignamos solo la URL de la imagen como string
+        imagen: `http://localhost:4000${evento.imagen_principal}`, 
+        categoria: evento.categoria,
+    }));
+
+
 
             setEventos(adaptados);
         } catch (err) {
@@ -97,25 +100,29 @@ const Eventos = () => {
             </div>
 
             <div className="eventos-grid">
-                {eventosFiltrados.slice(0, visibleEventos).map((evento) => (
-                    <div key={evento.id} className="cardEvento">
-                        <div
-                            className="carta-imagen"
-                            style={{ backgroundImage: `url(${evento.imagen})` }}
-                        ></div>
-                        <div className="carta-contenido">
-                            <h2>{evento.nombre}</h2>
-                            <p>{evento.descripcion}</p>
-                            <p>Fecha inicio: {evento.fechaInicio} a las {evento.horaInicio}</p>
-                            <p>Fecha fin: {evento.fechaFin} a las {evento.horaFin}</p>
-                            <p>Categoría: {evento.categoria}</p>
-                            <Link to={`/evento/${evento.id}`} className="saber-mas-btn">
-                                Saber más
-                            </Link>
-                        </div>
-                    </div>
-                ))}
+    {eventosFiltrados.slice(0, visibleEventos).map((evento) => {
+        console.log(evento.imagen); // Aquí logueamos la URL de la imagen
+        return (
+            <div key={evento.id} className="cardEvento">
+                <div
+                    className="carta-imagen"
+                    style={{ backgroundImage: `url(${evento.imagen})` }} // Usamos la URL de la imagen
+                ></div>
+                <div className="carta-contenido">
+                    <h2>{evento.nombre}</h2>
+                    <p>{evento.descripcion}</p>
+                    <p>Fecha inicio: {evento.fechaInicio} a las {evento.horaInicio}</p>
+                    <p>Fecha fin: {evento.fechaFin} a las {evento.horaFin}</p>
+                    <p>Categoría: {evento.categoria}</p>
+                    <Link to={`/evento/${evento.id}`} className="saber-mas-btn">
+                        Saber más
+                    </Link>
+                </div>
             </div>
+        );
+    })}
+</div>
+
 
             {visibleEventos < eventosFiltrados.length && (
                 <div className="ver-mas-container">

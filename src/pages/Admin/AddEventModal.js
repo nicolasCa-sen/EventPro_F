@@ -31,6 +31,7 @@ const AddEventModal = ({ onClose, onAdd }) => {
     if (file) {
       setNuevoEvento((prev) => ({ ...prev, imagen: file }));
       setPreviewImage(URL.createObjectURL(file));
+      console.log("Imagen seleccionada:", file); // Verifica el archivo seleccionado
     }
   };
 
@@ -41,6 +42,7 @@ const AddEventModal = ({ onClose, onAdd }) => {
     if (file && file.type.startsWith('image/')) {
       setNuevoEvento((prev) => ({ ...prev, imagen: file }));
       setPreviewImage(URL.createObjectURL(file));
+      console.log("Imagen seleccionada por arrastre:", file); // Verifica el archivo arrastrado
     }
   };
 
@@ -62,42 +64,48 @@ const AddEventModal = ({ onClose, onAdd }) => {
       !nuevoEvento.idLugar ||
       !nuevoEvento.activo ||
       !nuevoEvento.vendido ||
-      !nuevoEvento.numEntradas
+      !nuevoEvento.numEntradas ||
+      !nuevoEvento.imagen
     ) {
       setError("Por favor, completa todos los campos.");
       setLoading(false);
       return;
     }
   
-    // Crear el objeto con los datos mapeados para el backend
-    const payload = {
-      nombre: nuevoEvento.nombre,
-      descripcion: nuevoEvento.descripcion,
-      fecha_inicio: nuevoEvento.fechaInicio,
-      fecha_fin: nuevoEvento.fechaFin,
-      imagen_principal: nuevoEvento.imagen
-        ? "https://acortar.link/e3yt8u" // URL fija como ejemplo
-        : null, // O manejar de forma dinámica
-      categoria: "Conferencia", // Valor fijo o dinámico si tienes el campo
-      vendido: nuevoEvento.vendido === "si",
-      activo: nuevoEvento.activo === "si",
-      id_lugar: parseInt(nuevoEvento.idLugar),
-      id_creador: 1, // Valor fijo como ejemplo; ajusta según tu lógica
-    };
+    const payload = new FormData();
   
-    // Mostrar los datos que se enviarán al backend
-    console.log("Datos a enviar al backend:", payload);
+    payload.append("nombre", nuevoEvento.nombre);
+    payload.append("descripcion", nuevoEvento.descripcion);
+    payload.append("fecha_inicio", nuevoEvento.fechaInicio);
+    payload.append("fecha_fin", nuevoEvento.fechaFin);
+    payload.append("imagen_principal", nuevoEvento.imagen);
+    payload.append("categoria", "Conferencia");
+    payload.append("vendido", nuevoEvento.vendido === "si");
+    payload.append("activo", nuevoEvento.activo === "si");
+    payload.append("id_lugar", parseInt(nuevoEvento.idLugar));
+    payload.append("id_creador", 1);
+  
+    // Aquí agregas la inspección de FormData
+    for (let [key, value] of payload.entries()) {
+      if (value instanceof File) {
+        console.log(`${key}: ${value.name}, tamaño: ${value.size} bytes, tipo: ${value.type}`);
+      } else {
+        console.log(`${key}: ${value}`);
+      }
+    }
+    
   
     try {
       const response = await axios.post("http://localhost:4000/evento/", payload, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       });
   
-      onAdd(response.data); // Llama a la función onAdd con los datos del evento
-      onClose(); // Cierra el modal
+      onAdd(response.data);
+      onClose();
     } catch (error) {
+      console.error(error);
       setError(error.response?.data?.error || "Error al agregar el evento");
     } finally {
       setLoading(false);

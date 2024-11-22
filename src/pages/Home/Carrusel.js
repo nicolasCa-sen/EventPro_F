@@ -35,7 +35,7 @@ const Carrusel = () => {
                             hour: '2-digit',
                             minute: '2-digit',
                         }),
-                        imagen: evento.imagen_principal,
+                        imagen: `http://localhost:4000${evento.imagen_principal}`, 
                         categoria: evento.categoria,
                     }));
 
