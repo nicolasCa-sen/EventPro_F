@@ -1,39 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';  // Asegúrate de tener el contexto adecuado
 import './Profile.css';
 
 const Profile = () => {
-  // Datos del perfil directamente en el código
-  const userData = {
-    nombre: "Sara Valentina",
-    apellido: "Caceres Arevalo",
-    identificacion: "123456789",
-    email: "sara@gmail.com",
-    telefono: "3214568709",
-    fechaNacimiento: "05/08/2001",
-    imagen: "https://via.placeholder.com/150" // Puedes cambiar esta URL por la imagen que desees
-  };
-
-  // Datos de estadísticas directamente en el código
-  const userStats = {
-    eventosMes: 1,
-    eventosAno: 3,
-    gastoMes: "600.000",
-    gastoAno: "150.000"
-  };
-
-  // Estado para editar datos del perfil
-  const [email, setEmail] = useState(userData.email);
-  const [telefono, setTelefono] = useState(userData.telefono);
+  const { user, token, updateUserProfile } = useAuth();  // Obtener usuario desde el contexto de autenticación
+  const [email, setEmail] = useState(user?.email || '');
+  const [telefono, setTelefono] = useState(user?.telefono || '');
+  const [nombre, setNombre] = useState(user?.nombre || '');
+  const [apellido, setApellido] = useState(user?.apellido || '');
+  const [identificacion, setIdentificacion] = useState(user?.identificacion || '');
+  const [fechaNacimiento, setFechaNacimiento] = useState(user?.fechaNacimiento || '');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  
+  // Actualizar datos de usuario en el estado cuando el contexto se actualice
+  useEffect(() => {
+    if (user) {
+      setEmail(user.email);
+      setTelefono(user.telefono || '');  // Asegúrate de que existan estos datos
+      setNombre(user.nombre || '');
+      setApellido(user.apellido || '');
+      setIdentificacion(user.identificacion || '');
+      setFechaNacimiento(user.fechaNacimiento || '');
+    }
+  }, [user]);  // El hook se ejecutará cada vez que el estado del usuario cambie
 
-  const handleUpdateProfile = () => {
-    // Lógica para actualizar el correo y teléfono
-    alert('Datos actualizados correctamente');
+  // Actualizar perfil con los nuevos datos
+  const handleUpdateProfile = async () => {
+    try {
+      // Validación básica
+      if (!email || !telefono || !nombre || !apellido || !identificacion || !fechaNacimiento) {
+        setError('Todos los campos son obligatorios.');
+        return;
+      }
+
+      const updatedData = { email, telefono, nombre, apellido, identificacion, fechaNacimiento };
+      const success = await updateUserProfile(updatedData, token);  // Función que actualiza los datos del perfil en la API
+
+      if (success) {
+        alert('Datos actualizados correctamente');
+        setError(''); // Limpiar errores después de un éxito
+      } else {
+        setError('Hubo un error al actualizar los datos');
+      }
+    } catch (err) {
+      setError('Hubo un error al intentar actualizar los datos');
+    }
   };
 
+  // Cambiar contraseña
   const handleChangePassword = () => {
-    // Lógica para cambiar la contraseña
     if (newPassword === confirmPassword) {
       alert('Contraseña cambiada correctamente');
       setNewPassword('');
@@ -43,35 +60,32 @@ const Profile = () => {
     }
   };
 
+  // Ver compras del usuario
   const handleViewPurchases = () => {
-    // Lógica para ver las compras
     alert('Ver compras');
   };
 
   return (
     <div className="profile-profile-container">
-      {/* Contenedor principal */}
       <div className="profile-profile-sections">
-        
-        {/* Sección de perfil */}
         <div className="profile-profile-info">
           <h2 className="profile-profile-title">Mi Perfil</h2>
           
           <div className="profile-profile-header">
             {/* Imagen de perfil */}
-            <img src={userData.imagen} alt="Imagen de perfil" className="profile-profile-image" />
+            <img src={user?.imagen || "https://via.placeholder.com/150"} alt="Imagen de perfil" className="profile-profile-image" />
             <div className="profile-profile-details">
               <div className="profile-profile-item">
                 <label className="profile-profile-label">Nombre</label>
-                <input type="text" className="profile-profile-input" value={userData.nombre} readOnly />
+                <input type="text" className="profile-profile-input" value={nombre} readOnly />
               </div>
               <div className="profile-profile-item">
                 <label className="profile-profile-label">Apellido</label>
-                <input type="text" className="profile-profile-input" value={userData.apellido} readOnly />
+                <input type="text" className="profile-profile-input" value={apellido} readOnly />
               </div>
               <div className="profile-profile-item">
                 <label className="profile-profile-label">Identificación</label>
-                <input type="text" className="profile-profile-input" value={userData.identificacion} readOnly />
+                <input type="text" className="profile-profile-input" value={identificacion} readOnly />
               </div>
               <div className="profile-profile-item">
                 <label className="profile-profile-label">Email</label>
@@ -93,12 +107,14 @@ const Profile = () => {
               </div>
               <div className="profile-profile-item">
                 <label className="profile-profile-label">Fecha de Nacimiento</label>
-                <input type="text" className="profile-profile-input" value={userData.fechaNacimiento} readOnly />
+                <input type="text" className="profile-profile-input" value={fechaNacimiento} readOnly />
               </div>
             </div>
           </div>
           
-          {/* Botones de Actualizar Datos y Ver Compras */}
+          {/* Error message */}
+          {error && <div className="profile-error-message">{error}</div>}
+          
           <div className="profile-buttons-container">
             <button className="profile-profile-button-save" onClick={handleUpdateProfile}>
               Actualizar Datos
@@ -109,56 +125,41 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Sección de estadísticas */}
         <div className="profile-statistics">
           <h3 className="profile-statistics-title">Estadísticas</h3>
           <div className="profile-statistics-item">
             <label className="profile-statistics-label">Eventos asistidos en el mes</label>
-            <p className="profile-statistics-value">{userStats.eventosMes}</p>
+            <p className="profile-statistics-value">{user?.eventosMes || 0}</p>
           </div>
           <div className="profile-statistics-item">
             <label className="profile-statistics-label">Eventos asistidos en el año</label>
-            <p className="profile-statistics-value">{userStats.eventosAno}</p>
+            <p className="profile-statistics-value">{user?.eventosAno || 0}</p>
           </div>
           <div className="profile-statistics-item">
             <label className="profile-statistics-label">Gasto total del mes</label>
-            <p className="profile-statistics-value">{userStats.gastoMes}</p>
+            <p className="profile-statistics-value">{user?.gastoMes || "0"}</p>
           </div>
           <div className="profile-statistics-item">
             <label className="profile-statistics-label">Gasto total del año</label>
-            <p className="profile-statistics-value">{userStats.gastoAno}</p>
+            <p className="profile-statistics-value">{user?.gastoAno || "0"}</p>
           </div>
           
-          {/* Sección de cambio de contraseña */}
           <div className="profile-change-password">
             <h3>Cambiar Contraseña</h3>
-            <div className="profile-profile-item">
-              <label className="profile-profile-label">Nueva Contraseña</label>
-              <input
-                type="password"
-                className="profile-profile-input"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
+            <div className="profile-change-password-item">
+              <label>Contraseña Nueva</label>
+              <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
             </div>
-            <div className="profile-profile-item">
-              <label className="profile-profile-label">Confirmar Contraseña</label>
-              <input
-                type="password"
-                className="profile-profile-input"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
+            <div className="profile-change-password-item">
+              <label>Confirmar Contraseña</label>
+              <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </div>
-            <button className="profile-profile-button-save" onClick={handleChangePassword}>
+            <button className="profile-change-password-button" onClick={handleChangePassword}>
               Cambiar Contraseña
             </button>
           </div>
         </div>
-
       </div>
-
-      <button className="profile-profile-button-logout">Cerrar sesión</button>
     </div>
   );
 };

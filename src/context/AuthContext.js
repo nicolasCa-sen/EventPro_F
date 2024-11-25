@@ -1,54 +1,76 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Creamos el contexto de autenticación
+// Crear el contexto de autenticación
 const AuthContext = createContext();
 
-// Función para acceder al contexto
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
-
-// Componente que proporciona el contexto
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Estado para verificar si los datos están cargando
+  const [error, setError] = useState(null); // Estado para almacenar posibles errores
 
-  // Datos de prueba de usuarios
-  const users = [
-    { email: 'usuario@example.com', role: 'Usuario', password: 'password123' },
-    { email: 'admin@example.com', role: 'Administrador', password: 'admin123' },
-    { email: 'organizador@example.com', role: 'Organizador', password: 'org123' },
-  ];
-
-  // Cargar el usuario desde localStorage si está disponible
+  // Verificar si hay un token al cargar el componente y mantener la sesión activa
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    const token = localStorage.getItem('token');
+    if (token) {
+      const userInfo = JSON.parse(localStorage.getItem('user'));
+      if (userInfo) {
+        setUser(userInfo);  // Establecemos el estado del usuario con la información que hemos guardado
+      }
     }
+    setLoading(false);  // Termina de cargar una vez que hemos comprobado el token
   }, []);
 
-  // Función de login
-  const login = ({ email, password, role }) => {
-    const foundUser = users.find(user => user.email === email && user.password === password && user.role === role);
-
-    if (foundUser) {
-      setUser(foundUser);
-      localStorage.setItem('user', JSON.stringify(foundUser)); // Guardar usuario en localStorage
-      return true; // Login exitoso
-    } else {
-      return false; // Login fallido
+  const login = async (userInfo) => {
+    try {
+      const response = await fetch('http://localhost:4000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      });
+  
+      const data = await response.json();
+      if (response.ok && data.state) {
+        // Asegúrate de que el rol esté presente en los datos del usuario
+        console.log('Datos del usuario:', data.user);  // Verifica aquí si el rol está presente
+  
+        setUser(data.user);  // Guardamos el usuario completo (incluido el rol)
+        localStorage.setItem('token', data.token);  // Guardamos el token
+        localStorage.setItem('user', JSON.stringify(data.user));  // Guardamos los datos del usuario
+        const userInfo = JSON.parse(localStorage.getItem('user'));
+        if (userInfo) {
+          console.log('Rol recuperado del localStorage:', userInfo.rol);  // Verifica que el rol esté allí
+          setUser(userInfo);
+        }
+        return true;
+      } else {
+        setError('Credenciales incorrectas o error en el servidor');
+        return false;
+      }
+    } catch (error) {
+      console.error('Error durante el login:', error);
+      setError('Ocurrió un error al intentar iniciar sesión');
+      return false;
     }
   };
+  
 
-  // Función de logout
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user'); // Eliminar usuario de localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   };
 
+  // Al devolver el contexto, incluimos el estado de carga y el error
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loading, error }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+// Hook personalizado para usar el contexto
+export const useAuth = () => {
+  return useContext(AuthContext);
 };

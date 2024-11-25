@@ -1,17 +1,21 @@
 .modal-overlay-update {
-    position: fixed; /* Cambié a fixed para asegurarnos de que la ventana esté fija en la pantalla */
-    top: -600px;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centrado en ambas direcciones */
-    border-radius: 20px;
-    background: #f9fcfc; /* Color más claro para mayor suavidad */
-    box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.1), 10px -10px 30px rgba(255, 255, 255, 0.8);
-    padding: 40px;
-    width: 80%; /* Ajusté el ancho para que sea más grande */
-    max-width: 600px; /* Límite para pantallas grandes */
-    min-width: 600px; /* Tamaño mínimo para pantallas pequeñas */
-    text-align: center;
-    z-index: 9999; /* Aseguramos que el z-index sea lo suficientemente alto */
+  position: fixed; /* Asegura que el modal esté fijo en la pantalla */
+  top: 50%;
+  left: 50%; /* Centramos el modal horizontalmente */
+  transform: translate(-50%, -50%); /* Centramos el modal verticalmente */
+  border-radius: 20px;
+  background: #f9fcfc; /* Color más claro para mayor suavidad */
+  box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.1), 10px -10px 30px rgba(255, 255, 255, 0.8); /* Sombra más suave */
+  padding: 40px;
+  width: 80%; /* Ajustamos el tamaño del modal */
+  max-width: 600px; /* Tamaño máximo en pantallas grandes */
+  min-width: 600px; /* Tamaño mínimo en pantallas pequeñas */
+  text-align: center; /* Centrar el contenido dentro del modal */
+  z-index: 9999; /* Asegura que el modal esté encima de otros elementos */
+  display: flex;
+  flex-direction: column; /* Flexbox para centrar contenido en el modal */
+  justify-content: center;
+  align-items: center;
   }
   
   .modal-content-update {

@@ -1,0 +1,247 @@
+/* Estilos generales para el contenedor de la tabla */
+.tabla-users-container-alluser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    margin-top: 20px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Tabla de usuarios */
+  .tabla-users-alluser {
+    width: 80%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    margin-top: 20px;
+  }
+  
+  .tabla-users-alluser th,
+  .tabla-users-alluser td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tabla-users-alluser th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .tabla-users-alluser tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Filtro de búsqueda */
+  .filtro-container-users-alluser {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .filtro-select-users-alluser {
+    padding: 8px;
+    margin-right: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s;
+  }
+  
+  .filtro-select-users-alluser:hover,
+  .filtro-select-users-alluser:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .filtro-input-users-alluser {
+    padding: 8px;
+    margin-right: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s;
+    width: 200px;
+  }
+  
+  .filtro-input-users-alluser:hover,
+  .filtro-input-users-alluser:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .buscar-btn-users-alluser {
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 200px;
+  }
+  
+  .buscar-btn-users-alluser:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilo para los botones de eliminar */
+  .eliminar-btn-users-alluser {
+    background-color: #aa0000;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .eliminar-btn-users-alluser:hover {
+    background-color: #e60000;
+  }
+  
+  /* Responsividad */
+  @media (max-width: 768px) {
+    .tabla-users-alluser {
+      width: 100%;
+    }
+  }
+  
+  /* Estilo adicional para el contenedor expandido de la tarjeta */
+  .card-expanded-users-alluser {
+    position: absolute;
+    border-radius: 30px;
+    top: 10px;
+    background: #d2e8e3;
+    box-shadow: -20px 20px 60px #bcbcbc, 20px -20px 60px #bcbcbc;
+    padding: 20px;
+    margin: 10px;
+    width: 80%;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    margin-top: 100px;
+    margin-left: 10%;
+    margin-right: 10%;
+    z-index: 1000;
+  }
+  
+  /* Animaciones de botones */
+  .card-expanded-users-alluser a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: #000000;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: 0.5s;
+    margin-top: 40px;
+    letter-spacing: 3px;
+    margin-left: 20px;
+  }
+  
+  .card-expanded-users-alluser a:hover {
+    background: linear-gradient(to bottom, #007bff 0%, #66a6ff 100%);
+    color: #272727;
+    border-radius: 5px;
+  }
+  
+  .card-expanded-users-alluser a span {
+    position: absolute;
+    display: block;
+  }
+  
+  .card-expanded-users-alluser a span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c7f2ff);
+    animation: btn-anim1 1.5s linear infinite;
+  }
+  
+  @keyframes btn-anim1 {
+    0% {
+      left: -100%;
+    }
+    50%, 100% {
+      left: 100%;
+    }
+  }
+  
+  .card-expanded-users-alluser a span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #c7f2ff);
+    animation: btn-anim2 1.5s linear infinite;
+    animation-delay: 0.375s;
+  }
+  
+  @keyframes btn-anim2 {
+    0% {
+      top: -100%;
+    }
+    50%, 100% {
+      top: 100%;
+    }
+  }
+  
+  .card-expanded-users-alluser a span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #c7f2ff);
+    animation: btn-anim3 1.5s linear infinite;
+    animation-delay: 0.75s;
+  }
+  
+  @keyframes btn-anim3 {
+    0% {
+      right: -100%;
+    }
+    50%, 100% {
+      right: 100%;
+    }
+  }
+  
+  .card-expanded-users-alluser a span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #c7f2ff);
+    animation: btn-anim4 1.5s linear infinite;
+    animation-delay: 1.125s;
+  }
+  
+  @keyframes btn-anim4 {
+    0% {
+      bottom: -100%;
+    }
+    50%, 100% {
+      bottom: 100%;
+    }
+  }
+  

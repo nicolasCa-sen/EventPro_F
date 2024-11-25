@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import './UpdateEventModal.css';
 
 const UpdateEventModal = ({ evento, onClose, onAdd }) => {
-  const [eventoActualizado, setEventoActualizado] = useState(evento);
+  const [eventoActualizado, setEventoActualizado] = useState({});
   const [previewImage, setPreviewImage] = useState(null);
+  const [file, setFile] = useState(null); // Archivo de imagen seleccionado
+  const [isLoading, setIsLoading] = useState(false); // Estado de carga
+  const [error, setError] = useState(null); // Estado para manejar errores
 
   useEffect(() => {
     if (evento) {
       setEventoActualizado(evento);
-      if (evento.imagen) {
-        setPreviewImage(evento.imagen); // Si ya hay una imagen, mostrarla en la vista previa
-      }
+      setPreviewImage(`http://localhost:4000${evento.imagen_principal}`);
     }
   }, [evento]);
 
@@ -18,49 +19,67 @@ const UpdateEventModal = ({ evento, onClose, onAdd }) => {
     const { name, value } = e.target;
     setEventoActualizado((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === 'activo' || name === 'vendido' ? value === 'true' : value,
     }));
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreviewImage(URL.createObjectURL(file)); // Mostrar la vista previa de la imagen
-      setEventoActualizado((prev) => ({
-        ...prev,
-        imagen: file.name, // Solo guardar el nombre del archivo
-      }));
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setPreviewImage(URL.createObjectURL(selectedFile)); // Mostrar vista previa
+      setFile(selectedFile); // Guardar el archivo para enviarlo al backend
     }
   };
 
-  // Maneja el evento de arrastre
-  const handleDrop = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      setPreviewImage(URL.createObjectURL(file)); // Mostrar la vista previa de la imagen
-      setEventoActualizado((prev) => ({
-        ...prev,
-        imagen: file.name, // Solo guardar el nombre del archivo
-      }));
+
+    // Validar campos obligatorios
+    if (!eventoActualizado.nombre || !eventoActualizado.descripcion || !eventoActualizado.id_lugar) {
+      setError('Por favor, completa todos los campos obligatorios.');
+      return;
     }
-  };
 
-  // Permite el arrastre de archivos sobre el área
-  const handleDragOver = (e) => {
-    e.preventDefault(); // Esto evita que el navegador intente abrir el archivo
-  };
+    setIsLoading(true); // Mostrar indicador de carga
+    setError(null); // Limpiar errores previos
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onAdd(eventoActualizado); // Pasa el evento actualizado al padre
-    onClose(); // Cierra el modal
+    // Crear FormData para manejar la imagen y otros datos
+    const formData = new FormData();
+    Object.entries(eventoActualizado).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    if (file) {
+      formData.append('imagen_principal', file); // Agregar la imagen al FormData
+    }
+
+    try {
+      const response = await fetch(`http://localhost:4000/evento/${eventoActualizado.id}`, {
+        method: 'PUT',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const updatedEvent = await response.json();
+        onAdd(updatedEvent.data); // Pasar el evento actualizado al padre
+        onClose(); // Cerrar el modal
+      } else {
+        const errorResponse = await response.json();
+        setError(errorResponse.message || 'Error al actualizar el evento');
+      }
+    } catch (error) {
+      console.error('Error al enviar los datos:', error);
+      setError('Ocurrió un error al intentar actualizar el evento.');
+    } finally {
+      setIsLoading(false); // Ocultar indicador de carga
+    }
   };
 
   return (
     <div className="modal-overlay-update">
       <div className="modal-content-update">
         <p>Actualizar Evento</p>
+        {error && <p className="error-message">{error}</p>} {/* Mostrar error */}
         <form onSubmit={handleSubmit}>
           {/* Campo de Nombre */}
           <div className="user-box-update">
@@ -91,7 +110,7 @@ const UpdateEventModal = ({ evento, onClose, onAdd }) => {
             <input
               type="datetime-local"
               name="fecha_inicio"
-              value={eventoActualizado.fecha_inicio ? eventoActualizado.fecha_inicio.slice(0, 16) : ''}
+              value={eventoActualizado.fecha_inicio?.slice(0, 16) || ''}
               onChange={handleChange}
               required
             />
@@ -103,26 +122,21 @@ const UpdateEventModal = ({ evento, onClose, onAdd }) => {
             <input
               type="datetime-local"
               name="fecha_fin"
-              value={eventoActualizado.fecha_fin ? eventoActualizado.fecha_fin.slice(0, 16) : ''}
+              value={eventoActualizado.fecha_fin?.slice(0, 16) || ''}
               onChange={handleChange}
               required
             />
             <label>Fecha de Fin</label>
           </div>
 
-          {/* Campo de Imagen con arrastre o selección */}
-          <div
-            className="image-upload-box-add"
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-          >
+          {/* Campo de Imagen */}
+          <div className="image-upload-box-add">
             <p>Selecciona o arrastra una imagen aquí</p>
             <input
               type="file"
-              name="imagen"
+              name="imagen_principal"
               accept="image/*"
               onChange={handleImageChange}
-              className="image-input-add"
             />
             {previewImage && (
               <div className="image-preview-add">
@@ -135,13 +149,12 @@ const UpdateEventModal = ({ evento, onClose, onAdd }) => {
           <div className="user-box-update">
             <select
               name="activo"
-              value={eventoActualizado.activo || ''}
+              value={eventoActualizado.activo ? 'true' : 'false'}
               onChange={handleChange}
               required
             >
-              <option value=""></option>
-              <option value="si">Sí</option>
-              <option value="no">No</option>
+              <option value="true">Sí</option>
+              <option value="false">No</option>
             </select>
             <label>Evento Activo</label>
           </div>
@@ -150,35 +163,33 @@ const UpdateEventModal = ({ evento, onClose, onAdd }) => {
           <div className="user-box-update">
             <select
               name="vendido"
-              value={eventoActualizado.vendido || ''}
+              value={eventoActualizado.vendido ? 'true' : 'false'}
               onChange={handleChange}
               required
             >
-              <option value=""></option>
-              <option value="si">Sí</option>
-              <option value="no">No</option>
+              <option value="true">Sí</option>
+              <option value="false">No</option>
             </select>
             <label>Evento Vendido</label>
           </div>
 
           {/* Campo de ID del Lugar */}
           <div className="user-box-update">
-            <select
+            <input
+              type="text"
               name="id_lugar"
               value={eventoActualizado.id_lugar || ''}
               onChange={handleChange}
               required
-            >
-              <option value=""></option>
-              <option value="1">Lugar 1</option>
-              <option value="2">Lugar 2</option>
-            </select>
+            />
             <label>ID del Lugar</label>
           </div>
 
           {/* Botones de acción */}
           <div className="button-group-update">
-            <button type="submit" className="submit-btn-update">Actualizar</button>
+            <button type="submit" className="submit-btn-update" disabled={isLoading}>
+              {isLoading ? 'Actualizando...' : 'Actualizar'}
+            </button>
             <button type="button" className="close-btn-update" onClick={onClose}>
               Cerrar
             </button>
