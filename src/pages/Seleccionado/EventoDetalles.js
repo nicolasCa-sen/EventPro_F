@@ -17,7 +17,7 @@ const EventoDetalles = () => {
         const fetchEvento = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`http://localhost:4000/evento`);
+                const response = await fetch(`https://eventpro-b.onrender.com/evento`);
                 if (!response.ok) {
                     throw new Error('Error al obtener el evento');
                 }
@@ -78,7 +78,7 @@ const EventoDetalles = () => {
             <div className='evento-detalles-sel3'>
                 <div className="evento-detalles-sel">
                     <div className="evento-imagen-container-sel">
-                        <img className="evento-imagen-sel" src={`http://localhost:4000${evento.imagen_principal}`} alt={evento.nombre} />
+                        <img className="evento-imagen-sel" src={`https://eventpro-b.onrender.com${evento.imagen_principal}`} alt={evento.nombre} />
                     </div>
                     <div className="evento-info-sel">
                         <h1 className="evento-nombre-sel">{evento.nombre}</h1>

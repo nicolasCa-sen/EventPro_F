@@ -96,7 +96,7 @@ const AddEventModal = ({ onClose, onAdd }) => {
     
   
     try {
-      const response = await axios.post("http://localhost:4000/evento/", payload, {
+      const response = await axios.post("https://eventpro-b.onrender.com/evento/", payload, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

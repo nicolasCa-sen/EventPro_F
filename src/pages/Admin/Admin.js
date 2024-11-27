@@ -58,7 +58,7 @@ function Admin() {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/eventos/search?query=${encodeURIComponent(query)}`
+        `https://eventpro-b.onrender.com/eventos/search?query=${encodeURIComponent(query)}`
       );
       const data = await response.json();
 

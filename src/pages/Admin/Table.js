@@ -16,7 +16,7 @@ const Table = () => {
 
   // Cargar los datos desde la API al montar el componente
   useEffect(() => {
-    fetch('http://localhost:4000/evento')
+    fetch('https://eventpro-b.onrender.com/evento')
       .then((response) => response.json())
       .then((data) => {
         setDatos(data.data);
@@ -31,7 +31,7 @@ const Table = () => {
   const eliminarEvento = async (id) => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este evento?')) {
       try {
-        const response = await fetch(`http://localhost:4000/evento/${id}`, {
+        const response = await fetch(`https://eventpro-b.onrender.com/evento/${id}`, {
           method: 'DELETE',
         });
 
@@ -216,7 +216,7 @@ const Table = () => {
               <td>{evento.fecha_fin}</td>
               <td>
                 <img
-                  src={`http://localhost:4000${evento.imagen_principal}`}
+                  src={`https://eventpro-b.onrender.com${evento.imagen_principal}`}
                   alt={evento.nombre}
                   width="50"
                 />
