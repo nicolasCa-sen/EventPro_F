@@ -12,7 +12,7 @@ const Eventos = () => {
     // Función para obtener eventos del backend
     const fetchEventos = async () => {
         try {
-            const response = await fetch('http://localhost:4000/evento');
+            const response = await fetch('https://eventpro-b.onrender.com/evento');
             if (!response.ok) {
                 throw new Error(`Error HTTP: ${response.status}`);
             }
@@ -35,7 +35,7 @@ const Eventos = () => {
             minute: '2-digit',
         }),
         // Asignamos solo la URL de la imagen como string
-        imagen: `http://localhost:4000${evento.imagen_principal}`, 
+        imagen: `https://eventpro-b.onrender.com${evento.imagen_principal}`, 
         categoria: evento.categoria,
     }));
 
