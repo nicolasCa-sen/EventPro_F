@@ -10,10 +10,11 @@ const AddEventModal = ({ onClose, onAdd }) => {
     fechaFin: '',
     imagen: null,
     idLugar: '',
-    activo: '',
-    vendido: '',
+    activo: 'si', // Valor por defecto
+    vendido: 'no', // Valor por defecto
     numEntradas: '',
   });
+  
   const [previewImage, setPreviewImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -56,18 +57,35 @@ const AddEventModal = ({ onClose, onAdd }) => {
     setLoading(true);
     setError(null);
   
+    const now = new Date(); // Fecha y hora actual
+    const fechaInicio = new Date(nuevoEvento.fechaInicio);
+    const fechaFin = new Date(nuevoEvento.fechaFin);
+  
+    // Validar que todos los campos obligatorios estén completos
     if (
       !nuevoEvento.nombre ||
       !nuevoEvento.descripcion ||
       !nuevoEvento.fechaInicio ||
       !nuevoEvento.fechaFin ||
       !nuevoEvento.idLugar ||
-      !nuevoEvento.activo ||
-      !nuevoEvento.vendido ||
       !nuevoEvento.numEntradas ||
       !nuevoEvento.imagen
     ) {
       setError("Por favor, completa todos los campos.");
+      setLoading(false);
+      return;
+    }
+  
+    // Validar que la fecha de inicio no sea menor a la fecha actual
+    if (fechaInicio < now) {
+      setError("La fecha de inicio no puede ser menor a la fecha y hora actual.");
+      setLoading(false);
+      return;
+    }
+  
+    // Validar que la fecha de fin no sea menor a la fecha de inicio
+    if (fechaFin <= fechaInicio) {
+      setError("La fecha de fin no puede ser menor o igual a la fecha de inicio.");
       setLoading(false);
       return;
     }
@@ -85,7 +103,7 @@ const AddEventModal = ({ onClose, onAdd }) => {
     payload.append("id_lugar", parseInt(nuevoEvento.idLugar));
     payload.append("id_creador", 1);
   
-    // Aquí agregas la inspección de FormData
+    // Inspección de FormData para depuración
     for (let [key, value] of payload.entries()) {
       if (value instanceof File) {
         console.log(`${key}: ${value.name}, tamaño: ${value.size} bytes, tipo: ${value.type}`);
@@ -93,7 +111,6 @@ const AddEventModal = ({ onClose, onAdd }) => {
         console.log(`${key}: ${value}`);
       }
     }
-    
   
     try {
       const response = await axios.post("https://eventpro-b.onrender.com/evento/", payload, {
@@ -111,6 +128,7 @@ const AddEventModal = ({ onClose, onAdd }) => {
       setLoading(false);
     }
   };
+  
   
 
   return (
@@ -143,26 +161,29 @@ const AddEventModal = ({ onClose, onAdd }) => {
           </div>
 
           <div className="user-box-add">
-            <input
-              type="datetime-local"
-              name="fechaInicio"
-              value={nuevoEvento.fechaInicio}
-              onChange={handleChange}
-              required
-            />
-            <label>Fecha de Inicio</label>
-          </div>
+  <input
+    type="datetime-local"
+    name="fechaInicio"
+    value={nuevoEvento.fechaInicio}
+    onChange={handleChange}
+    min={new Date().toISOString().slice(0, 16)} // Establece la fecha mínima
+    required
+  />
+  <label>Fecha de Inicio</label>
+</div>
 
-          <div className="user-box-add">
-            <input
-              type="datetime-local"
-              name="fechaFin"
-              value={nuevoEvento.fechaFin}
-              onChange={handleChange}
-              required
-            />
-            <label>Fecha de Fin</label>
-          </div>
+<div className="user-box-add">
+  <input
+    type="datetime-local"
+    name="fechaFin"
+    value={nuevoEvento.fechaFin}
+    onChange={handleChange}
+    min={nuevoEvento.fechaInicio || new Date().toISOString().slice(0, 16)} // Depende de la fecha de inicio
+    required
+  />
+  <label>Fecha de Fin</label>
+</div>
+
 
           <div
             className="image-upload-box-add"
@@ -182,34 +203,6 @@ const AddEventModal = ({ onClose, onAdd }) => {
                 <img src={previewImage} alt="Vista previa" />
               </div>
             )}
-          </div>
-
-          <div className="user-box-add">
-            <select
-              name="activo"
-              value={nuevoEvento.activo}
-              onChange={handleChange}
-              required
-            >
-              <option value=""></option>
-              <option value="si">Sí</option>
-              <option value="no">No</option>
-            </select>
-            <label>Evento Activo</label>
-          </div>
-
-          <div className="user-box-add">
-            <select
-              name="vendido"
-              value={nuevoEvento.vendido}
-              onChange={handleChange}
-              required
-            >
-              <option value=""></option>
-              <option value="si">Sí</option>
-              <option value="no">No</option>
-            </select>
-            <label>Evento Vendido</label>
           </div>
 
           <div className="user-box-add">

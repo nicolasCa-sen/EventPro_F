@@ -88,7 +88,6 @@ function Admin() {
           <button className="header-button-admin" onClick={() => setModalAbierto(true)}>
             Añadir evento
           </button>
-          <button className="header-button-admin">Informes</button>
           
           {/* Botones para cambiar la vista */}
           <button className="header-button-admin" onClick={() => setVistaSeleccionada('eventos')}>

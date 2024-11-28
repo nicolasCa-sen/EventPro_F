@@ -10,7 +10,9 @@ h2 {
   margin-bottom: 20px;
   color: #333;
 }
-
+.icon-btn-table{
+  background-color: #0039b3;
+}
 .card-expanded-table {
   margin-top: 20%;
   margin-left: 80%;
@@ -221,6 +223,10 @@ h2 {
     top: 100%;
   }
 }
+.imprimir-btn-table {
+  background-color: #007bff;
+}
+
 
 /* Borde inferior que se mueve de derecha a izquierda */
 .card-expanded-table a span:nth-child(3) {
@@ -243,6 +249,7 @@ h2 {
     right: 100%;
   }
 }
+
 
 /* Borde izquierdo que se mueve de abajo hacia arriba */
 .card-expanded-table a span:nth-child(4) {
