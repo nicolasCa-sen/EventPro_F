@@ -33,6 +33,9 @@ const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
     navigate('/');
     setTimeout(scrollToCarrusel, 100); // Espera y luego desplázate a Próximos Eventos
   };
+  const handleRegisterClick = () => {
+    navigate('/registro'); // Navegar a la página de registro
+  };
 
   const handleEventosClick = () => {
     navigate('/');
@@ -77,30 +80,41 @@ const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
         )}
 
         <div className="user-section-head-menu">
-          {user ? (
-            <>
-              <span className="user-email-head-menu">{user.email}</span>
-              <button 
-                className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
-                onClick={handleProfileClick}
-              >
-                Perfil
-              </button>
-              <button 
-                className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
-                onClick={handleLogout}
-              >
-                Cerrar sesión
-              </button>
-            </>
-          ) : (
-            <button 
-              className={`login-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
-              onClick={handleLoginClick}
-            >
-              Iniciar Sesión
-            </button>
-          )}
+        {user ? (
+  <>
+    <span className="user-email-head-menu">{user.email}</span>
+    <button 
+      className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+      onClick={handleProfileClick}
+    >
+      Perfil
+    </button>
+    <button 
+      className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+      onClick={handleLogout}
+    >
+      Cerrar sesión
+    </button>
+  </>
+) : (
+  // Agrupa los botones en un fragmento <>
+  <>
+    <button
+      className={`register-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`}
+      onClick={handleRegisterClick}
+    >
+      Registrarse
+    </button>
+    <button 
+      className={`login-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+      onClick={handleLoginClick}
+    >
+      Iniciar Sesión
+    </button>
+  </>
+)}
+
+
           <img src={sinuserImage} alt="Usuario" className="user-icon-head-menu" />
         </div>
       </nav>

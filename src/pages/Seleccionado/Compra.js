@@ -15,10 +15,17 @@ const AddEventModal = ({ onClose, onAdd }) => {
     numEntradas: '',
     valorBoleta: '', // Nuevo campo para el valor de la boleta
   });
-  
+
   const [previewImage, setPreviewImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  // Calcular el precio total
+  const calcularPrecioTotal = () => {
+    return nuevoEvento.numEntradas && nuevoEvento.valorBoleta
+      ? nuevoEvento.numEntradas * nuevoEvento.valorBoleta
+      : 0;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,11 +62,11 @@ const AddEventModal = ({ onClose, onAdd }) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-  
+
     const now = new Date(); // Fecha y hora actual
     const fechaInicio = new Date(nuevoEvento.fechaInicio);
     const fechaFin = new Date(nuevoEvento.fechaFin);
-  
+
     // Validar que todos los campos obligatorios estén completos
     if (
       !nuevoEvento.nombre ||
@@ -75,23 +82,23 @@ const AddEventModal = ({ onClose, onAdd }) => {
       setLoading(false);
       return;
     }
-  
+
     // Validar que la fecha de inicio no sea menor a la fecha actual
     if (fechaInicio < now) {
       setError("La fecha de inicio no puede ser menor a la fecha y hora actual.");
       setLoading(false);
       return;
     }
-  
+
     // Validar que la fecha de fin no sea menor a la fecha de inicio
     if (fechaFin <= fechaInicio) {
       setError("La fecha de fin no puede ser menor o igual a la fecha de inicio.");
       setLoading(false);
       return;
     }
-  
+
     const payload = new FormData();
-  
+
     payload.append("nombre", nuevoEvento.nombre);
     payload.append("descripcion", nuevoEvento.descripcion);
     payload.append("fecha_inicio", nuevoEvento.fechaInicio);
@@ -103,14 +110,14 @@ const AddEventModal = ({ onClose, onAdd }) => {
     payload.append("id_lugar", parseInt(nuevoEvento.idLugar));
     payload.append("id_creador", 1);
     payload.append("valor_boleta", nuevoEvento.valorBoleta); // Agregar el valor de la boleta al payload
-  
+
     try {
       const response = await axios.post("https://eventpro-b.onrender.com/evento/", payload, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-  
+
       onAdd(response.data);
       onClose();
     } catch (error) {
@@ -232,6 +239,11 @@ const AddEventModal = ({ onClose, onAdd }) => {
               required
             />
             <label>Valor de la Boleta</label>
+          </div>
+
+          {/* Mostrar el precio total */}
+          <div className="precio-total">
+            <p><strong>Precio Total: </strong>${calcularPrecioTotal()}</p>
           </div>
 
           {error && <p className="error-message">{error}</p>} {/* Mostrar mensaje de error */}

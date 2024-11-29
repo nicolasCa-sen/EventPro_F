@@ -342,7 +342,6 @@ const makeCircularImage = (imageBase64, size) => {
     <tr>
       <th>ID</th>
       <th>Nombre</th>
-      <th>Descripción</th>
       <th>Fecha Inicio</th>
       <th>Fecha Fin</th>
       <th>Imagen</th>
@@ -359,7 +358,6 @@ const makeCircularImage = (imageBase64, size) => {
       <tr key={evento.id}>
         <td>{evento.id}</td>
         <td>{evento.nombre}</td>
-        <td>{evento.descripcion}</td>
         <td>{evento.fecha_inicio}</td>
         <td>{evento.fecha_fin}</td>
         <td>
