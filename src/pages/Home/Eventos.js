@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTheme } from '../../context/ThemeContext'; // Importamos el hook de tema
 import './Eventos.css';
 
 const Eventos = () => {
+    const { isDarkMode } = useTheme(); // Accedemos al estado del tema
     const [eventos, setEventos] = useState([]);
     const [visibleEventos, setVisibleEventos] = useState(3);
     const [filtro, setFiltro] = useState('TODOS');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Función para obtener eventos del backend
     const fetchEventos = async () => {
         try {
             const response = await fetch('https://eventpro-b.onrender.com/evento');
@@ -19,27 +20,24 @@ const Eventos = () => {
             const json = await response.json();
 
             const adaptados = json.data
-    .filter(evento => evento.activo && !evento.vendido)
-    .map(evento => ({
-        id: evento.id,
-        nombre: evento.nombre,
-        descripcion: evento.descripcion,
-        fechaInicio: new Date(evento.fecha_inicio).toLocaleDateString('es-CO'),
-        horaInicio: new Date(evento.fecha_inicio).toLocaleTimeString('es-CO', {
-            hour: '2-digit',
-            minute: '2-digit',
-        }),
-        fechaFin: new Date(evento.fecha_fin).toLocaleDateString('es-CO'),
-        horaFin: new Date(evento.fecha_fin).toLocaleTimeString('es-CO', {
-            hour: '2-digit',
-            minute: '2-digit',
-        }),
-        // Asignamos solo la URL de la imagen como string
-        imagen: `https://eventpro-b.onrender.com${evento.imagen_principal}`, 
-        categoria: evento.categoria,
-    }));
-
-
+                .filter(evento => evento.activo && !evento.vendido)
+                .map(evento => ({
+                    id: evento.id,
+                    nombre: evento.nombre,
+                    descripcion: evento.descripcion,
+                    fechaInicio: new Date(evento.fecha_inicio).toLocaleDateString('es-CO'),
+                    horaInicio: new Date(evento.fecha_inicio).toLocaleTimeString('es-CO', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                    }),
+                    fechaFin: new Date(evento.fecha_fin).toLocaleDateString('es-CO'),
+                    horaFin: new Date(evento.fecha_fin).toLocaleTimeString('es-CO', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                    }),
+                    imagen: `https://eventpro-b.onrender.com${evento.imagen_principal}`, 
+                    categoria: evento.categoria,
+                }));
 
             setEventos(adaptados);
         } catch (err) {
@@ -49,14 +47,13 @@ const Eventos = () => {
         }
     };
 
-    // useEffect con polling para actualizar los eventos
     useEffect(() => {
-        fetchEventos(); // Llamada inicial para cargar los eventos
+        fetchEventos();
         const interval = setInterval(() => {
-            fetchEventos(); // Llamada periódica
-        }, 10000); // Cada 10 segundos
+            fetchEventos();
+        }, 10000);
 
-        return () => clearInterval(interval); // Limpiar el intervalo al desmontar el componente
+        return () => clearInterval(interval);
     }, []);
 
     const handleVerMas = () => {
@@ -68,7 +65,6 @@ const Eventos = () => {
         setVisibleEventos(3);
     };
 
-    // Obtener tipos únicos de eventos, ignorando categorías indefinidas
     const tiposUnicos = Array.from(
         new Set(eventos.map(evento => evento.categoria).filter(categoria => categoria))
     );
@@ -78,18 +74,18 @@ const Eventos = () => {
     );
 
     if (loading) {
-        return <div class="card">
-        <div class="loader">
-          <p>loading</p>
-          <div class="words">
-            <span class="word">buttons</span>
-            <span class="word">forms</span>
-            <span class="word">switches</span>
-            <span class="word">cards</span>
-            <span class="word">buttons</span>
-          </div>
-        </div>
-      </div>;
+        return <div className="card">
+            <div className="loader">
+                <p>loading</p>
+                <div className="words">
+                    <span className="word">buttons</span>
+                    <span className="word">forms</span>
+                    <span className="word">switches</span>
+                    <span className="word">cards</span>
+                    <span className="word">buttons</span>
+                </div>
+            </div>
+        </div>;
     }
 
     if (error) {
@@ -97,47 +93,45 @@ const Eventos = () => {
     }
 
     return (
-        <div className="principal-div">
+        <div className={`principal-div ${isDarkMode ? 'dark' : 'light'}`}> {/* Aplicamos la clase de tema */}
             <br />
-            <h1 className="titles1">Eventos</h1>
+            <h1 className={`titles1 ${isDarkMode ? 'dark' : 'light'}`}>Eventos</h1>
             <br />
             <div className="Botones">
                 {tiposUnicos.map((tipo, index) => (
-                    <button key={index} onClick={() => handleFiltro(tipo)}>
+                    <button key={index} onClick={() => handleFiltro(tipo)} className={isDarkMode ? 'dark' : 'light'}>
                         {tipo.toUpperCase()}
                     </button>
                 ))}
-                <button onClick={() => handleFiltro('TODOS')}>TODOS</button>
+                <button onClick={() => handleFiltro('TODOS')} className={isDarkMode ? 'dark' : 'light'}>TODOS</button>
             </div>
 
             <div className="eventos-grid">
-    {eventosFiltrados.slice(0, visibleEventos).map((evento) => {
-        console.log(evento.imagen); // Aquí logueamos la URL de la imagen
-        return (
-            <div key={evento.id} className="cardEvento">
-                <div
-                    className="carta-imagen"
-                    style={{ backgroundImage: `url(${evento.imagen})` }} // Usamos la URL de la imagen
-                ></div>
-                <div className="carta-contenido">
-                    <h2>{evento.nombre}</h2>
-                    <p>{evento.descripcion}</p>
-                    <p>Fecha inicio: {evento.fechaInicio} a las {evento.horaInicio}</p>
-                    <p>Fecha fin: {evento.fechaFin} a las {evento.horaFin}</p>
-                    <p>Categoría: {evento.categoria}</p>
-                    <Link to={`/evento/${evento.id}`} className="saber-mas-btn">
-                        Saber más
-                    </Link>
-                </div>
+                {eventosFiltrados.slice(0, visibleEventos).map((evento) => {
+                    return (
+                        <div key={evento.id} className={`cardEvento ${isDarkMode ? 'dark' : 'light'}`}>
+                            <div
+                                className="carta-imagen"
+                                style={{ backgroundImage: `url(${evento.imagen})` }}
+                            ></div>
+                            <div className="carta-contenido">
+                                <h2 className={isDarkMode ? 'dark' : 'light'}>{evento.nombre}</h2>
+                                <p className={isDarkMode ? 'dark' : 'light'}>{evento.descripcion}</p>
+                                <p className={isDarkMode ? 'dark' : 'light'}>Fecha inicio: {evento.fechaInicio} a las {evento.horaInicio}</p>
+                                <p className={isDarkMode ? 'dark' : 'light'}>Fecha fin: {evento.fechaFin} a las {evento.horaFin}</p>
+                                <p className={isDarkMode ? 'dark' : 'light'}>Categoría: {evento.categoria}</p>
+                                <Link to={`/evento/${evento.id}`} className={`saber-mas-btn ${isDarkMode ? 'dark' : 'light'}`}>
+                                    Saber más
+                                </Link>
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
-        );
-    })}
-</div>
-
 
             {visibleEventos < eventosFiltrados.length && (
                 <div className="ver-mas-container">
-                    <button onClick={handleVerMas} className="ver-mas-btn">Ver más</button>
+                    <button onClick={handleVerMas} className={`ver-mas-btn ${isDarkMode ? 'dark' : 'light'}`}>Ver más</button>
                 </div>
             )}
             <br />

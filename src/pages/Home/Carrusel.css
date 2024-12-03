@@ -1,86 +1,107 @@
-
+/* Carrusel */
 .carrusel-container {
   margin-left: 5%;
   margin-right: 5%;
   padding: 20px 0;
 }
 
-.carta-wrapper {
-  margin: 20px; /* Ajusta según el espacio que necesites */
-}
-
+/* Estilo para la tarjeta de evento */
 .cardEvento {
-  
   background-color: #fffcfc;
   height: 500px;
   transition: transform 0.3s;
- 
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.cardEvento:hover {
-  transform: scale(1.02); /* Aumenta ligeramente el tamaño al pasar el mouse */
+/* Estilo para el contenido de la carta */
+.carta-contenido {
+  padding: 16px;
+  text-align: left;
+  color: inherit; /* El color heredado es importante para el tema */
 }
 
+/* Estilo para el título */
+.carta-contenido h2 {
+  font-size: 1.5em;
+  margin: 0 0 10px;
+  color: inherit; /* Hereda color */
+}
+
+/* Estilo para los párrafos */
+.carta-contenido p {
+  margin: 5px 0;
+  color: inherit; /* Hereda color */
+}
+
+/* Estilos específicos para el tema claro */
+.carrusel-container.light {
+  background-color: #ff070700;
+  color: #000000;
+}
+
+.cardEvento.light {
+  background-color: white;
+  color: #333;
+}
+
+.carta-contenido h2.light {
+  color: #5cbcb2;
+}
+.titles2{
+color: #fffcfc;
+text-align: center;
+font-size: 50px;
+margin-bottom: 20px;
+
+}
+
+.saber-mas-btn.light {
+  background-color: #4aa49d;
+  color: white;
+}
+
+/* Estilos específicos para el tema oscuro */
+.carrusel-container.dark {
+  background-color: #fa000000;
+}
+
+.cardEvento.dark {
+  background-color: #444;
+  color: white;
+}
+
+.carta-contenido h2.dark {
+  color: #5cbcb2;
+}
+
+.saber-mas-btn.dark {
+  background-color: #4aa49d;
+  color: white;
+}
+
+/* Estilos de la imagen */
 .carta-imagen {
   height: 200px; /* Ajusta según sea necesario */
   background-size: cover;
   background-position: center;
 }
 
-.carta-contenido {
-  padding: 16px;
-  text-align: left;
-}
-
-.carta-contenido h2 {
-  font-size: 1.5em;
-  color: #5cbcb2;
-  margin: 0 0 10px;
-}
-
-.carta-contenido p {
-  margin: 5px 0;
-  color: #333;
-}
-
-
-/* Estilo para todos los puntos */
-.slick-dots li button {
-
-  border-radius: 20%; 
-
- 
-}
-
-/* Estilo para el punto activo */
-.slick-dots li.slick-active button {
-  background-color: #e3e3e3; /* Color del punto activo */
-  opacity: 1; /* Opacidad del punto activo */
-}
-
-/* Estilo para el hover de los puntos */
-.slick-dots li button:hover {
-  background-color: #799b29; /* Color del punto al pasar el mouse */
-}
-/* From Uiverse.io by kennyotsu */ 
+/* Estilo del loader */
 .card {
-  /* color used to softly clip top and bottom of the .words container */
   --bg-color: #212121;
   background-color: var(--bg-color);
   padding: 1rem 2rem;
   border-radius: 1.25rem;
 }
+
 .loader {
   color: rgb(124, 124, 124);
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 25px;
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
   height: 40px;
   padding: 10px 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   border-radius: 8px;
 }
@@ -88,18 +109,6 @@
 .words {
   overflow: hidden;
   position: relative;
-}
-.words::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    var(--bg-color) 10%,
-    transparent 30%,
-    transparent 70%,
-    var(--bg-color) 90%
-  );
-  z-index: 20;
 }
 
 .word {
@@ -112,42 +121,34 @@
 
 @keyframes spin_4991 {
   10% {
-    -webkit-transform: translateY(-102%);
     transform: translateY(-102%);
   }
 
   25% {
-    -webkit-transform: translateY(-100%);
     transform: translateY(-100%);
   }
 
   35% {
-    -webkit-transform: translateY(-202%);
     transform: translateY(-202%);
   }
 
   50% {
-    -webkit-transform: translateY(-200%);
     transform: translateY(-200%);
   }
 
   60% {
-    -webkit-transform: translateY(-302%);
     transform: translateY(-302%);
   }
 
   75% {
-    -webkit-transform: translateY(-300%);
     transform: translateY(-300%);
   }
 
   85% {
-    -webkit-transform: translateY(-402%);
     transform: translateY(-402%);
   }
 
   100% {
-    -webkit-transform: translateY(-400%);
     transform: translateY(-400%);
   }
 }

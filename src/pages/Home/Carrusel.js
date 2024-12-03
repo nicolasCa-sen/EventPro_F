@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
+import { useTheme } from '../../context/ThemeContext'; // Importar el contexto
 import './Carrusel.css';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css"; 
 
 const Carrusel = () => {
+    const { isDarkMode } = useTheme(); // Obtener el estado del tema
     const [eventos, setEventos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -51,19 +53,18 @@ const Carrusel = () => {
     }, []);
 
     if (loading) {
-        return <div class="card">
-        <div class="loader">
+        return <div className="card">
+        <div className="loader">
           <p>loading</p>
-          <div class="words">
-            <span class="word">buttons</span>
-            <span class="word">forms</span>
-            <span class="word">switches</span>
-            <span class="word">cards</span>
-            <span class="word">buttons</span>
+          <div className="words">
+            <span className="word">buttons</span>
+            <span className="word">forms</span>
+            <span className="word">switches</span>
+            <span className="word">cards</span>
+            <span className="word">buttons</span>
           </div>
         </div>
-      </div>
-      ;
+      </div>;
     }
 
     if (error) {
@@ -97,22 +98,22 @@ const Carrusel = () => {
     };
 
     return (
-        <div className="carrusel-container">
-        <h1 className="titles1" style={{ color: 'white' }}>Próximos Eventos</h1>
+        <div className={`carrusel-container ${isDarkMode ? 'dark' : 'light'}`}>
+            <h1 className="titles2" >Próximos Eventos</h1>
             <Slider {...settings}>
                 {eventos.map((evento) => (
-                    <div key={evento.id} className="cardEvento">
+                    <div key={evento.id} className={`cardEvento ${isDarkMode ? 'dark' : 'light'}`}>
                         <div
                             className="carta-imagen"
                             style={{ backgroundImage: `url(${evento.imagen})` }}
                         />
-                        <div className="carta-contenido">
+                        <div className={`carta-contenido ${isDarkMode ? 'dark' : 'light'}`}>
                             <h2>{evento.nombre}</h2>
                             <p>{evento.descripcion}</p>
                             <p>Fecha inicio: {evento.fechaInicio} a las {evento.horaInicio}</p>
                             <p>Fecha fin: {evento.fechaFin} a las {evento.horaFin}</p>
                             <p>Categoría: {evento.categoria}</p>
-                            <Link to={`/evento/${evento.id}`} className="saber-mas-btn">
+                            <Link to={`/evento/${evento.id}`} className={`saber-mas-btn ${isDarkMode ? 'dark' : 'light'}`}>
                                 Saber más
                             </Link>
                         </div>

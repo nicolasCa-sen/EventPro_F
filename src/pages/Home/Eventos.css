@@ -1,17 +1,35 @@
 /* Estilos generales */
 .principal-div {
-    background-color: #d2e8e3;
     margin-top: -20px;
     max-width: 100%;
     overflow-x: hidden;
     padding: 20px 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.principal-div.light {
+    background-color: #d2e8e3; /* Fondo claro */
+    color: #142722; /* Texto oscuro */
+}
+
+.principal-div.dark {
+    background-color: #212121; /* Fondo oscuro */
+    color: #e3e3e3; /* Texto claro */
 }
 
 .titles1 {
     text-align: center;
     font-size: 50px;
-    color: #142722;
     margin-bottom: 20px;
+}
+
+/* Cambiar colores según el tema */
+.titles1.light {
+    color: #142722;
+}
+
+.titles1.dark {
+    color: #d2e8e3;
 }
 
 /* Estilos para los botones de categoría */
@@ -32,11 +50,20 @@
     color: white;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .Botones button:hover {
     background-color: #499a91;
+}
+
+.Botones button.dark {
+    background-color: #374a48;
+    color: #e3e3e3;
+}
+
+.Botones button.dark:hover {
+    background-color: #49635e;
 }
 
 /* Estilos para el grid de tarjetas de eventos */
@@ -52,13 +79,17 @@
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
-    
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
 .cardEvento:hover {
     transform: scale(1.05);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cardEvento.dark {
+    background-color: #2b2b2b;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .carta-imagen {
@@ -76,13 +107,20 @@
 
 .carta-contenido h2 {
     font-size: 1.5em;
-    color: #5cbcb2;
     margin: 0 0 10px;
+    color: #5cbcb2;
+}
+
+.carta-contenido h2.dark {
+    color: #4aa49d;
 }
 
 .carta-contenido p {
     margin: 5px 0;
-    color: #333;
+}
+
+.carta-contenido p.dark {
+    color: #e3e3e3;
 }
 
 /* Estilos para el botón "Ver más" */
@@ -101,11 +139,20 @@
     color: white;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .ver-mas-btn:hover {
     background-color: #4aa49d;
+}
+
+.ver-mas-btn.dark {
+    background-color: #374a48;
+    color: #e3e3e3;
+}
+
+.ver-mas-btn.dark:hover {
+    background-color: #49635e;
 }
 
 /* Responsividad */
@@ -120,114 +167,28 @@
         grid-template-columns: 1fr; /* 1 tarjeta por fila en pantallas pequeñas */
     }
 }
+
+/* Estilo del botón "Saber más" */
 .saber-mas-btn {
-    display: inline-block; /* Para que el enlace se comporte como un botón */
-    padding: 10px 20px; /* Espaciado interno del botón */
-    margin-top: 10px; /* Espaciado superior */
-    background-color: #4aa49d; /* Color de fondo */
-    color: white; /* Color del texto */
-    text-decoration: none; /* Quita el subrayado */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
-    font-size: 16px; /* Tamaño de la fuente */
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #4aa49d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
 }
 
 .saber-mas-btn:hover {
-    background-color:  #4aa49d; /* Color de fondo en hover */
-    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    background-color: #3b8c85;
 }
 
-.saber-mas-btn:active {
-    background-color: #4aa49d; /* Color de fondo al hacer clic */
+.saber-mas-btn.dark {
+    background-color: #374a48;
 }
 
-/* From Uiverse.io by kennyotsu */ 
-.card {
-    /* color used to softly clip top and bottom of the .words container */
-    --bg-color: #212121;
-    background-color: var(--bg-color);
-    padding: 1rem 2rem;
-    border-radius: 1.25rem;
-  }
-  .loader {
-    color: rgb(124, 124, 124);
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-size: 25px;
-    -webkit-box-sizing: content-box;
-    box-sizing: content-box;
-    height: 40px;
-    padding: 10px 10px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    border-radius: 8px;
-  }
-  
-  .words {
-    overflow: hidden;
-    position: relative;
-  }
-  .words::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      var(--bg-color) 10%,
-      transparent 30%,
-      transparent 70%,
-      var(--bg-color) 90%
-    );
-    z-index: 20;
-  }
-  
-  .word {
-    display: block;
-    height: 100%;
-    padding-left: 200px;
-    color: #956afa;
-    animation: spin_4991 4s infinite;
-  }
-  
-  @keyframes spin_4991 {
-    10% {
-      -webkit-transform: translateY(-102%);
-      transform: translateY(-102%);
-    }
-  
-    25% {
-      -webkit-transform: translateY(-100%);
-      transform: translateY(-100%);
-    }
-  
-    35% {
-      -webkit-transform: translateY(-202%);
-      transform: translateY(-202%);
-    }
-  
-    50% {
-      -webkit-transform: translateY(-200%);
-      transform: translateY(-200%);
-    }
-  
-    60% {
-      -webkit-transform: translateY(-302%);
-      transform: translateY(-302%);
-    }
-  
-    75% {
-      -webkit-transform: translateY(-300%);
-      transform: translateY(-300%);
-    }
-  
-    85% {
-      -webkit-transform: translateY(-402%);
-      transform: translateY(-402%);
-    }
-  
-    100% {
-      -webkit-transform: translateY(-400%);
-      transform: translateY(-400%);
-    }
-  }
-  
+.saber-mas-btn.dark:hover {
+    background-color: #49635e;
+}

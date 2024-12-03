@@ -1,39 +1,104 @@
+/* Estilo base para el contenedor principal */
 .Home-header-inicio {
-    background-color: transparent; /* Color de fondo */
-    padding: 40px; /* Aumentar el espaciado interior para mayor confort */
-    width: 100%; /* Ocupa el 100% del ancho de la pantalla */
-    min-height: 100vh; /* Mínima altura de 100% de la pantalla */
-    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
-    display: flex; /* Usar flexbox para centrar contenido */
-    align-items: flex-start; /* Alinear el contenido al principio (arriba) */
-    justify-content: flex-start; /* Alinear el contenido a la izquierda */
+    background-color: transparent;
+    padding: 40px;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Tema claro */
+.Home-header-inicio.light-inicio {
+    background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.301), rgba(255, 255, 255, 0)), /* Superposición oscura */
+    url('../Images/fondo10.jpg'); /* Ruta de la imagen */
+background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+background-repeat: no-repeat; /* Evita que la imagen se repita */
+background-position: center; /* Centra la imagen */
+    color: #333333; /* Texto oscuro */
+    transition: 2s;
+}
+
+/* Tema oscuro */
+.Home-header-inicio.dark-inicio {
+    background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.671)), /* Superposición oscura */
+    url('../Images/fondo8.jpg'); /* Ruta de la imagen */
+background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+background-repeat: no-repeat; /* Evita que la imagen se repita */
+background-position: center; /* Centra la imagen */
+color: #e3e3e3; /* Texto claro */
+transition: 2s;
+}
+
+/* Estilos para el contenedor */
 .container-inicio {
-    display: flex; /* Usar flexbox para alinear los elementos */
-    flex-direction: column; /* Disposición en columna */
-    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
-    max-width: 1200px; /* Ancho máximo del contenedor */
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
+/* Estilo base para las cajas */
 .box1-inicio {
-    flex: 1; /* Toma 1 parte del espacio disponible */
-    margin-bottom: 20px; /* Margen inferior para separar los bloques */
-    align-self: flex-start; /* Alinear este bloque al principio */
+    flex: 1;
+    margin-bottom: 20px;
+    align-self: flex-start;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Tema claro para la caja */
+.box1-inicio.light-box-inicio {
+    background-color: #ffffff00; /* Fondo claro */
+    color: #333333; /* Texto oscuro */
+}
+
+/* Tema oscuro para la caja */
+.box1-inicio.dark-box-inicio {
+    background-color: #33333300; /* Fondo oscuro */
+    color: #e3e3e3; /* Texto claro */
+}
+
+/* Estilo base para el texto principal */
 .text-inicio {
-    font-size: 90px; /* Tamaño de fuente más grande para mayor impacto */
-    font-weight: bold; /* Negrita */
-    color: #e3e3e3; /* Color del texto */
-    margin: 30px 0; /* Margen vertical para separación */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra para mayor legibilidad */
+    font-size: 90px;
+    font-weight: bold;
+    margin: 30px 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transition: color 0.3s ease;
 }
 
+/* Tema claro para el texto principal */
+.text-inicio.light-text-inicio {
+    color: #333333; /* Texto oscuro */
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5); /* Sombra clara */
+}
+
+/* Tema oscuro para el texto principal */
+.text-inicio.dark-text-inicio {
+    color: #e3e3e3; /* Texto claro */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra oscura */
+}
+
+/* Estilo base para el texto secundario */
 .text1-inicio {
-    margin-top: 20px; /* Margen superior */
-    font-size: 24px; /* Aumentar tamaño de fuente */
-    color: #e3e3e3; /* Color del texto */
-    line-height: 1.5; /* Mayor espacio entre líneas para facilitar la lectura */
+    margin-top: 20px;
+    font-size: 24px;
+    line-height: 1.5;
+    transition: color 0.3s ease;
+}
+
+/* Tema claro para el texto secundario */
+.text1-inicio.light-text1-inicio {
+    color: #555555; /* Texto oscuro */
+}
+
+/* Tema oscuro para el texto secundario */
+.text1-inicio.dark-text1-inicio {
+    color: #cccccc; /* Texto claro */
 }

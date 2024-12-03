@@ -14,11 +14,12 @@ import { AuthProvider } from './context/AuthContext';
 import { LoadingProvider } from './context/LoadingContext'; // Importa el LoadingProvider
 import LoadingOverlay from './LoadingOverlay/LoadingOverlay'; // Importa el componente de carga
 import Org from './pages/Organizador/Org'; // Importa el componente de carga
-
+import { ThemeProvider } from './context/ThemeContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
+     <ThemeProvider>
     <AuthProvider>
       <LoadingProvider> {/* Envuelve toda la aplicación en el LoadingProvider */}
         <Router>
@@ -38,5 +39,6 @@ root.render(
         </Router>
       </LoadingProvider>
     </AuthProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );

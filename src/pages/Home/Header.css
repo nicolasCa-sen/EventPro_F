@@ -139,6 +139,7 @@
         background-color: #000000; /* Cambia según el tema */
         width: 100%;
         text-align: center;
+        border-top: 3px solid #e3e3e3; 
         border-bottom: 3px solid #e3e3e3; 
         border-left: 3px solid #e3e3e3; 
         border-right: 3px solid #e3e3e3; 
@@ -149,8 +150,10 @@
         display: flex;
         margin-left: 25%;
         width: 70%;
-         border-bottom-left-radius: 20px;
-         border-bottom-right-radius: 20px; 
+         border-bottom-left-radius: 10px;
+         border-bottom-right-radius: 10px; 
+         border-top-left-radius: 10px;
+         border-top-right-radius: 10px; 
         
     }
 

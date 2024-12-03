@@ -3,21 +3,18 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
 import sinuserImage from '../Images/sinuser.png';
 import logo from '../Images/logo.png';
-import { useAuth } from '../../context/AuthContext';  // Asegúrate de importar el contexto
+import { useAuth } from '../../context/AuthContext'; // Contexto de autenticación
+import { useTheme } from '../../context/ThemeContext'; // Contexto de tema global
 
 const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const { user, logout } = useAuth();  // Obtener el usuario desde el contexto
+  const { isDarkMode, toggleTheme } = useTheme(); // Usar el contexto de tema
+  const { user, logout } = useAuth(); // Usar el contexto de autenticación
   const navigate = useNavigate();
-  const location = useLocation();  // Obtener la ubicación actual de la ruta
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
   };
 
   const handleLoginClick = () => {
@@ -33,6 +30,7 @@ const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
     navigate('/');
     setTimeout(scrollToCarrusel, 100); // Espera y luego desplázate a Próximos Eventos
   };
+
   const handleRegisterClick = () => {
     navigate('/registro'); // Navegar a la página de registro
   };
@@ -43,22 +41,17 @@ const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
   };
 
   const handleLogout = () => {
-    logout();  // Llama al logout del contexto
+    logout(); // Cierra la sesión
     navigate('/'); // Redirige al inicio después de cerrar sesión
   };
 
-  // Lógica para redirigir según el rol del usuario
   const handleProfileClick = () => {
-    if (user && user.rol) {
-      if (user.rol === 'Administrador') {
-        navigate('/admin');
-      } else if (user.rol === 'Organizador') {
-        navigate('/org');
-      } else {
-        navigate('/profile');
-      }
+    if (user?.rol === 'Administrador') {
+      navigate('/admin');
+    } else if (user?.rol === 'Organizador') {
+      navigate('/org');
     } else {
-      navigate('/login'); // Si no hay rol o usuario, redirigir al login
+      navigate('/profile');
     }
   };
 
@@ -69,7 +62,6 @@ const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
         <span className="web-name-head-menu">EvenT Proo</span>
       </div>
       <nav className={`header-buttons-head-menu ${isMenuOpen ? 'open-head-menu' : ''} ${isDarkMode ? 'dark-nav-head-menu' : 'light-nav-head-menu'}`}>
-        {/* Mostrar el botón de INICIO solo si no estamos en la página de inicio */}
         {location.pathname !== '/' && (
           <button 
             className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
@@ -78,47 +70,42 @@ const Header = ({ scrollToCarrusel, scrollToEventos, scrollToInicio }) => {
             INICIO
           </button>
         )}
-
         <div className="user-section-head-menu">
-        {user ? (
-  <>
-    <span className="user-email-head-menu">{user.email}</span>
-    <button 
-      className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
-      onClick={handleProfileClick}
-    >
-      Perfil
-    </button>
-    <button 
-      className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
-      onClick={handleLogout}
-    >
-      Cerrar sesión
-    </button>
-  </>
-) : (
-  // Agrupa los botones en un fragmento <>
-  <>
-    <button
-      className={`register-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`}
-      onClick={handleRegisterClick}
-    >
-      Registrarse
-    </button>
-    <button 
-      className={`login-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
-      onClick={handleLoginClick}
-    >
-      Iniciar Sesión
-    </button>
-  </>
-)}
-
-
+          {user ? (
+            <>
+              <span className="user-email-head-menu">{user.email}</span>
+              <button 
+                className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+                onClick={handleProfileClick}
+              >
+                Perfil
+              </button>
+              <button 
+                className={`header-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+                onClick={handleLogout}
+              >
+                Cerrar sesión
+              </button>
+            </>
+          ) : (
+            <>
+              <button 
+                className={`register-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+                onClick={handleRegisterClick}
+              >
+                Registrarse
+              </button>
+              <button 
+                className={`login-button-head-menu ${isDarkMode ? 'dark-button-head-menu' : 'light-button-head-menu'}`} 
+                onClick={handleLoginClick}
+              >
+                Iniciar Sesión
+              </button>
+            </>
+          )}
           <img src={sinuserImage} alt="Usuario" className="user-icon-head-menu" />
         </div>
       </nav>
-
       <button className="hamburger-head-menu" onClick={toggleMenu}>
         &#9776;
       </button>
