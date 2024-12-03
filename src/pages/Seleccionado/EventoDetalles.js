@@ -93,7 +93,7 @@ const EventoDetalles = () => {
         const maxRows = 3; // 3 filas por página
         const maxEntriesPerPage = maxColumns * maxRows; // 12 entradas por página
         const qrMarginX = 10; // Margen izquierdo
-        const qrMarginY = 120; // Nueva posición superior para los QR (después de 200)
+        const qrMarginY = 12 ; // Nueva posición superior para los QR (después de 200)
         let posX = qrMarginX; // Posición inicial X
         let posY = qrMarginY; // Posición inicial Y
         let entriesOnPage = 0; // Contador de entradas por página
