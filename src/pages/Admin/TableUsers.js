@@ -11,7 +11,7 @@ const TableUsers = () => {
 
   useEffect(() => {
     // Cargar los usuarios desde la API
-    fetch('https://eventpro-b.onrender.com/usuario/usuarios')  // URL de la API de usuarios
+    fetch('http://localhost:4000/usuario/usuarios')  // URL de la API de usuarios
       .then((response) => response.json())
       .then((data) => {
         setUsuarios(data.data);

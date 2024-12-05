@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Importar Axios
+import axios from 'axios';
 import './AddEventModal.css';
 
-const AddEventModal = ({ onClose, onAdd }) => {
+const AddEventModal = ({ onClose, onAdd, currentUserId }) => {
   const [nuevoEvento, setNuevoEvento] = useState({
     nombre: '',
     descripcion: '',
@@ -10,12 +10,13 @@ const AddEventModal = ({ onClose, onAdd }) => {
     fechaFin: '',
     imagen: null,
     idLugar: '',
-    activo: 'si', // Valor por defecto
-    vendido: 'no', // Valor por defecto
+    categoria: '',
+    activo: 'si', // Por defecto
+    vendido: 'no', // Por defecto
     numEntradas: '',
-    valorBoleta: '', // Nuevo campo para el valor de la boleta
+    valorBoleta: '',
   });
-  
+
   const [previewImage, setPreviewImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -36,31 +37,16 @@ const AddEventModal = ({ onClose, onAdd }) => {
     }
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
-      setNuevoEvento((prev) => ({ ...prev, imagen: file }));
-      setPreviewImage(URL.createObjectURL(file));
-    }
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-  
-    const now = new Date(); // Fecha y hora actual
+
+    const now = new Date();
     const fechaInicio = new Date(nuevoEvento.fechaInicio);
     const fechaFin = new Date(nuevoEvento.fechaFin);
-  
-    // Validar que todos los campos obligatorios estén completos
+
+    // Validaciones básicas
     if (
       !nuevoEvento.nombre ||
       !nuevoEvento.descripcion ||
@@ -69,53 +55,75 @@ const AddEventModal = ({ onClose, onAdd }) => {
       !nuevoEvento.idLugar ||
       !nuevoEvento.numEntradas ||
       !nuevoEvento.imagen ||
-      !nuevoEvento.valorBoleta // Validación del nuevo campo
+      !nuevoEvento.valorBoleta ||
+      !nuevoEvento.categoria
     ) {
-      setError("Por favor, completa todos los campos.");
+      setError('Por favor, completa todos los campos.');
       setLoading(false);
       return;
     }
-  
-    // Validar que la fecha de inicio no sea menor a la fecha actual
+
+    // Validar fechas
     if (fechaInicio < now) {
-      setError("La fecha de inicio no puede ser menor a la fecha y hora actual.");
+      setError('La fecha de inicio no puede ser menor a la actual.');
       setLoading(false);
       return;
     }
-  
-    // Validar que la fecha de fin no sea menor a la fecha de inicio
+
     if (fechaFin <= fechaInicio) {
-      setError("La fecha de fin no puede ser menor o igual a la fecha de inicio.");
+      setError('La fecha de fin no puede ser menor o igual a la fecha de inicio.');
       setLoading(false);
       return;
     }
-  
+
+    // Validar cantidad de entradas y valor de boleta
+    const cantidadEntradas = parseInt(nuevoEvento.numEntradas, 10);
+    const valorBoleta = parseFloat(nuevoEvento.valorBoleta);
+
+    if (isNaN(cantidadEntradas) || cantidadEntradas <= 0) {
+      setError('El número de entradas debe ser un valor positivo.');
+      setLoading(false);
+      return;
+    }
+
+    if (isNaN(valorBoleta) || valorBoleta <= 0) {
+      setError('El valor de la boleta debe ser un valor positivo.');
+      setLoading(false);
+      return;
+    }
+
+    // Preparar datos para el backend
     const payload = new FormData();
-  
-    payload.append("nombre", nuevoEvento.nombre);
-    payload.append("descripcion", nuevoEvento.descripcion);
-    payload.append("fecha_inicio", nuevoEvento.fechaInicio);
-    payload.append("fecha_fin", nuevoEvento.fechaFin);
-    payload.append("imagen_principal", nuevoEvento.imagen);
-    payload.append("categoria", "Conferencia");
-    payload.append("vendido", nuevoEvento.vendido === "si");
-    payload.append("activo", nuevoEvento.activo === "si");
-    payload.append("id_lugar", parseInt(nuevoEvento.idLugar));
-    payload.append("id_creador", 1);
-    payload.append("valor_boleta", nuevoEvento.valorBoleta); // Agregar el valor de la boleta al payload
-  
+    payload.append('nombre', nuevoEvento.nombre);
+    payload.append('descripcion', nuevoEvento.descripcion);
+    payload.append('fecha_inicio', nuevoEvento.fechaInicio);
+    payload.append('fecha_fin', nuevoEvento.fechaFin);
+    payload.append('imagen_principal', nuevoEvento.imagen);
+    payload.append('id_lugar', parseInt(nuevoEvento.idLugar));
+    payload.append('id_creador', 5); // ID dinámico del creador
+    payload.append('activo', nuevoEvento.activo === 'si');
+    payload.append('vendido', nuevoEvento.vendido === 'si');
+    payload.append('categoria', nuevoEvento.categoria);
+    payload.append('num_entradas', nuevoEvento.numEntradas);
+    payload.append('valor_boleta', nuevoEvento.valorBoleta);
+
     try {
-      const response = await axios.post("https://eventpro-b.onrender.com/evento/", payload, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-  
-      onAdd(response.data);
-      onClose();
+      // Enviar los datos al backend con cantidadEntradas y valorBoleta en la URL
+      const response = await axios.post(
+        `http://localhost:4000/evento/${nuevoEvento.numEntradas}/${nuevoEvento.valorBoleta}`,
+        payload,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      
+      onAdd(response.data); // Notificar al componente padre
+      onClose(); // Cerrar el modal
     } catch (error) {
       console.error(error);
-      setError(error.response?.data?.error || "Error al agregar el evento");
+      setError(error.response?.data?.message || 'Error al agregar el evento');
     } finally {
       setLoading(false);
     }
@@ -126,7 +134,7 @@ const AddEventModal = ({ onClose, onAdd }) => {
       <div className="modal-content-add">
         <p className="modal-title-add">Agregar Evento</p>
         <form onSubmit={handleSubmit} className="form-add">
-          {/* Campos del formulario */}
+          {/* Nombre */}
           <div className="user-box-add">
             <input
               type="text"
@@ -138,6 +146,8 @@ const AddEventModal = ({ onClose, onAdd }) => {
             />
             <label>Nombre</label>
           </div>
+
+          {/* Descripción */}
           <div className="user-box-add">
             <input
               type="text"
@@ -150,35 +160,34 @@ const AddEventModal = ({ onClose, onAdd }) => {
             <label>Descripción</label>
           </div>
 
+          {/* Fecha de Inicio */}
           <div className="user-box-add">
             <input
               type="datetime-local"
               name="fechaInicio"
               value={nuevoEvento.fechaInicio}
               onChange={handleChange}
-              min={new Date().toISOString().slice(0, 16)} // Establece la fecha mínima
+              min={new Date().toISOString().slice(0, 16)}
               required
             />
             <label>Fecha de Inicio</label>
           </div>
 
+          {/* Fecha de Fin */}
           <div className="user-box-add">
             <input
               type="datetime-local"
               name="fechaFin"
               value={nuevoEvento.fechaFin}
               onChange={handleChange}
-              min={nuevoEvento.fechaInicio || new Date().toISOString().slice(0, 16)} // Depende de la fecha de inicio
+              min={nuevoEvento.fechaInicio || new Date().toISOString().slice(0, 16)}
               required
             />
             <label>Fecha de Fin</label>
           </div>
 
-          <div
-            className="image-upload-box-add"
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-          >
+          {/* Imagen */}
+          <div className="image-upload-box-add">
             <p>Selecciona o arrastra una imagen aquí</p>
             <input
               type="file"
@@ -186,6 +195,7 @@ const AddEventModal = ({ onClose, onAdd }) => {
               accept="image/*"
               onChange={handleImageChange}
               className="image-input-add"
+              required
             />
             {previewImage && (
               <div className="image-preview-add">
@@ -194,6 +204,7 @@ const AddEventModal = ({ onClose, onAdd }) => {
             )}
           </div>
 
+          {/* ID Lugar */}
           <div className="user-box-add">
             <select
               name="idLugar"
@@ -208,7 +219,20 @@ const AddEventModal = ({ onClose, onAdd }) => {
             <label>ID del Lugar</label>
           </div>
 
-          {/* Nuevo campo: Número de Entradas */}
+          {/* Categoría */}
+          <div className="user-box-add">
+            <input
+              type="text"
+              name="categoria"
+              value={nuevoEvento.categoria}
+              onChange={handleChange}
+              placeholder=" "
+              required
+            />
+            <label>Categoría</label>
+          </div>
+
+          {/* Número de Entradas */}
           <div className="user-box-add">
             <input
               type="number"
@@ -221,7 +245,7 @@ const AddEventModal = ({ onClose, onAdd }) => {
             <label>Número de Entradas</label>
           </div>
 
-          {/* Nuevo campo: Valor de la Boleta */}
+          {/* Valor de la Boleta */}
           <div className="user-box-add">
             <input
               type="number"
@@ -234,8 +258,10 @@ const AddEventModal = ({ onClose, onAdd }) => {
             <label>Valor de la Boleta</label>
           </div>
 
-          {error && <p className="error-message">{error}</p>} {/* Mostrar mensaje de error */}
-          
+          {/* Error */}
+          {error && <p className="error-message">{error}</p>}
+
+          {/* Botones */}
           <div className="modal-footer-add">
             <button type="button" onClick={onClose} className="cancel-btn-add">
               Cancelar
@@ -245,7 +271,6 @@ const AddEventModal = ({ onClose, onAdd }) => {
             </button>
           </div>
         </form>
-        {error && <p className="error-message-add">{error}</p>}
       </div>
     </div>
   );

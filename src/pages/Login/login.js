@@ -31,7 +31,6 @@ const Login = () => {
   // Validación para email y contraseña
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,21 +46,18 @@ const Login = () => {
       return;
     }
 
-  
-
     setError(''); // Limpiar cualquier error previo
 
-    const userInfo = { email, password, role };
-    console.log('Intentando iniciar sesión con:', userInfo);
-
     try {
+      const userInfo = { email, password, role };
+      console.log('Intentando iniciar sesión con:', userInfo);
+
       // Llamada a la función login del contexto
       const isLoginSuccessful = await login(userInfo);
 
       if (isLoginSuccessful) {
         setIsLoggedIn(true);
         setError('');
-
         // Navegar según el rol
         if (role === 'Administrador') {
           navigate('/admin');

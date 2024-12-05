@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';  // Importa motion
-import bcrypt from 'bcryptjs';  // Importa bcryptjs
+import CryptoJS from 'crypto-js';  // Importa crypto-js
 import './register.css';
 
 const Register = () => {
@@ -59,7 +59,8 @@ const Register = () => {
 
       // Encriptar la contraseña antes de enviarla
       try {
-        const hashedPassword = await bcrypt.hash(contraseña, 10);  // Encriptamos la contraseña con bcrypt
+        const hashedPassword = CryptoJS.SHA256(contraseña).toString(CryptoJS.enc.Base64);  // Encriptamos la contraseña usando SHA256
+
         const updatedFormData = { 
           id: null, // Este campo generalmente lo maneja la base de datos, por lo que lo dejamos como null
           nombre,
@@ -75,7 +76,7 @@ const Register = () => {
           id_organizacion: null  // En null si no es relevante
         };
 
-        const response = await axios.post('https://eventpro-b.onrender.com/usuario/', updatedFormData, {
+        const response = await axios.post('http://localhost:4000/usuario/', updatedFormData, {
           headers: {
             'Content-Type': 'application/json',
           },

@@ -2,29 +2,99 @@
 .evento-detalles-sel {
   display: flex;
   max-width: 1000px;
-  margin: 200px auto;
+  margin-left: 200px;
+  margin-top: 30px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  margin-top: -2px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background-color: #fff; /* Estilo base, se ajustará según el tema */
+  background-color: var(--bg-color); /* Se ajustará dinámicamente según el tema */
+  color: var(--text-color); /* Se ajustará dinámicamente según el tema */
 }
 
+/* Variables de tema */
+:root {
+  --bg-color: #f9f9f9; /* Claro */
+  --text-color: #000;  /* Texto oscuro */
+}
+
+.dark {
+  --bg-color: #333; /* Fondo oscuro */
+  --text-color: #fff; /* Texto blanco */
+}
+
+/* Información del evento */
+.evento-info-sel {
+  flex: 1;
+  padding: 20px;
+  background-color: var(--bg-info-color, var(--bg-color)); /* Usa var por defecto o color personalizado */
+  color: var(--text-color);
+}
+
+.evento-info-sel.dark {
+  --bg-info-color: #2a2a2a; /* Personalización específica */
+}
+
+/* Botones generales */
+.evento-boton-volver-sel,
+.evento-boton-comprar-sel {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: var(--button-bg-color, #007bff); /* Personalización para botones */
+  color: var(--button-text-color, #fff);
+}
+
+.evento-boton-volver-sel.dark,
+.evento-boton-comprar-sel.dark {
+  --button-bg-color: #1a73e8;
+  --button-text-color: #fff;
+}
+
+.evento-boton-volver-sel:hover,
+.evento-boton-comprar-sel:hover {
+  background-color: var(--button-hover-bg-color, #0056b3);
+}
+
+.evento-boton-volver-sel.dark:hover,
+.evento-boton-comprar-sel.dark:hover {
+  --button-hover-bg-color: #0062cc;
+}
+
+/* Textos secundarios */
+.evento-fecha-sel,
+.evento-hora-sel,
+.evento-lugar-sel,
+.evento-tipo-sel,
+.evento-ciudad-sel {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--secondary-text-color, #b81212); /* Claro */
+}
+
+.dark .evento-fecha-sel,
+.dark .evento-hora-sel,
+.dark .evento-lugar-sel,
+.dark .evento-tipo-sel,
+.dark .evento-ciudad-sel {
+  --secondary-text-color: #ccc; /* Oscuro */
+}
+.evento-detalles-sel3{
+  margin-top: 100px;
+  
+}
+/* Estilo del contenedor principal */
 .evento-detalles-sel2 {
-  height: 100vh; 
-  width: 100%; 
-  background-color: #D2E8E3; /* Para el tema claro */
+  position: absolute;
+  height: 90vh;
+  width: 100%;
+  background-color: var(--bg-color);
+  z-index: -1;
 }
 
-.evento-detalles-sel.dark {
-  background-color: #333; /* Tema oscuro */
-}
-
-.evento-detalles-sel.light {
-  background-color: #D2E8E3; /* Tema claro */
-}
-
+/* Imágenes */
 .evento-imagen-container-sel {
   flex: 1;
   max-width: 50%;
@@ -37,135 +107,21 @@
   object-fit: cover;
 }
 
-.evento-info-sel {
-  flex: 1;
-  padding: 20px;
-  background-color: #f9f9f9; /* Estilo base, se ajustará según el tema */
-}
-
-.evento-info-sel.dark {
-  background-color: #2a2a2a; /* Fondo oscuro en el tema oscuro */
-  color: #f0f0f0; /* Texto claro en el tema oscuro */
-}
-
-.evento-info-sel.light {
-  background-color: #f9f9f9; /* Fondo claro en el tema claro */
-  color: #333; /* Texto oscuro en el tema claro */
-}
-
-.evento-nombre-sel {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #333; /* Estilo base */
-}
-
-.evento-nombre-sel.dark {
-  color: #fff; /* Texto blanco en el tema oscuro */
-}
-
-.evento-fecha-sel,
-.evento-hora-sel,
-.evento-lugar-sel,
-.evento-tipo-sel,
-.evento-ciudad-sel {
-  font-size: 16px;
-  margin-bottom: 8px;
-  color: #555;
-}
-
-.evento-fecha-sel.dark,
-.evento-hora-sel.dark,
-.evento-lugar-sel.dark,
-.evento-tipo-sel.dark,
-.evento-ciudad-sel.dark {
-  color: #ccc; /* Texto claro en el tema oscuro */
-}
-
-.evento-boton-volver-sel {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
-}
-
-.evento-boton-volver-sel.dark {
-  background-color: #1a73e8; /* Azul más oscuro en el tema oscuro */
-}
-
-.evento-boton-volver-sel:hover {
-  background-color: #0056b3;
-}
-
-.evento-boton-volver-sel.dark:hover {
-  background-color: #0062cc; /* Hover más oscuro en el tema oscuro */
-}
-
+/* Compra */
 .evento-compra-sel {
   margin-top: 20px;
   padding: 15px;
-  background-color: #eef2f3;
-  border: 1px solid #ccc;
+  background-color: var(--purchase-bg-color, #eef2f300);
+  border: 1px solid var(--purchase-border-color, #ccc);
   border-radius: 8px;
 }
 
 .evento-compra-sel.dark {
-  background-color: #444; /* Fondo oscuro para compra */
-  border-color: #666; /* Borde más oscuro */
+  --purchase-bg-color: #444;
+  --purchase-border-color: #666;
 }
 
-.evento-cantidad-label-sel {
-  font-size: 16px;
-  margin-right: 10px;
-  color: #333;
-}
-
-.evento-cantidad-input-sel {
-  width: 60px;
-  padding: 5px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-right: 10px;
-}
-
-.evento-metodo-pago-sel {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
-}
-
-.evento-metodo-pago-sel.dark {
-  color: #ccc; /* Color claro en el tema oscuro */
-}
-
-.evento-boton-comprar-sel {
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-.evento-boton-comprar-sel:hover {
-  background-color: #218838;
-}
-
-.evento-boton-comprar-sel.dark {
-  background-color: #4CAF50; /* Verde más oscuro en el tema oscuro */
-}
-
-.evento-boton-comprar-sel.dark:hover {
-  background-color: #2e8b57; /* Hover más oscuro en el tema oscuro */
-}
-
-/* Estilos del Loader */
+/* Loader */
 #load {
   position: absolute;
   width: 600px;
@@ -188,38 +144,14 @@
   color: #35C4F0;
 }
 
-#load div:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-#load div:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-#load div:nth-child(4) {
-  animation-delay: 0.6s;
-}
-
-#load div:nth-child(5) {
-  animation-delay: 0.8s;
-}
-
-#load div:nth-child(6) {
-  animation-delay: 1s;
-}
-
-#load div:nth-child(7) {
-  animation-delay: 1.2s;
-}
+#load div:nth-child(2) { animation-delay: 0.2s; }
+#load div:nth-child(3) { animation-delay: 0.4s; }
+#load div:nth-child(4) { animation-delay: 0.6s; }
+#load div:nth-child(5) { animation-delay: 0.8s; }
+#load div:nth-child(6) { animation-delay: 1s; }
+#load div:nth-child(7) { animation-delay: 1.2s; }
 
 @keyframes move {
-  0% { left: 0; opacity: 0; }
-  35% { left: 41%; transform: rotate(0deg); opacity: 1; }
-  65% { left: 59%; transform: rotate(0deg); opacity: 1; }
-  100% { left: 100%; transform: rotate(-180deg); opacity: 0; }
-}
-
-@-webkit-keyframes move {
   0% { left: 0; opacity: 0; }
   35% { left: 41%; transform: rotate(0deg); opacity: 1; }
   65% { left: 59%; transform: rotate(0deg); opacity: 1; }

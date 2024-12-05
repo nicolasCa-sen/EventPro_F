@@ -112,7 +112,7 @@ const AddEventModal = ({ onClose, onAdd }) => {
     payload.append("valor_boleta", nuevoEvento.valorBoleta); // Agregar el valor de la boleta al payload
 
     try {
-      const response = await axios.post("https://eventpro-b.onrender.com/evento/", payload, {
+      const response = await axios.post("http://localhost:3000/evento/", payload, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

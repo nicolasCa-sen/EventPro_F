@@ -21,7 +21,8 @@
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4",
     "jspdf": "^2.x.x",
-    "qrcode": "^1.5.0"
+    "qrcode": "^1.5.0",
+     "jest": "24.7.1"
   },
   "scripts": {
     "start": "react-scripts start",
