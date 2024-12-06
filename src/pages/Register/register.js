@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { motion } from 'framer-motion';  // Importa motion
-import CryptoJS from 'crypto-js';  // Importa crypto-js
+import { motion } from 'framer-motion'; // Importa motion
 import './register.css';
 
 const Register = () => {
@@ -29,10 +28,10 @@ const Register = () => {
     const { nombre, apellido, identificacion, email, contraseña, confirmarContraseña, fechaNacimiento, telefono, rol } = formData;
 
     // Expresiones regulares para validaciones
-    const nombreApellidoRegex = /^[A-Za-zÁ-ÿ\s]+$/;  // Solo letras y espacios
-    const contraseñaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;  // Al menos una mayúscula, una minúscula y un número
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;  // Formato de email válido
-    const numeroRegex = /^\d+$/;  // Solo números
+    const nombreApellidoRegex = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
+    const contraseñaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/; // Al menos una mayúscula, una minúscula y un número
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; // Formato de email válido
+    const numeroRegex = /^\d+$/; // Solo números
 
     // Validación de edad (mínimo 15 años)
     const edad = new Date().getFullYear() - new Date(fechaNacimiento).getFullYear();
@@ -57,23 +56,20 @@ const Register = () => {
     } else {
       setError('');
 
-      // Encriptar la contraseña antes de enviarla
       try {
-        const hashedPassword = CryptoJS.SHA256(contraseña).toString(CryptoJS.enc.Base64);  // Encriptamos la contraseña usando SHA256
-
-        const updatedFormData = { 
-          id: null, // Este campo generalmente lo maneja la base de datos, por lo que lo dejamos como null
+        const updatedFormData = {
+          id: null, // Este campo generalmente lo maneja la base de datos
           nombre,
           apellido,
           identificacion,
-          rol,  // 'Usuario'
+          rol, // 'Usuario'
           email,
-          contraseña: hashedPassword,
+          contraseña, // Se envía sin encriptar
           telefono,
           fecha_nacimiento: fechaNacimiento,
-          numero_cuenta: null,  // Si no se necesita, lo establecemos en null
-          numero_credencial: null,  // Igualmente en null
-          id_organizacion: null  // En null si no es relevante
+          numero_cuenta: null, // Opcional
+          numero_credencial: null, // Opcional
+          id_organizacion: null, // Opcional
         };
 
         const response = await axios.post('http://localhost:4000/usuario/', updatedFormData, {
