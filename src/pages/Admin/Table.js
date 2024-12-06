@@ -115,83 +115,92 @@ const Table = () => {
     setDatosFiltrados(datos); // Restablecer los datos filtrados
   };
   
+  const imprimirInforme = async (evento) => {
+    const doc = new jsPDF();
+    
+    // URL de la imagen principal del evento
+    const eventoImagenURL = `http://localhost:4000${evento.imagen_principal}`;
+    
+    // Convertir imágenes a Base64
+    const logoBase64 = await convertToBase64(logo).catch((e) => {
+      console.error("Error al convertir el logo a Base64:", e);
+      return null;
+    });
   
-const imprimirInforme = async (evento) => {
-  const doc = new jsPDF();
-
-  // URL de la imagen principal del evento
-  const eventoImagenURL = `http://localhost:4000${evento.imagen_principal}`;
-
-  // Convertir imágenes a Base64
-  const logoBase64 = await convertToBase64(logo).catch((e) => {
-    console.error("Error al convertir el logo a Base64:", e);
-    return null;
-  });
-
-  const eventoImagenBase64 = await convertToBase64(eventoImagenURL).catch((e) => {
-    console.error("Error al convertir la imagen del evento a Base64:", e);
-    return null;
-  });
-
-  const rectHeight = 20;
-  const rectY = 280; // Y position for the rectangle at the bottom
-  doc.setFillColor(0, 0, 0); // Color de fondo negro
-  doc.rect(0, rectY, 210, rectHeight, "F"); // Dibujar rectángulo negro
-
-  doc.setFontSize(12);
-  doc.setTextColor(255, 255, 255); // Texto blanco
-  doc.text("Generado automáticamente en EventPro.com", 105, rectY + 10, { align: "center" });
-
-  // Crear marca de agua circular usando Canvas
-  let eventoImagenCircularBase64 = null;
-  if (eventoImagenBase64) {
-    eventoImagenCircularBase64 = await makeCircularImage(eventoImagenBase64, 200); // Tamaño del círculo (200px)
-  }
-
-  // Estilizar encabezado
-  if (logoBase64) {
-    doc.setFillColor(20, 39, 34); // Fondo negro
-    doc.rect(0, 0, 210, 30, "F"); // Dibujar rectángulo
-    doc.addImage(logoBase64, "PNG", 10, 5, 20, 20); // Agregar logo
-  }
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(40);
-  doc.setTextColor(255, 255, 255); // Texto blanco
-  doc.text("Event Pro", 40, 20);
-
-  // Marca de agua circular
-  if (eventoImagenCircularBase64) {
-    doc.setGState(new doc.GState({ opacity: 0.5 })); // Reducir opacidad
-    doc.addImage(eventoImagenCircularBase64, "PNG", 125, 70, 100, 100); // Centrar imagen circular
-    doc.setGState(new doc.GState({ opacity: 1 })); // Restablecer opacidad
-  }
-
-  // Título del informe
-  doc.setFontSize(18);
-  doc.setTextColor(0, 0, 0); // Texto negro
-  doc.text(evento.nombre.toUpperCase(), 105, 50, { align: "center" });
-
-  // Línea separadora
-  doc.setDrawColor(0, 0, 0); // Línea negra
-  doc.line(10, 60, 200, 60);
-
-  // Datos del evento
-  const datos = [
-    `ID: ${evento.id}`,
-    `Descripción: ${evento.descripcion}`,
-    `Fecha de Inicio: ${evento.fecha_inicio}`,
-    `Fecha de Fin: ${evento.fecha_fin}`,
-    `Lugar: ${evento.id_lugar}`,
-    `Activo: ${evento.activo ? "Sí" : "No"}`,
-    `Vendido: ${evento.vendido ? "Sí" : "No"}`,
-  ];
-  let posY = 80;
-  datos.forEach((linea) => {
-    doc.text(linea, 10, posY);
-    posY += 8;
-  });
-
+    const eventoImagenBase64 = await convertToBase64(eventoImagenURL).catch((e) => {
+      console.error("Error al convertir la imagen del evento a Base64:", e);
+      return null;
+    });
+  
+    // Estilizar encabezado
+    if (logoBase64) {
+      doc.setFillColor(20, 39, 34); // Fondo negro
+      doc.rect(0, 0, 210, 30, "F"); // Dibujar rectángulo
+      doc.addImage(logoBase64, "PNG", 10, 5, 20, 20); // Agregar logo
+    }
+  
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(40);
+    doc.setTextColor(255, 255, 255); // Texto blanco
+    doc.text("Event Pro", 40, 20);
+  
+    // Título del informe
+    doc.setFontSize(18);
+    doc.setTextColor(0, 0, 0); // Texto negro
+    doc.text(evento.nombre.toUpperCase(), 105, 50, { align: "center" });
+  
+    // Línea separadora
+    doc.setDrawColor(0, 0, 0); // Línea negra
+    doc.line(10, 60, 200, 60);
+  
+    // Datos del evento
+    const datos = [
+      `ID: ${evento.id}`,
+      `Descripción: ${evento.descripcion}`,
+      `Fecha de Inicio: ${evento.fecha_inicio}`,
+      `Fecha de Fin: ${evento.fecha_fin}`,
+      `Lugar: ${evento.id_lugar}`,
+      `Activo: ${evento.activo ? "Sí" : "No"}`,
+      `Vendido: ${evento.vendido ? "Sí" : "No"}`,
+    ];
+  
+    let posY = 80;
+    const rowHeight = 8;
+    const pageHeight = 297; // Altura de la página en mm
+    const marginTop = 60; // Margen superior (debajo del encabezado)
+    const maxRowsPerPage = Math.floor((pageHeight - marginTop) / rowHeight); // Número máximo de filas que caben por página
+  
+    // Imprimir los datos del evento
+    datos.forEach((linea) => {
+      if (posY + rowHeight > pageHeight) {
+        doc.addPage(); // Agregar nueva página si no hay espacio
+        posY = marginTop; // Resetear la posición Y
+      }
+      if (typeof linea === 'string' && linea.trim() !== '') {  // Validar si 'linea' es una cadena no vacía
+        doc.text(linea, 10, posY);
+      }
+      posY += rowHeight;
+    });
+  
+    // Obtener datos de la tabla (recibo completo)
+    const obtenerDatosRecibo = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/entrada/evento/${evento.id}/recibo-completo`);
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del recibo.");
+        }
+        const data = await response.json();
+        if (data.state && Array.isArray(data.data)) {
+          return data.data; // Devolver la lista de recibos si existen
+        } else {
+          console.error("Datos de recibo no válidos.");
+          return [];
+        }
+      } catch (error) {
+        console.error("Error al obtener los datos:", error);
+        return [];
+      }
+    };
   // Generar Código QR con la información del evento
   const qrData = JSON.stringify({
     id: evento.id,
@@ -204,20 +213,69 @@ const imprimirInforme = async (evento) => {
   const qrCodeDataUrl = await QRCode.toDataURL(qrData); // Generar el QR en formato Data URL
 
   // Agregar el código QR al PDF (en la parte inferior derecha, por ejemplo)
-  doc.addImage(qrCodeDataUrl, "PNG", 150, 230, 40, 40); // Ajusta las coordenadas y el tamaño según sea necesario
+  doc.addImage(qrCodeDataUrl, "PNG", 160, 10, 40, 40); // Ajusta las coordenadas y el tamaño según sea necesario
 
-  // Mostrar en ventana de impresión
-  const pdfBlob = doc.output("blob");
-  const pdfURL = URL.createObjectURL(pdfBlob);
-  const printWindow = window.open(pdfURL);
-  if (printWindow) {
-    printWindow.addEventListener("load", () => {
-      printWindow.focus();
-      // printWindow.print();
-    });
-  }
-};
-
+    // Llamar a la función para obtener los datos
+    const reciboData = await obtenerDatosRecibo();
+  
+    // Verificar si reciboData es un array
+    if (Array.isArray(reciboData)) {
+      // Información simplificada para la tabla
+      const tableHeaders = ['N Ticket', 'Disponible', 'Emisión', 'Recibo', 'ID Usuario'];
+      const tableData = reciboData.map(item => [
+        item.numero_ticket,
+        item.disponible ? "Si" : "No",
+        item.fecha_emision,
+        item.numero_recibo,
+        item.id_usuario
+      ]);
+  
+      // Dibujar encabezado de la tabla
+      let startY = posY + 10;
+      tableHeaders.forEach((header, index) => {
+        if (startY + rowHeight > pageHeight) {
+          doc.addPage(); // Agregar nueva página si no hay espacio
+          startY = marginTop;
+        }
+        doc.setFont("helvetica", "bold");
+        if (typeof header === 'string' && header.trim() !== '') {  // Validar el encabezado
+          doc.text(header, 10 + index * 40, startY);
+        }
+      });
+  
+      startY += rowHeight;
+  
+      // Dibujar el cuerpo de la tabla
+      tableData.forEach((row) => {
+        row.forEach((cell, index) => {
+          if (startY + rowHeight > pageHeight) {
+            doc.addPage(); // Agregar nueva página si no hay espacio
+            startY = marginTop;
+          }
+          doc.setFont("helvetica", "normal");
+          if (typeof cell === 'string' && cell.trim() !== '') {  // Validar el contenido de las celdas
+            doc.text(cell, 10 + index * 40, startY);
+          }
+        });
+        startY += rowHeight;
+      });
+    } else {
+      console.error("No se pudieron obtener datos válidos para la tabla.");
+    }
+  
+    
+    // Mostrar en ventana de impresión
+    const pdfBlob = doc.output("blob");
+    const pdfURL = URL.createObjectURL(pdfBlob);
+    const printWindow = window.open(pdfURL);
+    if (printWindow) {
+      printWindow.addEventListener("load", () => {
+        printWindow.focus();
+        // printWindow.print();
+      });
+    }
+  };
+  
 // Función para convertir imágenes a Base64
 const convertToBase64 = (url) => {
   return fetch(url)

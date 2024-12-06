@@ -216,3 +216,52 @@ body {
 .profile-profile-button-view:hover {
   background-color: #218838; /* Color verde oscuro */
 }
+.profile-events-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.profile-events-table th,
+.profile-events-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.profile-events-table th {
+  background-color: #f2f2f2;
+}
+.profile-events-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .profile-events-table th,
+  .profile-events-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .profile-events-table th {
+    background-color: #f2f2f2;
+  }
+  .profile-events-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .profile-events-table th,
+  .profile-events-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .profile-events-table th {
+    background-color: #f2f2f2;
+  }
+  
