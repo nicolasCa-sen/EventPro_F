@@ -19,7 +19,7 @@ const Table = () => {
 
   // Cargar los datos desde la API al montar el componente
   useEffect(() => {
-    fetch('http://localhost:4000/evento')
+    fetch('https://eventpro-b.onrender.com/evento')
       .then((response) => response.json())
       .then((data) => {
         setDatos(data.data);
@@ -34,7 +34,7 @@ const Table = () => {
   const eliminarEvento = async (id) => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este evento?')) {
       try {
-        const response = await fetch(`http://localhost:4000/evento/${id}`, {
+        const response = await fetch(`https://eventpro-b.onrender.com/evento/${id}`, {
           method: 'DELETE',
         });
 
@@ -119,7 +119,7 @@ const Table = () => {
     const doc = new jsPDF();
     
     // URL de la imagen principal del evento
-    const eventoImagenURL = `http://localhost:4000${evento.imagen_principal}`;
+    const eventoImagenURL = `https://eventpro-b.onrender.com${evento.imagen_principal}`;
     
     // Convertir imágenes a Base64
     const logoBase64 = await convertToBase64(logo).catch((e) => {
@@ -185,7 +185,7 @@ const Table = () => {
     // Obtener datos de la tabla (recibo completo)
     const obtenerDatosRecibo = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/entrada/evento/${evento.id}/recibo-completo`);
+        const response = await fetch(`https://eventpro-b.onrender.com/entrada/evento/${evento.id}/recibo-completo`);
         if (!response.ok) {
           throw new Error("Error al obtener los datos del recibo.");
         }
@@ -420,7 +420,7 @@ const makeCircularImage = (imageBase64, size) => {
         <td>{evento.fecha_fin}</td>
         <td>
           <img
-            src={`http://localhost:4000${evento.imagen_principal}`}
+            src={`https://eventpro-b.onrender.com${evento.imagen_principal}`}
             alt={evento.nombre}
             width="50"
           />

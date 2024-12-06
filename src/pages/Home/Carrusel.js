@@ -15,7 +15,7 @@ const Carrusel = () => {
     useEffect(() => {
         const fetchEventos = async () => {
             try {
-                const response = await fetch('http://localhost:4000/evento');
+                const response = await fetch('https://eventpro-b.onrender.com/evento');
                 if (!response.ok) {
                     throw new Error(`Error HTTP: ${response.status}`);
                 }
@@ -37,7 +37,7 @@ const Carrusel = () => {
                             hour: '2-digit',
                             minute: '2-digit',
                         }),
-                        imagen: `http://localhost:4000${evento.imagen_principal}`, 
+                        imagen: `https://eventpro-b.onrender.com${evento.imagen_principal}`, 
                         categoria: evento.categoria,
                     }));
 

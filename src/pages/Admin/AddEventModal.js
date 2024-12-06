@@ -110,7 +110,7 @@ const AddEventModal = ({ onClose, onAdd, currentUserId }) => {
     try {
       // Enviar los datos al backend con cantidadEntradas y valorBoleta en la URL
       const response = await axios.post(
-        `http://localhost:4000/evento/${nuevoEvento.numEntradas}/${nuevoEvento.valorBoleta}`,
+        `https://eventpro-b.onrender.com/evento/${nuevoEvento.numEntradas}/${nuevoEvento.valorBoleta}`,
         payload,
         {
           headers: {

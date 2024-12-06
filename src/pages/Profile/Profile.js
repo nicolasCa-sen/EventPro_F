@@ -33,7 +33,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchEventosData = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/entrada/usuario/${user.id}/eventos-entradas`, {
+        const response = await fetch(`https://eventpro-b.onrender.com/entrada/usuario/${user.id}/eventos-entradas`, {
           headers: {
             Authorization: `Bearer ${token}`,  // Asegúrate de enviar el token si es necesario
           },
@@ -44,7 +44,7 @@ const Profile = () => {
           // Llamada a la API de cada evento para obtener más detalles
           const eventosDetalles = await Promise.all(
             data.data.map(async (evento) => {
-              const eventoResponse = await fetch(`http://localhost:4000/evento/${evento.id_evento}`, {
+              const eventoResponse = await fetch(`https://eventpro-b.onrender.com/evento/${evento.id_evento}`, {
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },
@@ -71,14 +71,14 @@ const Profile = () => {
   const handleGeneratePDF = async (evento) => {
     try {
       // Obtiene los datos del evento y la entrada
-      const eventoResponse = await fetch(`http://localhost:4000/evento/${evento.id_evento}`, {
+      const eventoResponse = await fetch(`https://eventpro-b.onrender.com/evento/${evento.id_evento}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const eventoData = await eventoResponse.json();
   
-      const entradasResponse = await fetch(`http://localhost:4000/entrada/usuario/${user.id}/eventos-entradas`, {
+      const entradasResponse = await fetch(`https://eventpro-b.onrender.com/entrada/usuario/${user.id}/eventos-entradas`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -89,7 +89,7 @@ const Profile = () => {
       const doc = new jsPDF();
   
       // Encabezado del PDF (sección reutilizada del otro código)
-      const eventoImagenURL = `http://localhost:4000${evento.imagen_principal}`;
+      const eventoImagenURL = `https://eventpro-b.onrender.com${evento.imagen_principal}`;
       const eventoImagenBase64 = await convertToBase64(eventoImagenURL).catch((e) => {
         console.error("Error al convertir la imagen del evento a Base64:", e);
         return null;

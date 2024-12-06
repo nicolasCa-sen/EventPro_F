@@ -19,7 +19,7 @@ const EventoDetalles = () => {
         const fetchEvento = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`http://localhost:4000/evento`);
+                const response = await fetch(`https://eventpro-b.onrender.com/evento`);
                 if (!response.ok) {
                     throw new Error('Error al obtener el evento');
                 }
@@ -72,7 +72,7 @@ const EventoDetalles = () => {
 
     const imprimirInforme = async () => {
         const doc = new jsPDF();
-        const eventoImagenURL = `http://localhost:4000${evento.imagen_principal}`;
+        const eventoImagenURL = `https://eventpro-b.onrender.com${evento.imagen_principal}`;
         const eventoImagenBase64 = await convertToBase64(eventoImagenURL).catch((e) => {
             console.error("Error al convertir la imagen del evento a Base64:", e);
             return null;
@@ -193,7 +193,7 @@ const EventoDetalles = () => {
             console.log('Iniciando la compra con email:', email); // Muestra el email con el que se está iniciando la compra.
         
             try {
-                const response = await fetch('http://localhost:4000/usuario/find-by-email', {
+                const response = await fetch('https://eventpro-b.onrender.com/usuario/find-by-email', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -209,7 +209,7 @@ const EventoDetalles = () => {
                     console.log('ID del usuario obtenido:', id_usuario); // Muestra el ID del usuario recibido del backend.
         
                     // Llamada al endpoint para actualizar la compra de entradas
-                    const responseCompra = await fetch('http://localhost:4000/entrada/', {
+                    const responseCompra = await fetch('https://eventpro-b.onrender.com/entrada/', {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -251,7 +251,7 @@ const EventoDetalles = () => {
             <div className={`evento-detalles-sel3 ${isDarkMode ? 'dark' : 'light'}`}>
                 <div className="evento-detalles-sel">
                     <div className="evento-imagen-container-sel">
-                        <img className="evento-imagen-sel" src={`http://localhost:4000${evento.imagen_principal}`} alt={evento.nombre} />
+                        <img className="evento-imagen-sel" src={`https://eventpro-b.onrender.com${evento.imagen_principal}`} alt={evento.nombre} />
                     </div>
                     <div className={`evento-info-sel ${isDarkMode ? 'dark' : 'light'}`}>
                         <h1 className="evento-nombre-sel">{evento.nombre}</h1>

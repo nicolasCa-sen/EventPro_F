@@ -11,7 +11,7 @@ const UpdateEventModal = ({ evento, onClose, onAdd }) => {
   useEffect(() => {
     if (evento) {
       setEventoActualizado(evento);
-      setPreviewImage(`http://localhost:4000${evento.imagen_principal}`);
+      setPreviewImage(`https://eventpro-b.onrender.com${evento.imagen_principal}`);
     }
   }, [evento]);
 
@@ -54,7 +54,7 @@ const UpdateEventModal = ({ evento, onClose, onAdd }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:4000/evento/${eventoActualizado.id}`, {
+      const response = await fetch(`https://eventpro-b.onrender.com/evento/${eventoActualizado.id}`, {
         method: 'PUT',
         body: formData,
       });

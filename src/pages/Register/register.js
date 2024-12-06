@@ -72,7 +72,7 @@ const Register = () => {
           id_organizacion: null, // Opcional
         };
 
-        const response = await axios.post('http://localhost:4000/usuario/', updatedFormData, {
+        const response = await axios.post('https://eventpro-b.onrender.com/usuario/', updatedFormData, {
           headers: {
             'Content-Type': 'application/json',
           },
